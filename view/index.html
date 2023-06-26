@@ -33,19 +33,23 @@
     
       
       // 初回読み込み時に、scoreをリセット
-      score.setScore({data : []});
-  
-  
+      score.setScore({answers : []});
   
       /* --- 関数 --- */
       function answer(id) {
           let storedScores = score.getScore();
           
-          storedScores.data.push({ question: "Q" + count, answerId: id });
+          storedScores.answers.push({ name: "Q" + count, value: id });
           count++;
           score.setScore(storedScores);
           console.log(score.getScore());
-          setText();
+          if(count < Object.keys(QUESTION.questions).length){
+            setText();
+          }else{
+            //jsonデータファイルを作る
+            window.location.href="result.html"
+          }
+          
         }
     function setText(){
       document.getElementById("questionTitle").textContent = QUESTION.questions["Q"+count].text_que;
