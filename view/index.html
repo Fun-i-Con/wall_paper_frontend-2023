@@ -1,64 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link rel="stylesheet" href="../style/index.css">
+
+</head>
 <body>
-    <p id="questionTitle"></p>
-    
-  
-    <button onclick="answer(this.id) "id="A1"></button>
-    <button onclick="answer(this.id) "id="A2"></button>
-    <button onclick="answer(this.id) "id="A3"></button>
-    <button onclick="answer(this.id) "id="A4"></button>
+  <p id="questionTitle"></p>
+
+
+  <button onclick="answer(this.id) " id="A1"></button>
+  <button onclick="answer(this.id) " id="A2"></button>
+  <button onclick="answer(this.id) " id="A3"></button>
+  <button onclick="answer(this.id) " id="A4"></button>
   <br>
   <br>
-    <a href="result.html">次のページへ</a>
-  
-  
+  <a href="result.html">次のページへ</a>
+
+
   <!-- jsファイルの読み込み -->
-    <script src="../store/score.js"></script>
-    <script src="../config/fixedItem.js"></script>
-  
-    <script>
-      /* --- 変数定義 --- */
-      // 回答数
-      let count = 1;
-  
-      /* --- 初回表示時の処理 --- */
-      // storeの初期化
-      const score = new scoreStore();
-  
-      // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
-      document.getElementById("questionTitle").textContent = QUESTION.questions.Q1.text_que;
-      document.getElementById("A1").textContent = QUESTION.questions.Q1.A1.text_ans;
-      document.getElementById("A2").textContent = QUESTION.questions.Q1.A2.text_ans;
-      document.getElementById("A3").textContent = QUESTION.questions.Q1.A3.text_ans;
-      document.getElementById("A4").textContent = QUESTION.questions.Q1.A4.text_ans;
-    
-      
-      // 初回読み込み時に、scoreをリセット
-      score.setScore({answers : []});
-  
-      /* --- 関数 --- */
-      function answer(id) {
-          let storedScores = score.getScore();
-          
-          storedScores.answers.push({ name: "Q" + count, value: id });
-          count++;
-          score.setScore(storedScores);
-          console.log(score.getScore());
-          if(count < Object.keys(QUESTION.questions).length){
-            setText();
-          }else{
-            //jsonデータファイルを作る
-            window.location.href="result.html"
-          }
-          
-        }
-    function setText(){
-      document.getElementById("questionTitle").textContent = QUESTION.questions["Q"+count].text_que;
-      document.getElementById("A1").textContent = QUESTION.questions["Q"+count].A1.text_ans;
-      document.getElementById("A2").textContent = QUESTION.questions["Q"+count].A2.text_ans;
-      document.getElementById("A3").textContent = QUESTION.questions["Q"+count].A3.text_ans;
-      document.getElementById("A4").textContent = QUESTION.questions["Q"+count].A4.text_ans;
+  <script src="../store/score.js"></script>
+  <script src="../config/fixedItem.js"></script>
+
+  <script>
+    /* --- 変数定義 --- */
+    // 回答数
+    let count = 1;
+
+    /* --- 初回表示時の処理 --- */
+    // storeの初期化
+    const score = new scoreStore();
+
+    // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
+    document.getElementById("questionTitle").textContent = QUESTION.questions.Q1.text_que;
+    document.getElementById("A1").textContent = QUESTION.questions.Q1.A1.text_ans;
+    document.getElementById("A2").textContent = QUESTION.questions.Q1.A2.text_ans;
+    document.getElementById("A3").textContent = QUESTION.questions.Q1.A3.text_ans;
+    document.getElementById("A4").textContent = QUESTION.questions.Q1.A4.text_ans;
+
+
+    // 初回読み込み時に、scoreをリセット
+    score.setScore({ answers: [] });
+
+    /* --- 関数 --- */
+    function answer(id) {
+      let storedScores = score.getScore();
+
+      storedScores.answers.push({ name: "Q" + count, value: id });
+      count++;
+      score.setScore(storedScores);
+      console.log(score.getScore());
+      if (count < Object.keys(QUESTION.questions).length) {
+        setText();
+      } else {
+        //jsonデータファイルを作る
+        window.location.href = "result.html"
+      }
+
+    }
+    function setText() {
+      document.getElementById("questionTitle").textContent = QUESTION.questions["Q" + count].text_que;
+      document.getElementById("A1").textContent = QUESTION.questions["Q" + count].A1.text_ans;
+      document.getElementById("A2").textContent = QUESTION.questions["Q" + count].A2.text_ans;
+      document.getElementById("A3").textContent = QUESTION.questions["Q" + count].A3.text_ans;
+      document.getElementById("A4").textContent = QUESTION.questions["Q" + count].A4.text_ans;
     }
 
-    </script>
-  </body>
-  
+  </script>
+</body>
