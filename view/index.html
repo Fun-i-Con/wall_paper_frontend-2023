@@ -10,6 +10,7 @@
 </head>
 <body>
   <p><div id="progressbar"></div></p>
+  <p id="questionNumber"></p>
   <p id="questionTitle"></p>
 
   <button onclick="answer(this.id) " id="A1"></button>
@@ -18,6 +19,7 @@
   <button onclick="answer(this.id) " id="A4"></button>
   <br>
   <br>
+  <input type="button" onclick="back()" value="１つ戻る"><br>
   <a href="result.html">次のページへ</a>
 
 
@@ -45,9 +47,11 @@
     const score = new scoreStore();
 
     // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
+
+    document.getElementById("questionNumber").textContent = "Q1: ";
     document.getElementById("questionTitle").textContent = QUESTION.questions.Q1.text_que;
     document.getElementById("A1").textContent = QUESTION.questions.Q1.A1.text_ans;
-    document.getElementById("A2").textContent = QUESTION.questions.Q1.A2.text_ans;
+    document.getElementById("A2").textContent = QUESTION.questions.Q1.A2.text_ans;""
     document.getElementById("A3").textContent = QUESTION.questions.Q1.A3.text_ans;
     document.getElementById("A4").textContent = QUESTION.questions.Q1.A4.text_ans;
 
@@ -73,16 +77,34 @@
     }
 
     function setText() {
+      document.getElementById("questionNumber").textContent = "Q"+count+" ";
       document.getElementById("questionTitle").textContent = QUESTION.questions["Q" + count].text_que;
       document.getElementById("A1").textContent = QUESTION.questions["Q" + count].A1.text_ans;
       document.getElementById("A2").textContent = QUESTION.questions["Q" + count].A2.text_ans;
       document.getElementById("A3").textContent = QUESTION.questions["Q" + count].A3.text_ans;
       document.getElementById("A4").textContent = QUESTION.questions["Q" + count].A4.text_ans;
     }
+
+    function back(){
+      if(count > 1){
+        count--;//ちょうどいい位置
+        let storedScores = score.getScore();
+        let last = storedScores.answers.pop();//一番上をpopした
+        console.log(last);
+        console.log("↑削除");
+        score.setScore(storedScores);
+        console.log(score.getScore());
+        console.log("↑最新");
+        setText();
+      }else{
+        alert("1つ以上答えて下さい")
+      }
+    }
     
     // ページロード時の初期設定
     $(function() {
       updateProgressBar();
     });
+
   </script>
 </body>

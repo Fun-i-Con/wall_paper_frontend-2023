@@ -6,4 +6,8 @@ function scoreStore() {
     this.setScore = function(selectedScore) {
         localStorage.setItem('scores', JSON.stringify(selectedScore));
     }
+
+    this.clearScore = function() {
+        localStorage.clear('scores');
+    }
 }
