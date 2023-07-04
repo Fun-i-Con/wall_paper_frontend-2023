@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <title>test</title>
     <link rel="stylesheet" href="../style/index.css">
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
 <body>
+  <p><div id="progressbar"></div></p>
   <p id="questionNumber"></p>
   <p id="questionTitle"></p>
+
   <button onclick="answer(this.id) " id="A1"></button>
   <button onclick="answer(this.id) " id="A2"></button>
   <button onclick="answer(this.id) " id="A3"></button>
@@ -27,6 +31,16 @@
     /* --- 変数定義 --- */
     // 回答数
     let count = 1;
+    // 質問数
+    let question_num = 10
+
+    /* --- プログレスバーの処理 --- */
+    function updateProgressBar() {
+      let progress_value = (count / question_num) * 100;
+      $( "#progressbar" ).progressbar({
+        value: progress_value
+      });
+    };
 
     /* --- 初回表示時の処理 --- */
     // storeの初期化
@@ -59,7 +73,7 @@
         //jsonデータファイルを作る
         window.location.href = "result.html"
       }
-
+      updateProgressBar(); // プログレスバーの更新
     }
 
     function setText() {
@@ -86,6 +100,11 @@
         alert("1つ以上答えて下さい")
       }
     }
+    
+    // ページロード時の初期設定
+    $(function() {
+      updateProgressBar();
+    });
 
   </script>
 </body>
