@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <title>test</title>
-    <link rel="stylesheet" href="../style/index.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <meta charset="UTF-8">
+  <title>test</title>
+  <link rel="stylesheet" href="../style/index.css">
+  <!--link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"-->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script>
+  <script>
+    jQuery.migrateMute = false; // jQuery Migrateの警告を表示する設定
+    // なんか必要っぽい？
+  </script>
 </head>
+
 <body>
-  <p><div id="progressbar"></div></p>
+  <p>
+  <div id="progressbar"></div>
+  </p>
   <p id="questionNumber"></p>
   <p id="questionTitle"></p>
 
@@ -37,7 +47,7 @@
     /* --- プログレスバーの処理 --- */
     function updateProgressBar() {
       let progress_value = (count / question_num) * 100;
-      $( "#progressbar" ).progressbar({
+      $("#progressbar").progressbar({
         value: progress_value
       });
     };
@@ -51,7 +61,7 @@
     document.getElementById("questionNumber").textContent = "Q1: ";
     document.getElementById("questionTitle").textContent = QUESTION.questions.Q1.text_que;
     document.getElementById("A1").textContent = QUESTION.questions.Q1.A1.text_ans;
-    document.getElementById("A2").textContent = QUESTION.questions.Q1.A2.text_ans;""
+    document.getElementById("A2").textContent = QUESTION.questions.Q1.A2.text_ans; ""
     document.getElementById("A3").textContent = QUESTION.questions.Q1.A3.text_ans;
     document.getElementById("A4").textContent = QUESTION.questions.Q1.A4.text_ans;
 
@@ -77,7 +87,7 @@
     }
 
     function setText() {
-      document.getElementById("questionNumber").textContent = "Q"+count+" ";
+      document.getElementById("questionNumber").textContent = "Q" + count + " ";
       document.getElementById("questionTitle").textContent = QUESTION.questions["Q" + count].text_que;
       document.getElementById("A1").textContent = QUESTION.questions["Q" + count].A1.text_ans;
       document.getElementById("A2").textContent = QUESTION.questions["Q" + count].A2.text_ans;
@@ -85,8 +95,8 @@
       document.getElementById("A4").textContent = QUESTION.questions["Q" + count].A4.text_ans;
     }
 
-    function back(){
-      if(count > 1){
+    function back() {
+      if (count > 1) {
         count--;//ちょうどいい位置
         let storedScores = score.getScore();
         let last = storedScores.answers.pop();//一番上をpopした
@@ -96,13 +106,13 @@
         console.log(score.getScore());
         console.log("↑最新");
         setText();
-      }else{
+      } else {
         alert("1つ以上答えて下さい")
       }
     }
-    
+
     // ページロード時の初期設定
-    $(function() {
+    $(function () {
       updateProgressBar();
     });
 
