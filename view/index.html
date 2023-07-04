@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>test</title>
   <link rel="stylesheet" href="../style/index.css">
+  <!--//code.jquery.com/~~何か動かなかったので、https:を追加-->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -104,6 +105,7 @@
         score.setScore(storedScores);
         console.log(score.getScore());
         console.log("↑最新");
+        updateProgressBar();
         setText();
       } else {
         alert("1つ以上答えて下さい")
