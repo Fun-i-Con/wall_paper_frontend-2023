@@ -17,20 +17,16 @@
 </head>
 
 <body>
-  <p>
   <div id="progressbar"></div>
-  </p>
-  <p id="questionNumber"></p>
-  <p id="questionTitle"></p>
-
-  <button onclick="answer(this.id) " id="A1"></button>
-  <button onclick="answer(this.id) " id="A2"></button>
-  <button onclick="answer(this.id) " id="A3"></button>
-  <button onclick="answer(this.id) " id="A4"></button>
-  <br>
-  <br>
-  <input type="button" onclick="back()" value="１つ戻る"><br>
-  <a href="result.html">次のページへ</a>
+  <h1 id="questionNumber"></h1>
+  <h2 id="questionTitle"></h2>
+  <div class="wrap">
+    <button onclick="answer(this.id) " id="A1" class="answer"></button>
+    <button onclick="answer(this.id) " id="A2" class="answer"></button>
+    <button onclick="answer(this.id) " id="A3" class="answer"></button>
+    <button onclick="answer(this.id) " id="A4" class="answer"></button>
+  </div>
+  <input type="button" onclick="back()" value="１つ戻る" class="back-button">
 
 
   <!-- jsファイルの読み込み -->
@@ -50,13 +46,19 @@
       $("#progressbar").progressbar({
         value: progress_value
       });
+      $("#progressbar").find( ".ui-progressbar-value" ).css({
+        'background':'#27acd9'
+      });
+      $("#progressbar").css({
+        'border-radius': '100vh'
+      });
     };
 
     /* --- 初回表示時の処理 --- */
     // storeの初期化
     const score = new scoreStore();
 
-    // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
+    // １個目の質問文を表示 [HTML上の要素に変数ßの値を表示する]
 
     document.getElementById("questionNumber").textContent = "Q1: ";
     document.getElementById("questionTitle").textContent = QUESTION.questions.Q1.text_que;
