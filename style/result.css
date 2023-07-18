@@ -1,5 +1,29 @@
-img {
-    margin: 10px;
-    border: 1px solid #ccc;
-    float: left;
+body{
+    background-image: url('../img/ホワイト\　シンプル\　パターン\　幾何学\　模様\　質問\　インスタグラム\　ストーリー.png');
+    background-size: cover;
 }
+
+h1.OsusumeNoKabegami{
+    /*figmaから引っ張て来た*/
+    font-family: 'Inter';
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 44px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    /*中央*/
+    text-align: center;
+}
+
+#imgs{
+    display: grid;
+    grid-template-columns: auto auto;
+    place-items: center;
+    grid-gap: 50px;
+}
+
+/*　角が丸くなるらしい
+#imgs img{
+    border-radius: 5px;
+} */

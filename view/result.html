@@ -7,12 +7,10 @@
 
 </head>
 <body>
-  <h1>結果画面</h1>
-  <input type="button" onclick="show()" value="show">
-  <input type="button" onclick="score.clearScore()" value="クリア">
+  <h1 class="OsusumeNoKabegami">おすすめの壁紙</h1>
+  <!-- <input type="button" onclick="show()" value="show">
+  <input type="button" onclick="score.clearScore()" value="クリア"> -->
   <article id="imgs"></article>
-
-  <script src="../store/score.js"></script>
 
     <script src="../store/score.js"></script>
     <script>
@@ -20,45 +18,45 @@
       
       /* --- 初回表示時の処理 --- */
       // storeの初期化
-      const score = new scoreStore();
+      // const score = new scoreStore();
   
-      console.log(score.getScore());
+      // console.log(score.getScore());
 
-      function show(){
-        console.log(score.getScore());
-      }
+      // function show(){
+      //   console.log(score.getScore());
+      // }
   
-      // APIから結果取得
-      const url = "https://example.com/api/endpoint"; // リクエスト先のURL
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(score)
-        })
-          .then(response => response.json())
-          .then(responseData => {
-            // レスポンスの処理
-            console.log(responseData);
+      // // APIから結果取得
+      // const url = "https://example.com/api/endpoint"; // リクエスト先のURL
+      //   fetch(url, {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json"
+      //     },
+      //     body: JSON.stringify(score)
+      //   })
+      //     .then(response => response.json())
+      //     .then(responseData => {
+      //       // レスポンスの処理
+      //       console.log(responseData);
 
-            let content_area = document.getElementById("imgs");
+      //       let content_area = document.getElementById("imgs");
 
-            /*responseDataの中身によって変わる*/
-            let img_element = document.createElement('img');
-            img_element.src = 'http://127.0.0.1:8000/img?id=0';
-            img_element.width = 400;
-            content_area.appendChild(img_element);
+      //       /*responseDataの中身によって変わる*/
+      //       let img_element = document.createElement('img');
+      //       img_element.src = 'http://127.0.0.1:8000/img?id=0';
+      //       img_element.width = 400;
+      //       content_area.appendChild(img_element);
 
-            let img_element2 = document.createElement('img');
-            img_element2.src = 'http://127.0.0.1:8000/img?id=1';
-            img_element2.width = 400;
-            content_area.appendChild(img_element2);
-          })
-          .catch(error => {
-            // エラーハンドリング
-            console.error("Error:", error);
-          });
+      //       let img_element2 = document.createElement('img');
+      //       img_element2.src = 'http://127.0.0.1:8000/img?id=1';
+      //       img_element2.width = 400;
+      //       content_area.appendChild(img_element2);
+      //     })
+      //     .catch(error => {
+      //       // エラーハンドリング
+      //       console.error("Error:", error);
+      //     });
   
       // 結果表示
 
@@ -68,6 +66,20 @@
       // APIから結果取得
   
       // 結果表示
+
+
+      //fetchの箇所でほんらいやる...
+      let content_area = document.getElementById("imgs");
+
+      for(let i = 0; i < 4; i++){
+        let img_element = document.createElement('img');
+        img_element.src = '../img/'+i+'.jpg';
+        img_element.width = 400;
+        img_element.height = 400;
+        content_area.appendChild(img_element);
+      }
+
+        
   
   
     </script>
