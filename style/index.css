@@ -1,0 +1,49 @@
+/***カーテンのように開くアニメーション***/
+body::before, body::after{
+    content: "";
+    position: fixed; /*固定表示*/
+    top: 0;
+    width: 50vw;
+    height: 100vh;
+    background: #00d9ff; /*劇のカーテン色*/
+    animation: curtainOpen 1s forwards;
+    animation-delay: 1s; /*遅延時間(遅延時間)*/
+    z-index: 999; /*最前面に*/
+  }
+  body::before{
+    left: 0;
+  }
+  body::after{
+    right: 0;
+  }
+  
+  @keyframes curtainOpen{
+    0%{
+      width: 50vw; /*閉じている状態*/
+    }
+    100%{ 
+      width: 0; /*開く*/
+      visibility: hidden; /*非表示に*/
+    }
+  }
+  
+  /***サンプル装飾用***/
+  body{
+    padding: 1rem;
+  }
+  
+  /***スタートボタンの設定***/
+.btn--orange,
+a.btn--orange {
+  color: #fff;
+  background-color: #eb6100;
+}
+.btn--orange:hover,
+a.btn--orange:hover {
+  color: #fff;
+  background: #f56500;
+}
+
+a.btn--radius {
+   border-radius: 200vh;
+}
