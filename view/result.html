@@ -13,59 +13,35 @@
   <script src="../store/score.js"></script>
 
     <script>
-      /* --- 変数定義 --- */
-
-      /* --- 初回表示時の処理 --- */
-      // storeの初期化
-      const score = new scoreStore();
-
-      console.log(score.getScore());
-
-      function show(){
-        console.log(score.getScore());
-      }
-
-      // APIから結果取得
-      const url = "https://example.com/api/endpoint"; // リクエスト先のURL
+      window.onload = function(){
+        const score = new scoreStore()
+        const url = "http://35.221.98.113/calc"; // リクエスト先のURL
         fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(score)
+          body: JSON.stringify(score.getScore())
         })
           .then(response => response.json())
           .then(responseData => {
             // レスポンスの処理
-            console.log(responseData);
+            // groupをHTMLに出力
+        const groupElement = document.getElementById('result');
+        groupElement.textContent = responseData.group;
 
-            let content_area = document.getElementById("imgs");
-
-            /*responseDataの中身によって変わる*/
-            let img_element = document.createElement('img');
-            img_element.src = 'http://127.0.0.1:8000/img?id=0';
-            img_element.width = 400;
-            content_area.appendChild(img_element);
-
-            let img_element2 = document.createElement('img');
-            img_element2.src = 'http://127.0.0.1:8000/img?id=1';
-            img_element2.width = 400;
-            content_area.appendChild(img_element2);
+        // imgsをfor文で回して画像をHTMLに出力
+        const imageContainer = document.getElementById('image-container');
+        responseData.imgs.forEach(imgUrl => {
+            const imageElement = document.createElement('img');
+            imageElement.src = imgUrl;
+            imageContainer.appendChild(imageElement);
+        });
           })
           .catch(error => {
             // エラーハンドリング
             console.error("Error:", error);
           });
-
-      // 結果表示
-
-
-      /* --- 関数 --- */
-
-      // APIから結果取得
-
-      // 結果表示
-
-
+      }
     </script>
   </body>
