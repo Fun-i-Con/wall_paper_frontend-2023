@@ -5,7 +5,7 @@ body::before, body::after{
     top: 0;
     width: 50vw;
     height: 100vh;
-    background: #00d9ff; /*劇のカーテン色*/
+    background: #19f7ff; /*劇のカーテン色*/
     animation: curtainOpen 0.5s forwards;
     animation-delay: 1s; /*遅延時間(遅延時間)*/
     z-index: 999; /*最前面に*/
@@ -36,12 +36,12 @@ body::before, body::after{
 .btn--orange,
 a.btn--orange {
   color: #fff;
-  background-color: #eb6100;
+  background-color: #19f7ff;
 }
 .btn--orange:hover,
 a.btn--orange:hover {
   color: #fff;
-  background: #f56500;
+  background: #19f7ff;
 }
 
 a.btn--radius {
