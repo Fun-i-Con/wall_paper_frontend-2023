@@ -6,7 +6,7 @@ body::before, body::after{
     width: 50vw;
     height: 100vh;
     background: #00d9ff; /*劇のカーテン色*/
-    animation: curtainOpen 1s forwards;
+    animation: curtainOpen 0.5s forwards;
     animation-delay: 1s; /*遅延時間(遅延時間)*/
     z-index: 999; /*最前面に*/
   }
