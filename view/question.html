@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>test</title>
-  <link rel="stylesheet" href="../style/qyuestion.css">
+  <link rel="stylesheet" href="../style/question.css">
   <!--//code.jquery.com/~~何か動かなかったので、https:を追加-->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -17,20 +17,22 @@
 </head>
 
 <body>
-  <p>
+  <span></span>
   <div id="progressbar"></div>
-  </p>
-  <p id="questionNumber"></p>
-  <p id="questionTitle"></p>
-
+  <h1 id="questionNumber"></h1>
+  <h1 id="questionTitle"></h1>
+  <br>
   <button onclick="answer(this.id) " id="A1"></button>
+  <br>
   <button onclick="answer(this.id) " id="A2"></button>
+  <br>
   <button onclick="answer(this.id) " id="A3"></button>
+  <br>
   <button onclick="answer(this.id) " id="A4"></button>
   <br>
   <br>
   <input type="button" onclick="back()" value="１つ戻る"><br>
-  <a href="result.html">次のページへ</a>
+  
 
 
   <!-- jsファイルの読み込み -->
@@ -50,7 +52,14 @@
       $("#progressbar").progressbar({
         value: progress_value
       });
+      $("#progressbar").find( ".ui-progressbar-value" ).css({
+        'background':'#00BFFF'
+      });
+      $("#progressbar").css({
+        'border-radius': '100vh'
+      });
     };
+
 
     /* --- 初回表示時の処理 --- */
     // storeの初期化
@@ -58,7 +67,7 @@
 
     // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
 
-    document.getElementById("questionNumber").textContent = "Q1: ";
+    document.getElementById("questionNumber").textContent = "Q1 ";
     document.getElementById("questionTitle").textContent = QUESTION.questions.Q1.text_que;
     document.getElementById("A1").textContent = QUESTION.questions.Q1.A1.text_ans;
     document.getElementById("A2").textContent = QUESTION.questions.Q1.A2.text_ans;
@@ -77,7 +86,7 @@
       count++;
       score.setScore(storedScores);
       console.log(score.getScore());
-      if (count < Object.keys(QUESTION.questions).length) {
+      if (count <= Object.keys(QUESTION.questions).length) {
         setText();
       } else {
         //jsonデータファイルを作る
