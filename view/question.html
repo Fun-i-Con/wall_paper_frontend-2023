@@ -17,10 +17,8 @@
 </head>
 
 <body>
-  <p>
-  <br>
-    <div id="progressbar"></div>
-  </p>
+  <span></span>
+  <div id="progressbar"></div>
   <h1 id="questionNumber"></h1>
   <h1 id="questionTitle"></h1>
   <br>
@@ -54,7 +52,14 @@
       $("#progressbar").progressbar({
         value: progress_value
       });
+      $("#progressbar").find( ".ui-progressbar-value" ).css({
+        'background':'#00BFFF'
+      });
+      $("#progressbar").css({
+        'border-radius': '100vh'
+      });
     };
+
 
     /* --- 初回表示時の処理 --- */
     // storeの初期化
@@ -81,7 +86,7 @@
       count++;
       score.setScore(storedScores);
       console.log(score.getScore());
-      if (count < Object.keys(QUESTION.questions).length) {
+      if (count <= Object.keys(QUESTION.questions).length) {
         setText();
       } else {
         //jsonデータファイルを作る
