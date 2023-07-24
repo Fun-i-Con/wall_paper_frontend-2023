@@ -2,20 +2,20 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>test</title>
+    <title>おすすめの壁紙</title>
     <link rel="stylesheet" href="../style/result.css">
 
 </head>
 <body>
-  <h1>おすすめの壁紙</h1>
-  <input type="button" onclick="show()" value="show">
-  <input type="button" onclick="score.clearScore()" value="クリア">
+  <h1 id="title">おすすめの壁紙系統は</h1>
+  <h1 id="result"></h1>
+  <div id="image-container"></div>
   <script src="../store/score.js"></script>
 
     <script>
       window.onload = function(){
         const score = new scoreStore()
-        const url = "http://35.221.98.113/calc"; // リクエスト先のURL
+        const url = "http://35.221.98.113/calc";
         fetch(url, {
           method: "POST",
           headers: {
@@ -28,15 +28,15 @@
             // レスポンスの処理
             // groupをHTMLに出力
         const groupElement = document.getElementById('result');
-        groupElement.textContent = responseData.group;
+        groupElement.textContent = responseData.group + '系統';
 
         // imgsをfor文で回して画像をHTMLに出力
         const imageContainer = document.getElementById('image-container');
-        responseData.imgs.forEach(imgUrl => {
+        for(i=0;i<4&&i<responseData.imgs.length;i++) {
             const imageElement = document.createElement('img');
-            imageElement.src = imgUrl;
+            imageElement.src = responseData.imgs[i];
             imageContainer.appendChild(imageElement);
-        });
+        };
           })
           .catch(error => {
             // エラーハンドリング

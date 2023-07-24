@@ -1,30 +1,56 @@
-body{
-    background-image: url('../img/background.png');
-    background-size: cover;
+html{
+    background-color: #f7f5ec;
 }
 
-h1{
-    /*figmaから引っ張て来た*/
-    font-family: 'Inter';
-    font-size: 36px;
-    font-weight: 400;
-    line-height: 44px;
-    letter-spacing: 0em;
-    text-align: left;
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(../img/background.png);
+    background-size: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+}
 
-    /*中央*/
+@media screen and(max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+}
+
+#title{
+    background-color: #2574bed0;
+    color: #f7f5ec;
+    font-size: 36px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 24px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+#result{
+    font-size: 36px;
+    font-weight: bold;
     text-align: center;
 }
 
-#imgs{
+#image-container {
     display: grid;
-    grid-template-columns: auto auto;
-    place-items: center;
-    grid-gap: 50px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    justify-items: center;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
 }
 
-/*　
-角が丸くなるらしい
-#imgs img{
-    border-radius: 5px;
-} */
+#image-container img{
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
