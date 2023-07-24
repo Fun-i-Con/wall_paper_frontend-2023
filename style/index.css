@@ -14,12 +14,27 @@ body {
   height: 100vh;
 }
 
-img {max-width:20%;height:auto;}
-
-.icon {
+.icon ul {
   display: flex;
+  align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.icon ul {
+  list-style: none; 
+  padding-left: 0;
+} 
+
+.icon ul img {
+  max-width:10%;
+  height:auto; 
+  margin: 0% 5% ;
+} 
+
+.icon ul p{
+  font-size: large;
+
 }
 
 h2 {
