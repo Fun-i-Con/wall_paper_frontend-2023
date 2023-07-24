@@ -54,3 +54,29 @@ body{
     height: 300px;
     object-fit: cover;
 }
+
+h3 {
+    font-size: 20px;
+    .btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      width: 7%;
+      margin: auto;
+      padding: 1rem 1rem;
+      font-weight: bold;
+      border: 2px solid #27acd9;
+      background: #27acd9;
+      color: #fff;
+      border-radius: 100vh;
+      transition: 0.5s;
+    }
+  }
+  
+  
+@media(hover: hover) {
+    .btn:hover {
+        color: #27acd9;
+        background: #fff;
+    }
+}

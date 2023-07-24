@@ -62,7 +62,11 @@ h3 {
     transition: 0.5s;
   }
 }
-.btn:hover {
+
+
+@media(hover: hover) {
+  .btn:hover {
     color: #27acd9;
     background: #fff;
+  }
 }
