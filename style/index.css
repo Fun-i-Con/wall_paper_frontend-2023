@@ -1,0 +1,68 @@
+html {
+  background-color: #f7f5ec;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('../img/background.png');
+  background-size: auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+.icon ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.icon ul {
+  list-style: none; 
+  padding-left: 0;
+} 
+
+.icon ul img {
+  max-width:10%;
+  height:auto; 
+  margin: 0% 5% ;
+} 
+
+.icon ul p{
+  font-size: large;
+
+}
+
+h2 {
+  font-size: 50px;
+  text-align: center;
+  
+}
+
+
+ /***スタートボタンの設定***/
+h3 {
+  font-size: 30px;
+  .btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    width: 30%;
+    margin: auto;
+    padding: 1rem 4rem;
+    font-weight: bold;
+    border: 2px solid #27acd9;
+    background: #27acd9;
+    color: #fff;
+    border-radius: 100vh;
+    transition: 0.5s;
+  }
+}
+.btn:hover {
+    color: #27acd9;
+    background: #fff;
+}
