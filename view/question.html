@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>test</title>
   <link rel="stylesheet" href="../style/question.css">
+  <meta name="viewport" content="width=device-width" />
   <!--//code.jquery.com/~~何か動かなかったので、https:を追加-->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -17,22 +18,20 @@
 </head>
 
 <body>
-  <span></span>
-  <div id="progressbar"></div>
-  <h1 id="questionNumber"></h1>
-  <h1 id="questionTitle"></h1>
-  <br>
-  <button onclick="answer(this.id) " id="A1"></button>
-  <br>
-  <button onclick="answer(this.id) " id="A2"></button>
-  <br>
-  <button onclick="answer(this.id) " id="A3"></button>
-  <br>
-  <button onclick="answer(this.id) " id="A4"></button>
-  <br>
-  <br>
-  <input type="button" onclick="back()" value="１つ戻る"><br>
-  
+  <div class="top">
+    <div id="progressbar"></div>
+    <h1 id="questionNumber"></h1>
+    <h1 id="questionTitle"></h1>
+  </div>
+  <div class="answers">
+    <button onclick="answer(this.id) " id="A1"></button>
+    <button onclick="answer(this.id) " id="A2"></button>
+    <button onclick="answer(this.id) " id="A3"></button>
+    <button onclick="answer(this.id) " id="A4"></button>
+  </div>
+  <input type="button" onclick="back()" value="１つ戻る">
+
+
 
 
   <!-- jsファイルの読み込み -->
@@ -52,8 +51,8 @@
       $("#progressbar").progressbar({
         value: progress_value
       });
-      $("#progressbar").find( ".ui-progressbar-value" ).css({
-        'background':'#00BFFF'
+      $("#progressbar").find(".ui-progressbar-value").css({
+        'background': '#00BFFF'
       });
       $("#progressbar").css({
         'border-radius': '100vh'

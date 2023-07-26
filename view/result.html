@@ -4,23 +4,21 @@
     <meta charset="UTF-8">
     <title>おすすめの壁紙</title>
     <link rel="stylesheet" href="../style/result.css">
+    <meta name="viewport" content="width=device-width" />
+
 
 </head>
 <body>
-  <h1 id="title">おすすめの壁紙系統は</h1>
+  <h1 id="title">おすすめの壁紙系統は...</h1>
   <h1 id="result"></h1>
   <div id="image-container"></div>
-  <h3>
-    <main>
-        <a onclick="location.href='index.html'",href="" class="btn">最初に戻る</a>
-    </main>
-</h3> 
+  <a onclick="location.href='index.html'",href="" class="btn">最初に<wbr />戻る</a>
   <script src="../store/score.js"></script>
 
     <script>
       window.onload = function(){
         const score = new scoreStore()
-        const url = "http://35.221.98.113/calc";
+        const url = "http://35.187.199.64/calc";
         fetch(url, {
           method: "POST",
           headers: {

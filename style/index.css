@@ -1,5 +1,6 @@
 html {
   background-color: #f7f5ec;
+  touch-action: manipulation;
 }
 
 body {
@@ -8,7 +9,7 @@ body {
   padding: 0;
   background-image: url('../img/background.png');
   background-size: auto;
-  background-position: center center;
+  background-position: top center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100vh;
@@ -19,20 +20,20 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
 }
 
-.icon ul {
-  list-style: none; 
-  padding-left: 0;
-} 
+
 
 .icon ul img {
-  max-width:10%;
-  height:auto; 
-  margin: 0% 5% ;
-} 
+  max-width: 10%;
+  height: auto;
+  margin: 0% 5%;
+}
 
-.icon ul p{
+.icon ul p {
   font-size: large;
 
 }
@@ -40,13 +41,14 @@ body {
 h2 {
   font-size: 50px;
   text-align: center;
-  
+
 }
 
 
- /***スタートボタンの設定***/
+/***スタートボタンの設定***/
 h3 {
   font-size: 30px;
+
   .btn {
     display: block;
     text-align: center;
@@ -68,5 +70,40 @@ h3 {
   .btn:hover {
     color: #27acd9;
     background: #fff;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  body {
+    overflow: hidden;
+    background-size: cover;
+  }
+
+  h2 {
+    padding: 9%;
+    font-size: 9vw;
+  }
+
+  .icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .fic {
+    width: 20vw;
+    height: auto;
+    margin: 0;
+    padding-top: 20%;
+  }
+  .crossty {
+    width: 70vw;
+    height: auto;
+  }
+
+  .icon p {
+    font-size: 15vw;
+    margin: 0;
+    padding: 0;
   }
 }

@@ -1,5 +1,6 @@
 html {
     background-color: #f7f5ec;
+    touch-action: manipulation;
 }
 
 
@@ -9,20 +10,10 @@ body {
     padding: 0;
     background-image: url('../img/background.png');
     background-size: auto;
-    background-position: center center;
+    background-position: top center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
-}
-
-span {
-    padding: 5%;
-}
-
-@media screen and(max-width: 768px) {
-    body {
-        background-attachment: scroll;
-    }
 }
 
 h1 {
@@ -50,6 +41,12 @@ h1 {
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 40px;
+}
+.answers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 button {
@@ -102,6 +99,44 @@ a {
     a:hover {
         text-decoration: underline;
     }
+}
+
+
+@media screen and (max-width: 850px) {
+    body {
+      overflow: hidden;
+      background-size: cover;
+    }
+    #progressbar {
+        width: 50vw;
+        height: 20px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+
+    .top {
+        padding-top: 5%;
+    }
+    #questionNumber,
+    #questionTitle {
+        font-size: 7vw;
+        font-weight: bold;
+        margin: 1%;
+    }
+    #questionTitle {
+        padding: 0 10%;
+    }
+    button {
+        font-size: 5vw;
+        width: 80vw;
+        margin: 5%;
+    }
+    input[type="button"] {
+        padding: 5px 10px;
+        font-size: 5vw;
+    }
+
 }
 
 
