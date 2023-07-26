@@ -15,7 +15,9 @@ body {
     background-attachment: fixed;
     height: 100vh;
 }
-
+.top {
+    padding-top: 1%;
+}
 h1 {
     text-align: center;
     margin-bottom: 20px;
@@ -107,16 +109,15 @@ a {
       overflow: hidden;
       background-size: cover;
     }
+    .top {
+        padding-top: 5%;
+    }
     #progressbar {
         width: 50vw;
         height: 20px;
         margin: 0 auto;
         background-color: #fff;
         border-radius: 10px;
-    }
-
-    .top {
-        padding-top: 5%;
     }
     #questionNumber,
     #questionTitle {
