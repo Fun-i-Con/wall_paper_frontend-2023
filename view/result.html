@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <title>おすすめの壁紙</title>
-    <link rel="stylesheet" href="../style/result.css">
-    <meta name="viewport" content="width=device-width" />
+  <meta charset="UTF-8">
+  <title>壁紙診断 | 結果</title>
+  <link rel="stylesheet" href="../style/result.css">
+  <meta name="viewport" content="width=device-width" />
 
 
 </head>
+
 <body>
   <h1 id="title">おすすめの壁紙系統は...</h1>
   <h1 id="result"></h1>
   <div id="image-container"></div>
-  <a onclick="location.href='index.html'",href="" class="btn">最初に<wbr />戻る</a>
+  <a onclick="location.href='index.html'" ,href="" class="btn">最初に<wbr />戻る</a>
   <script src="../store/score.js"></script>
 
-    <script>
-      window.onload = function(){
-        const score = new scoreStore()
-        const url = "http://35.187.199.64/calc";
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(score.getScore())
-        })
-          .then(response => response.json())
-          .then(responseData => {
-            // レスポンスの処理
-            // groupをHTMLに出力
-        const groupElement = document.getElementById('result');
-        groupElement.textContent = responseData.group + '系統';
+  <script>
+    window.onload = function () {
+      const score = new scoreStore()
+      const url = "http://35.187.199.64/calc";
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(score.getScore())
+      })
+        .then(response => response.json())
+        .then(responseData => {
+          // レスポンスの処理
+          // groupをHTMLに出力
+          const groupElement = document.getElementById('result');
+          groupElement.textContent = responseData.group + '系統';
 
-        // imgsをfor文で回して画像をHTMLに出力
-        const imageContainer = document.getElementById('image-container');
-        for(i=0;i<4&&i<responseData.imgs.length;i++) {
+          // imgsをfor文で回して画像をHTMLに出力
+          const imageContainer = document.getElementById('image-container');
+          for (i = 0; i < 4 && i < responseData.imgs.length; i++) {
             const imageElement = document.createElement('img');
             imageElement.src = responseData.imgs[i];
             imageContainer.appendChild(imageElement);
-        };
-          })
-          .catch(error => {
-            // エラーハンドリング
-            console.error("Error:", error);
-          });
-      }
-    </script>
-  </body>
+          };
+        })
+        .catch(error => {
+          // エラーハンドリング
+          console.error("Error:", error);
+        });
+    }
+  </script>
+</body>
+
+</html>
