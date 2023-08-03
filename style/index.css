@@ -94,6 +94,7 @@ h3 {
 
   .icon {
     flex-direction: column;
+    padding-top: 10%;
   }
   .fic {
     width: 20vw;
