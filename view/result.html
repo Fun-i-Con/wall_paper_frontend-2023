@@ -37,7 +37,7 @@
 
         // imgsをfor文で回して画像をHTMLに出力
         const imageContainer = document.getElementById('image-container');
-        for(i=0;i<4&&i<responseData.imgs.length;i++) {
+        for(i=0;i<4;i++) {
             const imageElement = document.createElement('img');
             imageElement.src = responseData.imgs[i];
             imageContainer.appendChild(imageElement);
