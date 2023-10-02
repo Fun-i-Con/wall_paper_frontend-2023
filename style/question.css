@@ -67,6 +67,16 @@ button {
     border-radius: 64px;
 }
 
+#display_image{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    justify-items: center;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+}
+
 input[type="button"] {
     display: block;
     margin: 20px auto;

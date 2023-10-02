@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>test</title>
+  <link rel="stylesheet" href="../style/question.css">
+  <!--//code.jquery.com/~~何か動かなかったので、https:を追加-->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script>
+  <script>
+    jQuery.migrateMute = false; // jQuery Migrateの警告を表示する設定
+    // なんか必要っぽい？
+  </script>
+</head>
+
+<body>
+  <span></span>
+  <div id="progressbar"></div>
+  <h1 id="questionNumber"></h1>
+  <h1>一番好きな壁紙を選んでください</h1>
+  <br>
+  <br>
+  <div id="display_image">
+    <img id="A1" src="https://placehold.jp/200x200.png" onclick="answer(this.id)">
+    <img id="A2" src="https://placehold.jp/200x200.png" onclick="answer(this.id)">
+    <img id="A3" src="https://placehold.jp/200x200.png" onclick="answer(this.id)">
+    <img id="A4" src="https://placehold.jp/200x200.png" onclick="answer(this.id)">
+  </div>
+  <br>
+  <input type="button" onclick="back()" value="１つ戻る"><br>
+  
+
+
+
+  <!-- jsファイルの読み込み -->
+  <script src="../store/score.js"></script>
+  <script src="../config/fixedItem.js"></script>
+
+  <script>
+    /* --- 変数定義 --- */
+    // 回答数
+    let count = 1;
+    // 質問数
+    let question_num = 6
+
+    /* --- プログレスバーの処理 --- */
+    function updateProgressBar() {
+      let progress_value = (count / question_num) * 100;
+      $("#progressbar").progressbar({
+        value: progress_value
+      });
+      $("#progressbar").find( ".ui-progressbar-value" ).css({
+        'background':'#00BFFF'
+      });
+      $("#progressbar").css({
+        'border-radius': '100vh'
+      });
+    };
+
+
+    /* --- 初回表示時の処理 --- */
+    // storeの初期化
+    const score = new scoreStore();
+
+    // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
+
+    document.getElementById("questionNumber").textContent = "Q1 ";
+    // document.getElementById("questionTitle").textContent = QUESTION.questions.Q1.text_que;
+    document.getElementById("A1").textContent = QUESTION.questions.Q1.A1.text_ans;
+    document.getElementById("A2").textContent = QUESTION.questions.Q1.A2.text_ans;
+    document.getElementById("A3").textContent = QUESTION.questions.Q1.A3.text_ans;
+    document.getElementById("A4").textContent = QUESTION.questions.Q1.A4.text_ans;
+
+
+    // 初回読み込み時に、scoreをリセット
+    score.setScore({ answers: [] });
+
+    /* --- 関数 --- */
+    function answer(id) {
+      let storedScores = score.getScore();
+
+      storedScores.answers.push({ name: "Q" + count, value: id });
+      count++;
+      score.setScore(storedScores);
+      console.log(score.getScore());
+      if (count <= question_num) {
+        setText();
+      } else {
+        //jsonデータファイルを作る
+        window.location.href = "result.html"
+      }
+      updateProgressBar(); // プログレスバーの更新
+    }
+
+    function setText() {
+      document.getElementById("questionNumber").textContent = "Q" + count + " ";
+      // document.getElementById("questionTitle").textContent = QUESTION.questions["Q" + count].text_que;
+      document.getElementById("A1").textContent = QUESTION.questions["Q" + count].A1.text_ans;
+      document.getElementById("A2").textContent = QUESTION.questions["Q" + count].A2.text_ans;
+      document.getElementById("A3").textContent = QUESTION.questions["Q" + count].A3.text_ans;
+      document.getElementById("A4").textContent = QUESTION.questions["Q" + count].A4.text_ans;
+    }
+
+    function back() {
+      if (count > 1) {
+        count--;//ちょうどいい位置
+        let storedScores = score.getScore();
+        let last = storedScores.answers.pop();//一番上をpopした
+        console.log(last);
+        console.log("↑削除");
+        score.setScore(storedScores);
+        console.log(score.getScore());
+        console.log("↑最新");
+        updateProgressBar();
+        setText();
+      } else {
+        alert("1つ以上答えて下さい")
+      }
+    }
+
+    // ページロード時の初期設定
+    $(function () {
+      updateProgressBar();
+    });
+
+  </script>
+</body>
