@@ -75,6 +75,17 @@
       let storedScores = score.getScore();
 
       storedScores.answers.push({ name: "Q" + count, value: id });
+
+      const displayImage = document.getElementById('display-image');
+      for(i=1;i<5;i++) {
+        const imageElement = document.createElement('img');
+        imageElement.src = "http://35.187.199.64/images?num="+String(count)+"&id=" + String(i);
+        // console.log("http://35.187.199.64/images?num="+String(count)+"&id=" + String(i));
+        const this_id = "A" + String(i)
+        imageElement.addEventListener('click', () => answer(this_id));
+        displayImage.appendChild(imageElement);
+      };
+
       count++;
       score.setScore(storedScores);
       console.log(score.getScore());
@@ -115,14 +126,18 @@
     });
 
     // imgsをfor文で回して画像をHTMLに出力
-    const displayImage = document.getElementById('display-image');
-    for(i=1;i<5;i++) {
-      const imageElement = document.createElement('img');
-      imageElement.src = "http://35.187.199.64/images?num="+count+"&id=" + String(i);
-      const this_id = "A" + String(i)
-      imageElement.addEventListener('click', () => answer(this_id));
-      displayImage.appendChild(imageElement);
-    };
+    window.onload = function (){
+      const displayImage = document.getElementById('display-image');
+      for(i=1;i<5;i++) {
+        const imageElement = document.createElement('img');
+        imageElement.src = "http://35.187.199.64/images?num="+String(count)+"&id=" + String(i);
+        // console.log("http://35.187.199.64/images?num="+String(count)+"&id=" + String(i));
+        const this_id = "A" + String(i)
+        imageElement.addEventListener('click', () => answer(this_id));
+        displayImage.appendChild(imageElement);
+      };
+    }
+    
     
 
   </script>
