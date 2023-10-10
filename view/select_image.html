@@ -76,7 +76,12 @@
 
       storedScores.answers.push({ name: "Q" + count, value: id });
 
+      count++;
       const displayImage = document.getElementById('display-image');
+      while (displayImage.firstChild) {
+        displayImage.removeChild(displayImage.firstChild);
+      }
+      
       for(i=1;i<5;i++) {
         const imageElement = document.createElement('img');
         imageElement.src = "http://35.187.199.64/images?num="+String(count)+"&id=" + String(i);
@@ -85,8 +90,7 @@
         imageElement.addEventListener('click', () => answer(this_id));
         displayImage.appendChild(imageElement);
       };
-
-      count++;
+      
       score.setScore(storedScores);
       console.log(score.getScore());
       if (count <= question_num) {
