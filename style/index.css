@@ -1,5 +1,6 @@
 html {
   background-color: #f7f5ec;
+  touch-action: manipulation;
 }
 
 body {
@@ -8,7 +9,7 @@ body {
   padding: 0;
   background-image: url('../img/background.png');
   background-size: auto;
-  background-position: center center;
+  background-position: top center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100vh;
@@ -19,40 +20,49 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
 }
 
-.icon ul {
-  list-style: none; 
-  padding-left: 0;
-} 
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+}
 
-.icon ul img {
-  max-width:10%;
-  height:auto; 
-  margin: 0% 5% ;
-} 
+.fic {
+  width: 10vw;
+  height: auto;
+  margin: 0;
+}
+.crossty {
+  width: 25vw;
+  height: auto;
+}
 
-.icon ul p{
-  font-size: large;
-
+.cross {
+  font-size: 8vw;
 }
 
 h2 {
-  font-size: 50px;
+  font-size: 5vw;
   text-align: center;
-  
+  margin: 3% 0 8% 0;
 }
 
 
- /***スタートボタンの設定***/
+/***スタートボタンの設定***/
 h3 {
   font-size: 30px;
+
   .btn {
     display: block;
     text-align: center;
     text-decoration: none;
     width: 30%;
-    margin: auto;
+    margin: 15% auto;
     padding: 1rem 4rem;
     font-weight: bold;
     border: 2px solid #27acd9;
@@ -71,7 +81,7 @@ h3 {
   }
 }
 
-@media screen and (max-width: 850px) {
+@media (max-width: 850px) {
   body {
     overflow: hidden;
     background-size: cover;
