@@ -70,3 +70,36 @@ h3 {
     background: #fff;
   }
 }
+
+@media screen and (max-width: 850px) {
+  body {
+    overflow: hidden;
+    background-size: cover;
+  }
+
+  h2 {
+    padding: 9%;
+    font-size: 9vw;
+  }
+
+  .icon {
+    flex-direction: column;
+    padding-top: 10%;
+  }
+  .fic {
+    width: 20vw;
+    height: auto;
+    margin: 0;
+    padding-top: 20%;
+  }
+  .crossty {
+    width: 70vw;
+    height: auto;
+  }
+
+  .icon p {
+    font-size: 15vw;
+    margin: 0;
+    padding: 0;
+  }
+}
