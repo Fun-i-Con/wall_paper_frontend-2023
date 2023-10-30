@@ -1,12 +1,14 @@
 html{
     background-color: #f7f5ec;
+    touch-action: manipulation;
+
 }
 
 body{
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url(../img/background.png);
+    background-image: url('../img/background.png');
     background-size: auto;
     background-position: center center;
     background-repeat: no-repeat;
@@ -79,5 +81,12 @@ h3 {
     .btn:hover {
         color: #27acd9;
         background: #fff;
+    }
+}
+
+@media (max-width: 1200px) {
+    body {
+      overflow: hidden;
+      background-size: cover;
     }
 }
