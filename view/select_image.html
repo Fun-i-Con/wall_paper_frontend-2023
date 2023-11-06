@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>test</title>
-  <link rel="stylesheet" href="../style/question.css">
+  <link rel="stylesheet" href="../style/select_image.css">
   <meta name="viewport" content="width=device-width" />
   <!--//code.jquery.com/~~何か動かなかったので、https:を追加-->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -130,19 +130,35 @@
       updateProgressBar();
     });
 
+    // // imgsをfor文で回して画像をHTMLに出力
+    // window.onload = function (){
+    //   const displayImage = document.getElementById('display-image');
+    //   for(i=1;i<5;i++) {
+    //     const imageElement = document.createElement('img');
+    //     imageElement.src = "http://35.187.199.64/images?num="+String(count)+"&id=" + String(i);
+    //     // console.log("http://35.187.199.64/images?num="+String(count)+"&id=" + String(i));
+    //     const this_id = "A" + String(i)
+    //     imageElement.addEventListener('click', () => answer(this_id));
+    //     displayImage.appendChild(imageElement);
+    //   };
+    // }
+    
     // imgsをfor文で回して画像をHTMLに出力
-    window.onload = function (){
+    window.onload = function () {
       const displayImage = document.getElementById('display-image');
-      for(i=1;i<5;i++) {
+      for (let i = 1; i < 5; i++) {
         const imageElement = document.createElement('img');
-        imageElement.src = "http://35.187.199.64/images?num="+String(count)+"&id=" + String(i);
-        // console.log("http://35.187.199.64/images?num="+String(count)+"&id=" + String(i));
-        const this_id = "A" + String(i)
+        imageElement.src = "http://35.187.199.64/images?num=" + String(count) + "&id=" + String(i);
+        const this_id = "A" + String(i);
+
+        // 画像要素にクラスを追加
+        imageElement.classList.add(this_id);
+
         imageElement.addEventListener('click', () => answer(this_id));
         displayImage.appendChild(imageElement);
-      };
+      }
     }
-    
+
     
 
   </script>
