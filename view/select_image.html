@@ -74,7 +74,7 @@
         const result = await("http://35.221.98.113/question?num="+count);//apiを叩く
         for(let i = 0; i < 4; i++){
           const imageElement = document.getElementById("A"+(i+1));
-          imageElement.src = "http://35.221.98.113/image?name="+result[i]+"?mode=1";//nameのi番目の要素（文字列）を入れる
+          imageElement.src = "http://35.221.98.113/image?name="+result.names[i]+"?mode=2";//nameのi番目の要素（文字列）を入れる
         }
       })();
 		});
@@ -106,7 +106,7 @@
         const result = await("http://35.221.98.113/question?num="+count);//apiを叩く
         for(let i = 0; i < 4; i++){
           const imageElement = document.getElementById("A"+(i+1));
-          imageElement.src = "http://35.221.98.113/image?name="+result[i]+"?mode=1";//nameのi番目の要素（文字列）を入れる
+          imageElement.src = "http://35.221.98.113/image?name="+result.names[i]+"?mode=2";//nameのi番目の要素（文字列）を入れる
         }
       })();
     }
