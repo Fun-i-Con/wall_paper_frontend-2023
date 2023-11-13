@@ -31,11 +31,11 @@
           .then(response => response.json())
           .then(responseData => {
             // レスポンスの処理
-            const resizedUrl ="http://35.221.98.113/image?name=xxxx?mode=2";//リサイズのURL設定
-            const threeDdataUrl="http://35.221.98.113/image?name=xxxx?mode=3";//3dのＵＲＬ設定
             const imageContainer = document.getElementById("image-container");
             //const originalImages = responseData.original;
             for(let i=0;i<4&&i<responseData.length;i++) {
+              const resizedUrl ="http://35.221.98.113/image?name=xxxx?mode=2";//リサイズのURL設定
+              const threeDdataUrl="http://35.221.98.113/image?name=xxxx?mode=3";//3dのＵＲＬ設定
               const imageElement = document.createElement('img');
               imageElement.src = responseData.imgs[i];
               imageElement.addEventListener("click", function () {
