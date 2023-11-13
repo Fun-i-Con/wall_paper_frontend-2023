@@ -90,14 +90,19 @@ h3 {
     background-color: rgba(0, 0, 0, 0.5);
   }
   
-  .modal-content {
+.modal-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
+    overflow-x: auto;
   }
-  .modal {
-    display: none;
+
+@media screen and (max-width: 600px) {
+    .modal-content {
+        width: 90%; /* 画面幅の90%に設定 */
+        padding: 10px; /* 余白を少なく */
+    }
 }
