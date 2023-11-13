@@ -43,6 +43,7 @@
     let count = 1;
     // 質問数
     let question_num = 6;
+    let names = [];
 
     /* --- プログレスバーの処理 --- */
     function updateProgressBar() {
@@ -66,36 +67,40 @@
     // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
 
     document.getElementById("questionNumber").textContent = "Q1 ";
-<<<<<<< HEAD
-    // document.getElementById("questionTitle").textContent = QUESTION.questions.Q1.text_que;
-   // document.getElementById("A1").textContent = QUESTION.questions.Q1.A1.text_ans;
-    //document.getElementById("A2").textContent = QUESTION.questions.Q1.A2.text_ans;
-    //document.getElementById("A3").textContent = QUESTION.questions.Q1.A3.text_ans;
-    //document.getElementById("A4").textContent = QUESTION.questions.Q1.A4.text_ans;
-=======
     //ページが読み込まれたとき,一問目を読み込む
     window.addEventListener('load', function(){
 			console.log("load：リソースファイルを全て読み込みました。");
       const imageContainer = document.getElementById("image-container");
-      (async() =>{
-        const result = await("http://35.221.98.113/question?num="+count);//apiを叩く
-        for(let i = 0; i < 4; i++){
-          const imageElement = document.getElementById("A"+(i+1));
-          imageElement.src = "http://35.221.98.113/image?name="+result.names[i]+"?mode=2";//nameのi番目の要素（文字列）を入れる
+      (async () => {
+        try {
+          const response = await fetch("http://35.187.199.64/question?num=" + count);
+          if (!response.ok) {
+            throw new Error("ネットワーク応答が正常ではありませんでした");
+          }
+
+          const result = await response.json();
+          names = result.names;
+
+          for (let i = 0; i < result.names.length && i < 4; i++) {
+            const imageElement = document.getElementById("A" + (i + 1));
+            imageElement.src = "http://35.187.199.64/image?name=" + result.names[i] + "&mode=2";
+          }
+        } catch (error) {
+          console.error("データの取得中にエラーが発生しました:", error);
         }
       })();
 		});
->>>>>>> 35ad25ff8a7270f5e5332ead4d930847f4ce6d4f
 
 
     // 初回読み込み時に、scoreをリセット
-    score.setScore({ answers: [] });
+    score.setScore({ choices: [] });
 
     /* --- 関数 --- */
     function answer(id) {
       let storedScores = score.getScore();
-
-      storedScores.answers.push({ name: "Q" + count, value: id });
+      id = id[1];
+      console.log(names[id - 1]);
+      storedScores.choices.push(names[id - 1]);
       count++;
       score.setScore(storedScores);
       console.log(score.getScore());
@@ -110,11 +115,21 @@
 
     function setImage() {
       document.getElementById("questionNumber").textContent = "Q" + count + " ";
-      (async() =>{
-        const result = await("http://35.221.98.113/question?num="+count);//apiを叩く
-        for(let i = 0; i < 4; i++){
-          const imageElement = document.getElementById("A"+(i+1));
-          imageElement.src = "http://35.221.98.113/image?name="+result.names[i]+"?mode=2";//nameのi番目の要素（文字列）を入れる
+      (async () => {
+        try {
+          const response = await fetch("http://35.187.199.64/question?num=" + count);
+          if (!response.ok) {
+            throw new Error("ネットワーク応答が正常ではありませんでした");
+          }
+          const result = await response.json();
+          names = result.names;
+
+          for (let i = 0; i < result.names.length && i < 4; i++) {
+            const imageElement = document.getElementById("A" + (i + 1));
+            imageElement.src = "http://35.187.199.64/image?name=" + result.names[i] + "&mode=2";
+          }
+        } catch (error) {
+          console.error("データの取得中にエラーが発生しました:", error);
         }
       })();
     }
@@ -139,6 +154,7 @@
     // ページロード時の初期設定
     $(function () {
       updateProgressBar();
+      setImage();
     });
 
   </script>

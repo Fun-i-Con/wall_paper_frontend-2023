@@ -4,24 +4,22 @@
     <meta charset="UTF-8">
     <title>おすすめの壁紙</title>
     <link rel="stylesheet" href="../style/result.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <h1 id="title">おすすめの壁紙系統は</span>
+  <h1 id="title">おすすめの壁紙はこちら</span>
   </h1>
   <h1 id="result"></h1>
   <div id="image-container"></div>
-  <h3>
     <main>
-        <a onclick="location.href='../index.html'",href="" class="btn">最初に戻る</a>
+      <a onclick="location.href='../index.html'",href="" class="btn">最初に戻る</a>
     </main>
-</h3> 
   <script src="../store/score.js"></script>
 
     <script>
       window.onload = function(){
         const score = new scoreStore()
-        const url = "http://35.221.98.113/calc";
+        const url = "http://35.187.199.64/calc";
         fetch(url, {
           method: "POST",
           headers: {
@@ -37,10 +35,10 @@
             //const originalImages = responseData.original;
             for(let i=0;i<4&&i<responseData.result.names.length;i++) {
               const imageElement = document.createElement('img');
-              imageElement.src = "http://35.221.98.113/image?name="+responseData.names[i]+"?mode=1";
+              imageElement.src = "http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=2";
               imageElement.addEventListener("click", function () {
-               var x="http://35.221.98.113/image?name="+responseData.names[i]+"?mode=2";//リサイズ
-               var y="http://35.221.98.113/image?name="+responseData.names[i]+"?mode=3";//３ｄ
+               var x="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=1";//リサイズ
+               var y="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=3";//３ｄ
                   
                   displayModal(x,y);
               });
@@ -103,57 +101,60 @@
             modal.remove();
          });
   }
-};
-        
+
     </script>
     <style>
-      .arrow{
-	position: relative;
-	display: inline-block;
-	padding: 0 0 0 16px;
-	color: #000;
-	vertical-align: middle;
-	text-decoration: none;
-	font-size: 50px;
-}
-.arrow::before,
-.arrow::after{
-	position: absolute;
-	top: 650px;
-	bottom: 0;
-	left: 0;
-	margin: auto;
-	content: "";
-	vertical-align: middle;
-}
-
-.sample1-4::before{
-	left: 60px;
-	width: 70px;
-	height: 30px;
-	background: rgb(255, 213, 0);
-}
-.sample1-4::after{
-	left: 60px;
-	width: 60px;
-	height: 60px;
-	border-top: 30px solid rgb(255, 213, 0);
-	border-right: 30px solid rgb(255, 213, 0);
-	-webkit-transform: rotate(45deg);
-	transform: rotate(45deg);
-}
-.s2{
-    animation: anim2 2s infinite;
-}
-
-@keyframes anim2 {
-  0% {
-  transform: translateX(800px);
-  }
-  100% {
-  transform: translateX(950px);
-  }
-}
+      .arrow {
+        position: relative;
+        display: inline-block;
+        padding: 0 0 0 16px;
+        color: #000;
+        vertical-align: middle;
+        text-decoration: none;
+        font-size: 50px;
+    }
+    
+    .arrow::before,
+    .arrow::after {
+        position: absolute;
+        top: 650px;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        content: "";
+        vertical-align: middle;
+    }
+    
+    .sample1-4::before {
+        left: 60px;
+        width: 70px;
+        height: 30px;
+        background: rgb(255, 213, 0);
+    }
+    
+    .sample1-4::after {
+        left: 60px;
+        width: 60px;
+        height: 60px;
+        border-top: 30px solid rgb(255, 213, 0);
+        border-right: 30px solid rgb(255, 213, 0);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    
+    .s2 {
+        animation: anim2 2s infinite;
+    }
+    
+    @keyframes anim2 {
+        0% {
+            transform: translateX(800px);
+        }
+    
+        100% {
+            transform: translateX(950px);
+        }
+    }
     </style>
   </body>
   </html>

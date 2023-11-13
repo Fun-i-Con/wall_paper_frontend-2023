@@ -70,3 +70,14 @@ h3 {
     background: #fff;
   }
 }
+
+@media (max-width: 1200px) {
+  body {
+    overflow: hidden;
+    background-size: cover;
+    height: 100vh;
+  }
+  .btn {
+    width: 20%;
+  }
+}
