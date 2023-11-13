@@ -20,7 +20,7 @@
     <script>
       window.onload = function(){
         const score = new scoreStore()
-        const url = "http://35.221.98.113/image?name=0001?mode=1";
+        const url = "http://35.221.98.113/calc";
         fetch(url, {
           method: "POST",
           headers: {
@@ -31,40 +31,17 @@
           .then(response => response.json())
           .then(responseData => {
             // レスポンスの処理
+           
             const imageContainer = document.getElementById("image-container");
             //const originalImages = responseData.original;
-            for(let i=0;i<4&&i<responseData.length;i++) {
-              const resizedUrl ="http://35.221.98.113/image?name=xxxx?mode=2";//リサイズのURL設定
-              const threeDdataUrl="http://35.221.98.113/image?name=xxxx?mode=3";//3dのＵＲＬ設定
+            for(let i=0;i<4&&i<responseData.result.names.length;i++) {
               const imageElement = document.createElement('img');
-              imageElement.src = responseData.imgs[i];
+              imageElement.src = "http://35.221.98.113/image?name="+responseData.names[i]+"?mode=1";
               imageElement.addEventListener("click", function () {
-                (async() => {
-                  var resizeddata = await fetch(resizedUrl,{ //リサイズされた画像を入れる変数
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(score.getScore())
-                  })
-                  .catch(error =>{
-                    consol.log(error);
-                    console.log("mode=2 通信に失敗しました");
-                  });
-                  var threeDdata = await fetch(threeDdataUrl,{ //3D用の画像を入れる変数
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(score.getScore())
-                  })
-                  .catch(error =>{
-                    consol.log(error);
-                    console.log("mode=3 通信に失敗しました");
-                  });
+               var x="http://35.221.98.113/image?name="+responseData.names[i]+"?mode=2";//リサイズ
+               var y="http://35.221.98.113/image?name="+responseData.names[i]+"?mode=3";//３ｄ
                   
-                  displayModal(resizeddata, threeDdata);
-                })()
+                  displayModal(x,y);
               });
               imageContainer.appendChild(imageElement);
             };
