@@ -7,7 +7,8 @@
 
 </head>
 <body>
-  <h1 id="title">おすすめの壁紙系統は</h1>
+  <h1 id="title">おすすめの壁紙系統は</span>
+  </h1>
   <h1 id="result"></h1>
   <div id="image-container"></div>
   <h3>
@@ -20,61 +21,123 @@
     <script>
       window.onload = function(){
         const score = new scoreStore()
-        const url = "http://35.221.98.113/calc";
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(score.getScore())
-        })
-          .then(response => response.json())
-          .then(responseData => {
-            // レスポンスの処理
-           
-            const imageContainer = document.getElementById("image-container");
-            //const originalImages = responseData.original;
-            for(let i=0;i<4&&i<responseData.result.names.length;i++) {
-              const imageElement = document.createElement('img');
-              imageElement.src = "http://35.221.98.113/image?name="+responseData.names[i]+"?mode=1";
-              imageElement.addEventListener("click", function () {
-               var x="http://35.221.98.113/image?name="+responseData.names[i]+"?mode=2";//リサイズ
-               var y="http://35.221.98.113/image?name="+responseData.names[i]+"?mode=3";//３ｄ
-                  
-                  displayModal(x,y);
-              });
-              imageContainer.appendChild(imageElement);
-            };
-          })
-          .catch(error => {
-            // エラーハンドリング
-            console.error("Error:", error);
+
+        //
+        const imageContainer = document.getElementById("image-container");
+        for(let i=0;i<4;i++) {
+          const imageElement = document.createElement('img');
+          imageElement.src = "https://placehold.jp/200x200.png";
+          imageElement.addEventListener("click", function () {
+            console.log("click");
+            var x="../img/600x600.png";//リサイズ
+            var y="../img/icon_FiC.png";//３ｄ
+              displayModal(x, y);
           });
-          function displayModal(resizedUrl, threeDUrl) {
+          imageContainer.appendChild(imageElement);
+        }
+
+        function displayModal(resizedUrl, threeDUrl) {
+            let isResizedImageShown = true;  // 最初はリサイズされた画像を表示
+
             const modal = document.createElement("div");
             modal.className = "modal";
+            modal.style.display = 'block';
 
             const modalContent = document.createElement("div");
             modalContent.className = "modal-content";
 
-            const resizedImage = document.createElement("img");
-            resizedImage.src = resizedUrl;
-
-            const threeDImage = document.createElement("img");
-            threeDImage.src = threeDUrl;
-
-            modalContent.appendChild(resizedImage);
-            modalContent.appendChild(threeDImage);
+            const image = document.createElement("img");
+            image.src = resizedUrl;  // 最初に表示する画像
+            modalContent.appendChild(image);
             modal.appendChild(modalContent);
+
+            const arrow = document.createElement("p");
+            arrow.className = "arrow sample1-4 s2";
+            modal.appendChild(arrow);
+            //ここまで
 
             document.body.appendChild(modal);
 
+            // //横矢印
+            // const arrow = document.createElement("p");
+            // arrow.className = "arrow sample1-4";
+
+            // 画像をクリックしたときのイベントハンドラ
+            image.addEventListener("click", function (e) {
+              e.stopPropagation();  // イベントの伝播を停止
+
+              const width = image.clientWidth; // 画像の幅
+              const x = e.offsetX; // クリックされたX座標
+
+              // 画像の右半分をクリックした場合にのみ切り替える
+              if (x > width / 2) {
+                if (isResizedImageShown) {
+                  image.src = threeDUrl;  // 3D画像に切り替え
+                  isResizedImageShown = false;
+                } else {
+                  image.src = resizedUrl;  // リサイズされた画像に戻す
+                  isResizedImageShown = true;
+                }
+              }
+            });
+
+            // モーダルをクリックしたときに閉じる
             modal.addEventListener("click", function () {
-            modal.remove();
-         });
-  }
+              modal.style.display = 'none';
+              modal.remove();
+            });
+          }
 };
         
     </script>
+    <style>
+      .arrow{
+	position: relative;
+	display: inline-block;
+	padding: 0 0 0 16px;
+	color: #000;
+	vertical-align: middle;
+	text-decoration: none;
+	font-size: 50px;
+}
+.arrow::before,
+.arrow::after{
+	position: absolute;
+	top: 650px;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	content: "";
+	vertical-align: middle;
+}
+
+.sample1-4::before{
+	left: 60px;
+	width: 70px;
+	height: 30px;
+	background: rgb(255, 213, 0);
+}
+.sample1-4::after{
+	left: 60px;
+	width: 60px;
+	height: 60px;
+	border-top: 30px solid rgb(255, 213, 0);
+	border-right: 30px solid rgb(255, 213, 0);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.s2{
+    animation: anim2 2s infinite;
+}
+
+@keyframes anim2 {
+  0% {
+  transform: translateX(800px);
+  }
+  100% {
+  transform: translateX(950px);
+  }
+}
+    </style>
   </body>
   </html>
