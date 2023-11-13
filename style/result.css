@@ -58,18 +58,18 @@ body{
 h3 {
     font-size: 20px;
     .btn {
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      width: 7%;
-      margin: auto;
-      padding: 1rem 1rem;
-      font-weight: bold;
-      border: 2px solid #27acd9;
-      background: #27acd9;
-      color: #fff;
-      border-radius: 100vh;
-      transition: 0.5s;
+    display: block;
+    margin: 0 auto;
+    width: 20%;
+    padding: 10px;
+    font-size: 32px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: #00BFFF;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 64px;
     }
   }
   
@@ -90,14 +90,19 @@ h3 {
     background-color: rgba(0, 0, 0, 0.5);
   }
   
-  .modal-content {
+.modal-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
+    overflow-x: auto;
   }
-  .modal {
-    display: none;
+
+@media screen and (max-width: 600px) {
+    .modal-content {
+        width: 90%; /* 画面幅の90%に設定 */
+        padding: 10px; /* 余白を少なく */
+    }
 }
