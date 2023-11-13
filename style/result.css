@@ -58,18 +58,18 @@ body{
 h3 {
     font-size: 20px;
     .btn {
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      width: 7%;
-      margin: auto;
-      padding: 1rem 1rem;
-      font-weight: bold;
-      border: 2px solid #27acd9;
-      background: #27acd9;
-      color: #fff;
-      border-radius: 100vh;
-      transition: 0.5s;
+    display: block;
+    margin: 0 auto;
+    width: 20%;
+    padding: 10px;
+    font-size: 32px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: #00BFFF;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 64px;
     }
   }
   
