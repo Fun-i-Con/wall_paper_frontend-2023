@@ -42,7 +42,7 @@
                var x="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=1";//リサイズ
                var y="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=3";//３ｄ
                   
-                  displayModal(x,y, responseData.originals[i]);
+                  displayModal(x,y, responseData.result.originals[i]);
               });
               imageContainer.appendChild(imageElement);
             };
