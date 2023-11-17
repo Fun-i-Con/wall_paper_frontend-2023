@@ -89,8 +89,69 @@
             document.body.appendChild(modal);
 
             modal.addEventListener("click", function () {
-            modal.remove();
-         });
+              //modal.remove();
+               // 画像をクリックしたときのイベントハンドラ
+            image.addEventListener("click", function (e) {
+              e.stopPropagation();  // イベントの伝播を停止
+
+              const width = image.clientWidth; // 画像の幅
+              const x = e.offsetX; // クリックされたX座標
+
+              // 画像の右半分をクリックした場合にのみ切り替える
+              if (x > width / 2) {
+                if (isResizedImageShown) {
+                  image.src = threeDUrl;  // 3D画像に切り替え
+                  isResizedImageShown = false;
+                } else {
+                  image.src = resizedUrl;  // リサイズされた画像に戻す
+                  isResizedImageShown = true;
+                }
+              } else {
+                if (!isResizedImageShown) {
+                  image.src = resizedUrl;  // リサイズされた画像に戻す
+                  isResizedImageShown = true;
+                }
+              }
+            });
+
+            });
+
+            // 画像をクリックしたときのイベントハンドラ
+            image.addEventListener("click", function (e) {
+              e.stopPropagation();  // イベントの伝播を停止
+
+              const width = image.clientWidth; // 画像の幅
+              const x = e.offsetX; // クリックされたX座標
+
+              // 画像の右半分をクリックした場合にのみ切り替える
+              if (x > width / 2) {
+                if (isResizedImageShown) {
+                  image.src = threeDUrl;  // 3D画像に切り替え
+                  isResizedImageShown = false;
+                } else {
+                  image.src = resizedUrl;  // リサイズされた画像に戻す
+                  isResizedImageShown = true;
+                }
+              } else {
+                if (!isResizedImageShown) {
+                  image.src = resizedUrl;  // リサイズされた画像に戻す
+                  isResizedImageShown = true;
+                }
+              }
+            });
+
+            // モーダルをクリックしたときに閉じる
+            modal.addEventListener("click", function () {
+              modal.style.display = 'none';
+              modal.remove();
+            });
+
+            // モーダルをクリックしたときに閉じる
+            // modal.addEventListener("click", function () {
+            //   modal.style.display = 'none';
+            //   modal.remove();
+            // });
+
   }
 
     </script>
