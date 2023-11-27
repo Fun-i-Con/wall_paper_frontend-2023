@@ -87,33 +87,9 @@ h3 {
   body {
     overflow: hidden;
     background-size: cover;
+    height: 100vh;
   }
-
-  h2 {
-    padding: 9%;
-    font-size: 9vw;
-    margin: 0 0 8% 0;
-  }
-
-  .icon {
-    flex-direction: row;
-    padding: 20% 0 0 0;
-    height: 20%;
-  }
-  .fic {
-    width: 15vw;
-    height: auto;
-    margin: 0;
-    /* padding-top: 20%; */
-  }
-  .crossty {
-    width: 50vw;
-    height: auto;
-  }
-
-  .icon p {
-    font-size: 15vw;
-    margin: 0;
-    padding: 0;
+  .btn {
+    width: 20%;
   }
 }

@@ -24,12 +24,15 @@
   <h1>一番好きな壁紙を選んでください</h1>
   <br>
   <br>
-  <div id="display-image"></div>
+  <div id="display_image">
+    <!-- <div id="image-container"></div> -->
+    <img id="A1" src="" onclick="answer(this.id)">
+    <img id="A2" src="" onclick="answer(this.id)">
+    <img id="A3" src="" onclick="answer(this.id)">
+    <img id="A4" src="" onclick="answer(this.id)">
+  </div>
   <br>
   <input type="button" onclick="back()" value="１つ戻る"><br>
-  
-
-
 
   <!-- jsファイルの読み込み -->
   <script src="../store/score.js"></script>
@@ -41,8 +44,7 @@
     let count = 1;
     // 質問数
     let question_num = 6;
-    // 画像表示数
-    let image_num = 4;
+    let names = [];
 
     /* --- プログレスバーの処理 --- */
     function updateProgressBar() {
@@ -66,17 +68,40 @@
     // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
 
     document.getElementById("questionNumber").textContent = "Q1 ";
+    //ページが読み込まれたとき,一問目を読み込む
+    window.addEventListener('load', function(){
+			console.log("load：リソースファイルを全て読み込みました。");
+      const imageContainer = document.getElementById("image-container");
+      (async () => {
+        try {
+          const response = await fetch("http://35.187.199.64/question?num=" + count);
+          if (!response.ok) {
+            throw new Error("ネットワーク応答が正常ではありませんでした");
+          }
+
+          const result = await response.json();
+          names = result.names;
+
+          for (let i = 0; i < result.names.length && i < 4; i++) {
+            const imageElement = document.getElementById("A" + (i + 1));
+            imageElement.src = "http://35.187.199.64/image?name=" + result.names[i] + "&mode=2";
+          }
+        } catch (error) {
+          console.error("データの取得中にエラーが発生しました:", error);
+        }
+      })();
+		});
 
 
     // 初回読み込み時に、scoreをリセット
-    score.setScore({ answers: [] });
+    score.setScore({ choices: [] });
 
     /* --- 関数 --- */
     function answer(id) {
       let storedScores = score.getScore();
-
-      storedScores.answers.push({ name: "Q" + count, value: id });
-
+      id = id[1];
+      console.log(names[id - 1]);
+      storedScores.choices.push(names[id - 1]);
       count++;
       const displayImage = document.getElementById('display-image');
       while (displayImage.firstChild) {
@@ -95,7 +120,7 @@
       score.setScore(storedScores);
       console.log(score.getScore());
       if (count <= question_num) {
-        setText();
+        setImage();
       } else {
         //jsonデータファイルを作る
         window.location.href = "result.html"
@@ -103,9 +128,25 @@
       updateProgressBar(); // プログレスバーの更新
     }
 
-
-    function setText() {
+    function setImage() {
       document.getElementById("questionNumber").textContent = "Q" + count + " ";
+      (async () => {
+        try {
+          const response = await fetch("http://35.187.199.64/question?num=" + count);
+          if (!response.ok) {
+            throw new Error("ネットワーク応答が正常ではありませんでした");
+          }
+          const result = await response.json();
+          names = result.names;
+
+          for (let i = 0; i < result.names.length && i < 4; i++) {
+            const imageElement = document.getElementById("A" + (i + 1));
+            imageElement.src = "http://35.187.199.64/image?name=" + result.names[i] + "&mode=2";
+          }
+        } catch (error) {
+          console.error("データの取得中にエラーが発生しました:", error);
+        }
+      })();
     }
 
     function back() {
@@ -128,6 +169,7 @@
     // ページロード時の初期設定
     $(function () {
       updateProgressBar();
+      setImage();
     });
 
     // imgsをfor文で回して画像をHTMLに出力
