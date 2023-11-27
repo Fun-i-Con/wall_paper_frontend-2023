@@ -137,15 +137,16 @@
     function back() {
       if (count > 1) {
         count--;//ちょうどいい位置
+        document.getElementById("questionNumber").textContent = "Q" + count + " ";
         let storedScores = score.getScore();
-        let last = storedScores.answers.pop();//一番上をpopした
+        let last = storedScores.choices.pop();//一番上をpopした
         console.log(last);
         console.log("↑削除");
         score.setScore(storedScores);
         console.log(score.getScore());
         console.log("↑最新");
         updateProgressBar();
-        setText();
+        setImage();
       } else {
         alert("1つ以上答えて下さい")
       }
