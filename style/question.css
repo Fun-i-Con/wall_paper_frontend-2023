@@ -1,7 +1,5 @@
 html {
   background-color: #f7f5ec;
-  touch-action: manipulation;
-
 }
 
 
@@ -15,11 +13,16 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100vh;
-  /* overflow: hidden; */
 }
 
 span {
   padding: 5%;
+}
+
+@media screen and(max-width: 768px) {
+  body {
+      background-attachment: scroll;
+  }
 }
 
 h1 {
@@ -64,7 +67,7 @@ button {
   border-radius: 64px;
 }
 
-#display-image{
+#display_image{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
@@ -100,30 +103,18 @@ a {
 }
 
 img {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
 }
 
 @media(hover: hover) {
   button:hover {
-    background-color: #fff;
-    color: #00BFFF;
+      background-color: #fff;
+      color: #00BFFF;
   }
+
   a:hover {
-    text-decoration: underline;
+      text-decoration: underline;
   }
 }
-
-<<<<<<< HEAD
-@media (max-width: 1200px) {
-  body {
-    overflow: hidden;
-    background-size: cover;
-  }
-}
-=======
-
-
-
->>>>>>> feature/28

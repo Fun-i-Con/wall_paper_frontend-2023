@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <title>test</title>
   <link rel="stylesheet" href="../style/question.css">
-  <meta name="viewport" content="width=device-width" />
   <!--//code.jquery.com/~~何か動かなかったので、https:を追加-->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -103,20 +102,6 @@
       console.log(names[id - 1]);
       storedScores.choices.push(names[id - 1]);
       count++;
-      const displayImage = document.getElementById('display-image');
-      while (displayImage.firstChild) {
-        displayImage.removeChild(displayImage.firstChild);
-      }
-      
-      for(i=1;i<5;i++) {
-        const imageElement = document.createElement('img');
-        imageElement.src = "http://35.187.199.64/images?num="+String(count)+"&id=" + String(i);
-        // console.log("http://35.187.199.64/images?num="+String(count)+"&id=" + String(i));
-        const this_id = "A" + String(i)
-        imageElement.addEventListener('click', () => answer(this_id));
-        displayImage.appendChild(imageElement);
-      };
-      
       score.setScore(storedScores);
       console.log(score.getScore());
       if (count <= question_num) {
@@ -171,21 +156,6 @@
       updateProgressBar();
       setImage();
     });
-
-    // imgsをfor文で回して画像をHTMLに出力
-    window.onload = function (){
-      const displayImage = document.getElementById('display-image');
-      for(i=1;i<5;i++) {
-        const imageElement = document.createElement('img');
-        imageElement.src = "http://35.187.199.64/images?num="+String(count)+"&id=" + String(i);
-        // console.log("http://35.187.199.64/images?num="+String(count)+"&id=" + String(i));
-        const this_id = "A" + String(i)
-        imageElement.addEventListener('click', () => answer(this_id));
-        displayImage.appendChild(imageElement);
-      };
-    }
-    
-    
 
   </script>
 </body>
