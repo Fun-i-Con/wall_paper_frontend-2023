@@ -52,20 +52,6 @@ h1 {
   margin-bottom: 40px;
 }
 
-button {
-  display: block;
-  margin: 0 auto;
-  width: 40%;
-  padding: 10px;
-  font-size: 32px;
-  margin-bottom: 10px;
-  border: none;
-  background-color: #00BFFF;
-  font-weight: 700;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 64px;
-}
 
 #display_image{
   display: grid;
@@ -77,9 +63,20 @@ button {
   margin: 0 auto;
 }
 
+#display_image img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+#display_button{
+  text-align: center;
+
+}
+
 input[type="button"] {
-  display: block;
-  margin: 20px auto;
+  /* display: block; */
+  margin: 20px 20px;
   padding: 10px 20px;
   font-size: 32px;
   border: none;
@@ -102,11 +99,7 @@ a {
   margin-bottom: 20px;
 }
 
-img {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-}
+
 
 @media(hover: hover) {
   button:hover {
@@ -118,3 +111,20 @@ img {
       text-decoration: underline;
   }
 }
+
+
+.selectedImages{
+  text-align: center;
+  /* display: inline-block; */
+  justify-items: center;
+  align-items: center;
+}
+
+.selectedImages img {
+  width: 100px; 
+  height: 100px;
+  object-fit: cover;
+  margin: 20px;
+} 
+
+

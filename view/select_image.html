@@ -18,9 +18,17 @@
 
 <body>
   <span></span>
-  <div id="progressbar"></div>
-  <h1 id="questionNumber"></h1>
-  <h1>一番好きな壁紙を選んでください</h1>
+  <!-- <div id="progressbar"></div> -->
+  <div class="selectedImages">
+    <img id="S1" src="">
+    <img id="S2" src="">
+    <img id="S3" src="">
+    <img id="S4" src="">
+    <img id="S5" src="">
+    <img id="S6" src="">
+  </div>
+  <!-- <h1 id="questionNumber"></h1> -->
+  <!-- <h1>一番好きな壁紙を選んでください</h1> -->
   <br>
   <br>
   <div id="display_image">
@@ -31,7 +39,10 @@
     <img id="A4" src="" onclick="answer(this.id)">
   </div>
   <br>
-  <input type="button" onclick="back()" value="１つ戻る"><br>
+  <div id = "display_button">
+    <input type="button" onclick="back()" value="１つ戻る">
+    <input type="button" onclick="skip()" value="スキップ">
+  </div>
 
   <!-- jsファイルの読み込み -->
   <script src="../store/score.js"></script>
@@ -44,6 +55,7 @@
     // 質問数
     let question_num = 6;
     let names = [];
+    let selectedImages = Array(question_num).fill("../img/question_mark.png");
 
     /* --- プログレスバーの処理 --- */
     function updateProgressBar() {
@@ -66,7 +78,7 @@
 
     // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
 
-    document.getElementById("questionNumber").textContent = "Q1 ";
+    // document.getElementById("questionNumber").textContent = "Q1 ";
     //ページが読み込まれたとき,一問目を読み込む
     window.addEventListener('load', function(){
 			console.log("load：リソースファイルを全て読み込みました。");
@@ -99,22 +111,26 @@
     function answer(id) {
       let storedScores = score.getScore();
       id = id[1];
-      console.log(names[id - 1]);
-      storedScores.choices.push(names[id - 1]);
+      selectedImages[count-1] = "http://35.187.199.64/image?name="+names[id -1] + "&mode=2"; //選択された壁紙のIDを配列selectedImagesに格納する
+      console.log(selectedImages);
+      storedScores.choices.push(names);
       count++;
       score.setScore(storedScores);
       console.log(score.getScore());
       if (count <= question_num) {
         setImage();
+        getImage();
       } else {
         //jsonデータファイルを作る
         window.location.href = "result.html"
       }
       updateProgressBar(); // プログレスバーの更新
+      
+
     }
 
     function setImage() {
-      document.getElementById("questionNumber").textContent = "Q" + count + " ";
+      // document.getElementById("questionNumber").textContent = "Q" + count + " ";
       (async () => {
         try {
           const response = await fetch("http://35.187.199.64/question?num=" + count);
@@ -128,16 +144,26 @@
             const imageElement = document.getElementById("A" + (i + 1));
             imageElement.src = "http://35.187.199.64/image?name=" + result.names[i] + "&mode=2";
           }
+
+
         } catch (error) {
           console.error("データの取得中にエラーが発生しました:", error);
         }
       })();
     }
 
+    function getImage(){ //選択された壁紙のURLを取得する関数
+      for (let i = 0; i<question_num+1;i++){
+        let name = "S" + String(i+1)
+        const imgElement = document.getElementById(name);
+        imgElement.src = selectedImages[i]
+      }
+    }
+    
     function back() {
       if (count > 1) {
         count--;//ちょうどいい位置
-        document.getElementById("questionNumber").textContent = "Q" + count + " ";
+        // document.getElementById("questionNumber").textContent = "Q" + count + " ";
         let storedScores = score.getScore();
         let last = storedScores.choices.pop();//一番上をpopした
         console.log(last);
@@ -152,10 +178,15 @@
       }
     }
 
+    function skip(){
+      setImage();
+    }
+
     // ページロード時の初期設定
     $(function () {
       updateProgressBar();
       setImage();
+      getImage();
     });
 
   </script>
