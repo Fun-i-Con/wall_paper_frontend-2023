@@ -27,12 +27,10 @@
     <img id="S5" src="">
     <img id="S6" src="">
   </div>
-  <!-- <h1 id="questionNumber"></h1> -->
-  <!-- <h1>一番好きな壁紙を選んでください</h1> -->
+
   <br>
   <br>
   <div id="display_image">
-    <!-- <div id="image-container"></div> -->
     <img id="A1" src="" onclick="answer(this.id)">
     <img id="A2" src="" onclick="answer(this.id)">
     <img id="A3" src="" onclick="answer(this.id)">
@@ -76,9 +74,6 @@
     // storeの初期化
     const score = new scoreStore();
 
-    // １個目の質問文を表示 [HTML上の要素に変数の値を表示する]
-
-    // document.getElementById("questionNumber").textContent = "Q1 ";
     //ページが読み込まれたとき,一問目を読み込む
     window.addEventListener('load', function(){
 			console.log("load：リソースファイルを全て読み込みました。");
@@ -130,7 +125,6 @@
     }
 
     function setImage() {
-      // document.getElementById("questionNumber").textContent = "Q" + count + " ";
       (async () => {
         try {
           const response = await fetch("http://35.187.199.64/question?num=" + count);
@@ -163,7 +157,6 @@
     function back() {
       if (count > 1) {
         count--;//ちょうどいい位置
-        // document.getElementById("questionNumber").textContent = "Q" + count + " ";
         let storedScores = score.getScore();
         let last = storedScores.choices.pop();//一番上をpopした
         console.log(last);
