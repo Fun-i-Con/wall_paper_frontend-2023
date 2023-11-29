@@ -19,6 +19,15 @@ span {
   padding: 5%;
 }
 
+div.parent {
+  position: relative;
+}
+p.cooperation_companies {
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+}
+
 @media screen and(max-width: 768px) {
   body {
       background-attachment: scroll;
