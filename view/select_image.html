@@ -39,7 +39,7 @@
   <br>
   <div id = "display_button">
     <input type="button" onclick="back()" value="１つ戻る">
-    <input type="button" onclick="skip()" value="スキップ">
+    <input type="button" onclick="answer('A0')" value="好みなし">
   </div>
 
   <!-- jsファイルの読み込み -->
@@ -106,22 +106,31 @@
     function answer(id) {
       let storedScores = score.getScore();
       id = id[1];
-      selectedImages[count-1] = "http://35.187.199.64/image?name="+names[id -1] + "&mode=2"; //選択された壁紙のIDを配列selectedImagesに格納する
-      console.log(selectedImages);
-      storedScores.choices.push(names);
+      // console.log(id);
+      if (id == "0"){ //好みなしが押された時の処理
+        storedScores.choices.push("");
+        score.setScore(storedScores);
+
+      }else{ //画像が選択されたときの処理
+        selectedImages[count-1] = "http://35.187.199.64/image?name="+names[id -1] + "&mode=2"; //選択された壁紙のIDを配列selectedImagesに格納する
+        // console.log(selectedImages);
+        storedScores.choices.push(names[id -1]);
+        score.setScore(storedScores);
+      }
       count++;
-      score.setScore(storedScores);
+
       console.log(score.getScore());
+      // console.log(names[id - 1]);
+
       if (count <= question_num) {
         setImage();
         getImage();
       } else {
         //jsonデータファイルを作る
         window.location.href = "result.html"
-      }
-      updateProgressBar(); // プログレスバーの更新
+      }      
       
-
+      
     }
 
     function setImage() {
@@ -147,15 +156,21 @@
     }
 
     function getImage(){ //選択された壁紙のURLを取得する関数
-      for (let i = 0; i<question_num+1;i++){
+      for (let i = 0; i<question_num;i++){
         let name = "S" + String(i+1)
         const imgElement = document.getElementById(name);
         imgElement.src = selectedImages[i]
       }
     }
+
+    function delImage(){
+      selectedImages[count-2] = "../img/question_mark.png"
+      getImage();
+    }
     
     function back() {
       if (count > 1) {
+        delImage();
         count--;//ちょうどいい位置
         let storedScores = score.getScore();
         let last = storedScores.choices.pop();//一番上をpopした
@@ -171,9 +186,6 @@
       }
     }
 
-    function skip(){
-      setImage();
-    }
 
     // ページロード時の初期設定
     $(function () {
