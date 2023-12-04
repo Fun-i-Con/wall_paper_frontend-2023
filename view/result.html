@@ -1,229 +1,200 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>おすすめの壁紙</title>
-    <link rel="stylesheet" href="../style/result.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>6-1-7 複数画像を中央に注目させて見せる</title>
+  <meta name="description" content="書籍「動くWebデザインアイディア帳」のサンプルサイトです">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../style/result.css">
+  <link rel="stylesheet" type="text/css" href="../style/reset.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+  <link rel="stylesheet" type="text/css" href="../style/6-1-7.css">
 </head>
+
 <body>
-  <h1 id="title">おすすめの壁紙はこちら</span>
-  </h1>
+  <h1 id="title">おすすめの壁紙はこちら</h1>
   <h1 id="result"></h1>
-  <div id="image-container"></div>
-    <main>
-      <a onclick="location.href='../index.html'",href="" class="btn">最初に戻る</a>
-      <a onclick="reset()" class="btn">更新</a>
-
-      <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="form">アンケート</a>
-      <div><h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4></div>
-    </main>
+  <ul class="slider"></ul>
+  <main>
+    <!-- <a onclick="location.href='../index.html'", href="" class="btn">最初に戻る</a> -->
+    <a onclick="location.href='../index.html';" href="javascript:void(0);" class="btn">最初に戻る</a>
+    <a class="js-reinit btn">更新</a>
+    <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="form">アンケート</a>
+    <div>
+      <h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4>
+    </div>
+  </main>
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <script src="../store/score.js"></script>
+  <script>
+    var slider; // グローバルスコープでslider変数を定義
+    var wallimage = [];
 
-    <script>
-      window.onload = function(){
-        getResult();
-      }
+    window.onload = function () {
+      getResult();
+    }
 
-        function getResult(){
-          const score = new scoreStore()
-          const url = "http://35.187.199.64/calc";
-          fetch(url, {
-            method: "POST",
-            headers: {
+    async function removeImages() {
+      console.log("removeImage")
+      console.log("---")
+      return new Promise((resolve) => {
+        for (let i = 0; i < wallimage.length; i++) {
+          console.log(i + "を削除");
+          // slider変数を使用してスライダーから画像を削除
+          slider.slick('slickRemove', i, true);
+        }
+        slider.slick('unslick');
+        slider.empty();
+
+        // 削除が完了したことをresolveで通知
+        resolve();
+      });
+    }
+
+    async function reset() {
+      console.log("reset")
+      wallimage = [];
+
+      // 画像の削除
+      await removeImages();
+      console.log("fin await")
+
+      // 画像の更新
+      getResult();
+    }
+
+    function getResult() {
+      console.log("getResult")
+      const score = new scoreStore();
+      const url = "http://35.187.199.64/calc";
+
+      // js-reinitのクリックイベントリスナーを解除
+      $('.js-reinit').off('click');
+      console.log("js-re off")
+
+      fetch(url, {
+          method: "POST",
+          headers: {
               "Content-Type": "application/json"
-            },
-            body: JSON.stringify(score.getScore())
-          })
-            .then(response => response.json())
-            .then(responseData => {
-              // レスポンスの処理
-            
-              const imageContainer = document.getElementById("image-container");
-              //const originalImages = responseData.original;
-              for(let i=0;i<4&&i<responseData.result.names.length;i++) {
-                const imageElement = document.createElement('img');
-                imageElement.src = "http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=2";
-                imageElement.addEventListener("click", function () {
-                var x="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=1";//リサイズ
-                var y="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=3";//３ｄ
-                    
-                    displayModal(x,y, responseData.result.originals[i]);
-                });
-                imageContainer.appendChild(imageElement);
-              };
-            })
-            .catch(error => {
-              // エラーハンドリング
-              console.error("Error:", error);
-            });
-        }
-
-        function reset(){
-          // image-containerの子要素を破棄
-          const imageContainer = document.getElementById("image-container");
-          while (imageContainer.firstChild) {
-            imageContainer.removeChild(imageContainer.firstChild);
+          },
+          body: JSON.stringify(score.getScore())
+      })
+      .then(response => response.json())
+      .then(responseData => {
+          console.log(responseData);
+          for(let i = 0; i < responseData.result.names.length; i++){
+              wallimage.push("http://35.187.199.64/image?name=" + responseData.result.names[i] + "&mode=2");
           }
-          getResult();
-        }
+          console.log(wallimage);
+          slider = $(".slider");
+          console.log(slider);
 
-        function displayModal(resizedUrl, threeDUrl, wallName) {
-            let isResizedImageShown = true;  // 最初はリサイズされた画像を表示
 
-            const modal = document.createElement("div");
-            modal.className = "modal";
-            modal.style.display = 'block';
+          // 画像更新ボタンのクリックイベントリスナー
+          $('.js-reinit').on('click', function() {
+            // 画像の削除とリセット
+            reset();
+          });
 
-            const modalContent = document.createElement("div");
-            modalContent.className = "modal-content";
+          if (slider.length > 0) {
+          Promise.all(wallimage.map(loadImage))
+            .then(images => {
+              images.forEach((img, index) => {
+                const li = $("<li></li>");
+                $(li).append(img);
 
-            const image = document.createElement("img");
-            image.src = resizedUrl;  // 最初に表示する画像
-            image.style.width = '300px';  // 画像サイズの指定
-            modalContent.appendChild(image);
+                $(li).on("click", () => {
+                  console.log(`画像 ${index + 1} がクリックされました。`);
+                });
 
-            //
-            const wallNameText = document.createElement("p");
-            wallNameText.textContent = "壁紙の名前: " + wallName;
+                slider.append(li);
+              });
 
-            const Textbr = document.createElement("br");
-            wallNameText.appendChild(Textbr);
+              // 画像の読み込みが完了した後にスライダーを初期化
+              slider.slick({
+                autoplay: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                prevArrow: '<div class="slick-prev"></div>',
+                nextArrow: '<div class="slick-next"></div>',
+                centerMode: true,
+                variableWidth: true,
+                dots: true,
+              });
+            })
+            .catch(error => console.error("画像の読み込みエラー", error));
+          }
+        })
+          .catch(error => console.error("APIのエラー", error));
+    }
 
-            const link = document.createElement("a");
-            link.href = "https://www.tecido.co.jp/products/search/?q=" + wallName + "&r=item%3AITEM%3A129%2Ctype%3ATYPE%3A2";
-            link.textContent = "商品ページはこちら";
-            link.target = "_blank"; // 新しいタブまたはウィンドウで開く
-            wallNameText.appendChild(link);
-            modalContent.appendChild(wallNameText);
-            //
-            modal.appendChild(modalContent);
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        console.log(src);
+        img.src = src;
+      });
+    }
+  </script>
 
-            const arrow = document.createElement("p");
-            arrow.className = "arrow sample1-4 s2";
-            modal.appendChild(arrow);
-
-            document.body.appendChild(modal);
-
-            modal.addEventListener("click", function () {
-              //modal.remove();
-               // 画像をクリックしたときのイベントハンドラ
-            image.addEventListener("click", function (e) {
-              e.stopPropagation();  // イベントの伝播を停止
-
-              const width = image.clientWidth; // 画像の幅
-              const x = e.offsetX; // クリックされたX座標
-
-              // 画像の右半分をクリックした場合にのみ切り替える
-              if (x > width / 2) {
-                if (isResizedImageShown) {
-                  image.src = threeDUrl;  // 3D画像に切り替え
-                  isResizedImageShown = false;
-                } else {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
-                }
-              } else {
-                if (!isResizedImageShown) {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
-                }
-              }
-            });
-
-            });
-
-            // 画像をクリックしたときのイベントハンドラ
-            image.addEventListener("click", function (e) {
-              e.stopPropagation();  // イベントの伝播を停止
-
-              const width = image.clientWidth; // 画像の幅
-              const x = e.offsetX; // クリックされたX座標
-
-              // 画像の右半分をクリックした場合にのみ切り替える
-              if (x > width / 2) {
-                if (isResizedImageShown) {
-                  image.src = threeDUrl;  // 3D画像に切り替え
-                  isResizedImageShown = false;
-                } else {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
-                }
-              } else {
-                if (!isResizedImageShown) {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
-                }
-              }
-            });
-
-            // モーダルをクリックしたときに閉じる
-            modal.addEventListener("click", function () {
-              modal.style.display = 'none';
-              modal.remove();
-            });
-
-            // モーダルをクリックしたときに閉じる
-            // modal.addEventListener("click", function () {
-            //   modal.style.display = 'none';
-            //   modal.remove();
-            // });
-
-  }
-
-    </script>
-    <style>
-      .arrow {
-        position: relative;
-        display: inline-block;
-        padding: 0 0 0 16px;
-        color: #000;
-        vertical-align: middle;
-        text-decoration: none;
-        font-size: 50px;
+  <style>
+    .arrow {
+      position: relative;
+      display: inline-block;
+      padding: 0 0 0 16px;
+      color: #000;
+      vertical-align: middle;
+      text-decoration: none;
+      font-size: 50px;
     }
     
     .arrow::before,
     .arrow::after {
-        position: absolute;
-        top: 650px;
-        bottom: 0;
-        left: 0;
-        margin: auto;
-        content: "";
-        vertical-align: middle;
+      position: absolute;
+      top: 650px;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      content: "";
+      vertical-align: middle;
     }
     
     .sample1-4::before {
-        left: 60px;
-        width: 70px;
-        height: 30px;
-        background: rgb(255, 213, 0);
+      left: 60px;
+      width: 70px;
+      height: 30px;
+      background: rgb(255, 213, 0);
     }
     
     .sample1-4::after {
-        left: 60px;
-        width: 60px;
-        height: 60px;
-        border-top: 30px solid rgb(255, 213, 0);
-        border-right: 30px solid rgb(255, 213, 0);
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
+      left: 60px;
+      width: 60px;
+      height: 60px;
+      border-top: 30px solid rgb(255, 213, 0);
+      border-right: 30px solid rgb(255, 213, 0);
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
     }
     
     .s2 {
-        animation: anim2 2s infinite;
+      animation: anim2 2s infinite;
     }
     
     @keyframes anim2 {
-        0% {
-            transform: translateX(800px);
-        }
+      0% {
+        transform: translateX(800px);
+      }
     
-        100% {
-            transform: translateX(950px);
-        }
+      100% {
+        transform: translateX(950px);
+      }
     }
-    </style>
-  </body>
-  </html>
+  </style>
+</body>
+</html>
