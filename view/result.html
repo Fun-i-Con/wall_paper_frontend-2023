@@ -13,6 +13,7 @@
   <div id="image-container"></div>
     <main>
       <a onclick="location.href='../index.html'",href="" class="btn">最初に戻る</a>
+      <a onclick="reset()" class="btn">更新</a>
 
       <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="form">アンケート</a>
       <div><h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4></div>
@@ -21,38 +22,52 @@
 
     <script>
       window.onload = function(){
-        const score = new scoreStore()
-        const url = "http://35.187.199.64/calc";
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(score.getScore())
-        })
-          .then(response => response.json())
-          .then(responseData => {
-            // レスポンスの処理
-           
-            const imageContainer = document.getElementById("image-container");
-            //const originalImages = responseData.original;
-            for(let i=0;i<4&&i<responseData.result.names.length;i++) {
-              const imageElement = document.createElement('img');
-              imageElement.src = "http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=2";
-              imageElement.addEventListener("click", function () {
-               var x="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=1";//リサイズ
-               var y="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=3";//３ｄ
-                  
-                  displayModal(x,y, responseData.result.originals[i]);
-              });
-              imageContainer.appendChild(imageElement);
-            };
+        getResult();
+      }
+
+        function getResult(){
+          const score = new scoreStore()
+          const url = "http://35.187.199.64/calc";
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(score.getScore())
           })
-          .catch(error => {
-            // エラーハンドリング
-            console.error("Error:", error);
-          });
+            .then(response => response.json())
+            .then(responseData => {
+              // レスポンスの処理
+            
+              const imageContainer = document.getElementById("image-container");
+              //const originalImages = responseData.original;
+              for(let i=0;i<4&&i<responseData.result.names.length;i++) {
+                const imageElement = document.createElement('img');
+                imageElement.src = "http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=2";
+                imageElement.addEventListener("click", function () {
+                var x="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=1";//リサイズ
+                var y="http://35.187.199.64/image?name="+responseData.result.names[i]+"&mode=3";//３ｄ
+                    
+                    displayModal(x,y, responseData.result.originals[i]);
+                });
+                imageContainer.appendChild(imageElement);
+              };
+            })
+            .catch(error => {
+              // エラーハンドリング
+              console.error("Error:", error);
+            });
         }
+
+        function reset(){
+          // image-containerの子要素を破棄
+          const imageContainer = document.getElementById("image-container");
+          while (imageContainer.firstChild) {
+            imageContainer.removeChild(imageContainer.firstChild);
+          }
+          getResult();
+        }
+
         function displayModal(resizedUrl, threeDUrl, wallName) {
             let isResizedImageShown = true;  // 最初はリサイズされた画像を表示
 
