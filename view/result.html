@@ -16,10 +16,9 @@
   <h1 id="result"></h1>
   <ul class="slider"></ul>
   <main>
-    <!-- <a onclick="location.href='../index.html'", href="" class="btn">最初に戻る</a> -->
-    <a onclick="location.href='../index.html';" href="javascript:void(0);" class="btn">最初に戻る</a>
-    <a class="js-reinit btn">更新</a>
-    <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="form">アンケート</a>
+    <a onclick="location.href='../index.html';" href="javascript:void(0);" class="btn"><img src="../img/home.svg" class="btnicon"> スタートへ</a>
+    <a class="js-reinit btn"><img src="../img/reload.svg" class="btnicon"> もっと見る</a>
+    <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="form"><img src="../img/questionnaire.svg" class="btnicon"> アンケート</a>
     <div>
       <h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4>
     </div>
@@ -107,6 +106,10 @@
 
                 $(li).on("click", () => {
                   console.log(`画像 ${index + 1} がクリックされました。`);
+                  var x="http://35.187.199.64/image?name="+responseData.result.names[index]+"&mode=1";//リサイズ
+                  var y="http://35.187.199.64/image?name="+responseData.result.names[index]+"&mode=3";//３ｄ
+                      
+                  displayModal(x,y, responseData.result.originals[index]);
                 });
 
                 slider.append(li);
@@ -141,6 +144,102 @@
         img.src = src;
       });
     }
+
+    function displayModal(resizedUrl, threeDUrl, wallName) {
+            let isResizedImageShown = true;  // 最初はリサイズされた画像を表示
+
+            const modal = document.createElement("div");
+            modal.className = "modal";
+            modal.style.display = 'block';
+
+            const modalContent = document.createElement("div");
+            modalContent.className = "modal-content";
+
+            const image = document.createElement("img");
+            image.src = resizedUrl;  // 最初に表示する画像
+            image.style.width = '300px';  // 画像サイズの指定
+            modalContent.appendChild(image);
+
+            //
+            const wallNameText = document.createElement("p");
+            wallNameText.textContent = "壁紙の名前: " + wallName;
+
+            const Textbr = document.createElement("br");
+            wallNameText.appendChild(Textbr);
+
+            const link = document.createElement("a");
+            link.href = "https://www.tecido.co.jp/products/search/?q=" + wallName + "&r=item%3AITEM%3A129%2Ctype%3ATYPE%3A2";
+            link.textContent = "商品ページはこちら";
+            link.target = "_blank"; // 新しいタブまたはウィンドウで開く
+            wallNameText.appendChild(link);
+            modalContent.appendChild(wallNameText);
+            //
+            modal.appendChild(modalContent);
+
+            const arrow = document.createElement("p");
+            arrow.className = "arrow sample1-4 s2";
+            modal.appendChild(arrow);
+
+            document.body.appendChild(modal);
+
+            modal.addEventListener("click", function () {
+              //modal.remove();
+               // 画像をクリックしたときのイベントハンドラ
+            image.addEventListener("click", function (e) {
+              e.stopPropagation();  // イベントの伝播を停止
+
+              const width = image.clientWidth; // 画像の幅
+              const x = e.offsetX; // クリックされたX座標
+
+              // 画像の右半分をクリックした場合にのみ切り替える
+              if (x > width / 2) {
+                if (isResizedImageShown) {
+                  image.src = threeDUrl;  // 3D画像に切り替え
+                  isResizedImageShown = false;
+                } else {
+                  image.src = resizedUrl;  // リサイズされた画像に戻す
+                  isResizedImageShown = true;
+                }
+              } else {
+                if (!isResizedImageShown) {
+                  image.src = resizedUrl;  // リサイズされた画像に戻す
+                  isResizedImageShown = true;
+                }
+              }
+            });
+
+            });
+
+            // 画像をクリックしたときのイベントハンドラ
+            image.addEventListener("click", function (e) {
+              e.stopPropagation();  // イベントの伝播を停止
+
+              const width = image.clientWidth; // 画像の幅
+              const x = e.offsetX; // クリックされたX座標
+
+              // 画像の右半分をクリックした場合にのみ切り替える
+              if (x > width / 2) {
+                if (isResizedImageShown) {
+                  image.src = threeDUrl;  // 3D画像に切り替え
+                  isResizedImageShown = false;
+                } else {
+                  image.src = resizedUrl;  // リサイズされた画像に戻す
+                  isResizedImageShown = true;
+                }
+              } else {
+                if (!isResizedImageShown) {
+                  image.src = resizedUrl;  // リサイズされた画像に戻す
+                  isResizedImageShown = true;
+                }
+              }
+            });
+
+            // モーダルをクリックしたときに閉じる
+            modal.addEventListener("click", function () {
+              modal.style.display = 'none';
+              modal.remove();
+            });
+          }
   </script>
 
   <style>
