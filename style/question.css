@@ -4,6 +4,7 @@ html {
 
 
 body {
+  position: relative;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -17,6 +18,11 @@ body {
 
 span {
   padding: 5%;
+}
+p.cooperation_companies {
+  position: absolute;
+  bottom: 2vw;
+  left: 5vw;
 }
 
 @media screen and(max-width: 768px) {
