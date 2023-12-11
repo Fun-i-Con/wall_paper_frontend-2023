@@ -17,30 +17,35 @@
 </head>
 
 <body>
-  <span></span>
-  <!-- <div id="progressbar"></div> -->
-  <div class="selectedImages">
-    <img id="S1" src="">
-    <img id="S2" src="">
-    <img id="S3" src="">
-    <img id="S4" src="">
-    <img id="S5" src="">
-    <img id="S6" src="">
-  </div>
+  <main>
+    <span></span>
+    <!-- <div id="progressbar"></div> -->
+    <div class="selectedImages">
+      <img id="S1" src="">
+      <img id="S2" src="">
+      <img id="S3" src="">
+      <img id="S4" src="">
+      <img id="S5" src="">
+      <img id="S6" src="">
+    </div>
 
-  <br>
-  <br>
-  <div id="display_image">
-    <img id="A1" src="" onclick="answer(this.id)">
-    <img id="A2" src="" onclick="answer(this.id)">
-    <img id="A3" src="" onclick="answer(this.id)">
-    <img id="A4" src="" onclick="answer(this.id)">
+    <br>
+    <br>
+    <div id="display_image">
+      <img id="A1" src="" onclick="answer(this.id)">
+      <img id="A2" src="" onclick="answer(this.id)">
+      <img id="A3" src="" onclick="answer(this.id)">
+      <img id="A4" src="" onclick="answer(this.id)">
+    </div>
+    <br>
+    <div id = "display_button">
+      <input type="button" onclick="back()" value="１つ戻る">
+      <input type="button" onclick="answer('A0')" value="好みなし">
+    </div>
+  <div>
+    <h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4>
   </div>
-  <br>
-  <div id = "display_button">
-    <input type="button" onclick="back()" value="１つ戻る">
-    <input type="button" onclick="answer('A0')" value="好みなし">
-  </div>
+  </main>
 
   <!-- jsファイルの読み込み -->
   <script src="../store/score.js"></script>
@@ -197,3 +202,4 @@
 
   </script>
 </body>
+</html>
