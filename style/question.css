@@ -60,6 +60,9 @@ h1 {
   height: 300px;
   object-fit: cover;
   border: 5px solid #4B4B4B;  
+  &:active{
+    transform: scale(.90);
+  }
 }
 
 

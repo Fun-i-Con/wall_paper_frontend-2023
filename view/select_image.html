@@ -5,21 +5,18 @@
   <meta charset="UTF-8">
   <title>壁紙診断</title> 
   <link rel="stylesheet" href="../style/question.css">
-  <!--//code.jquery.com/~~何か動かなかったので、https:を追加-->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script>
   <script>
-    jQuery.migrateMute = false; // jQuery Migrateの警告を表示する設定
-    // なんか必要っぽい？
+    jQuery.migrateMute = false;
   </script>
 </head>
 
 <body>
   <main>
     <span></span>
-    <!-- <div id="progressbar"></div> -->
     <div class="selectedImages">
       <img id="S1" src="">
       <img id="S2" src="">
@@ -38,148 +35,131 @@
       <img id="A4" src="" onclick="answer(this.id)">
     </div>
     <br>
-    <div id = "display_button">
+    <div id="display_button">
       <input type="button" onclick="back()" value="１つ戻る">
       <input type="button" onclick="answer('A0')" value="好みなし">
     </div>
-  <div>
-    <h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4>
-  </div>
+    <div>
+      <h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4>
+    </div>
   </main>
 
-  <!-- jsファイルの読み込み -->
   <script src="../store/score.js"></script>
-  <!-- <script src="../config/fixedItem.js"></script> -->
 
   <script>
-    /* --- 変数定義 --- */
-    // 回答数
     let count = 1;
-    // 質問数
     let question_num = 6;
-    let names = [];
+    let names = Array.from({ length: 6 }, () => Array(4).fill(null));
     let selectedImages = Array(question_num).fill("../img/question_mark.png");
 
-    /* --- プログレスバーの処理 --- */
     function updateProgressBar() {
       let progress_value = (count / question_num) * 100;
       $("#progressbar").progressbar({
         value: progress_value
       });
-      $("#progressbar").find( ".ui-progressbar-value" ).css({
-        'background':'#00BFFF'
+      $("#progressbar").find(".ui-progressbar-value").css({
+        'background': '#00BFFF'
       });
       $("#progressbar").css({
         'border-radius': '100vh'
       });
     };
 
-
-    /* --- 初回表示時の処理 --- */
-    // storeの初期化
     const score = new scoreStore();
 
-    //ページが読み込まれたとき,一問目を読み込む
-    window.addEventListener('load', function(){
-			console.log("load：リソースファイルを全て読み込みました。");
+    window.addEventListener('load', async function () {
+      console.log("load：リソースファイルを全て読み込みました.");
       const imageContainer = document.getElementById("image-container");
-      (async () => {
+
+      let result = await getQuestion();
+      if (result) {
+        console.log("APIを6回たたけた");
+        console.log("names");
+        console.log(names);
+        for (let i = 0; i < names[0].length && i < 4; i++) {
+          const imageElement = document.getElementById("A" + (i + 1));
+          console.log("A" + (i + 1) + "の取得");
+          console.log(imageElement);
+          console.log(names[0][i]);
+          imageElement.src = "http://35.187.199.64/image?name=" + names[0][i] + "&mode=2";
+        }
+      } else {
+        alert("問題の取得に失敗しました");
+      }
+    });
+
+    async function getQuestion() {
+      for (let n = 0; n < question_num; n++) {
         try {
-          const response = await fetch("http://35.187.199.64/question?num=" + count);
+          const response = await fetch("http://35.187.199.64/question?num=" + (n + 1));
           if (!response.ok) {
             throw new Error("ネットワーク応答が正常ではありませんでした");
           }
-
+          console.log("loop=" + n);
           const result = await response.json();
-          names = result.names;
-
-          for (let i = 0; i < result.names.length && i < 4; i++) {
-            const imageElement = document.getElementById("A" + (i + 1));
-            imageElement.src = "http://35.187.199.64/image?name=" + result.names[i] + "&mode=2";
+          for (let v = 0; v < result.names.length && v < 4; v++) {
+            names[n][v] = result.names[v];
           }
         } catch (error) {
           console.error("データの取得中にエラーが発生しました:", error);
+          return false;
         }
-      })();
-		});
+      }
+      return true;
+    }
 
-
-    // 初回読み込み時に、scoreをリセット
     score.setScore({ choices: [] });
 
-    /* --- 関数 --- */
     function answer(id) {
       let storedScores = score.getScore();
       id = id[1];
-      // console.log(id);
-      if (id == "0"){ //好みなしが押された時の処理
-        selectedImages[count-1] = "../img/bad_luck.png"
+      if (id == "0") {
+        selectedImages[count - 1] = "../img/bad_luck.png"
         storedScores.choices.push("");
         score.setScore(storedScores);
-
-      }else{ //画像が選択されたときの処理
-        selectedImages[count-1] = "http://35.187.199.64/image?name="+names[id -1] + "&mode=2"; //選択された壁紙のIDを配列selectedImagesに格納する
-        // console.log(selectedImages);
-        storedScores.choices.push(names[id -1]);
+      } else {
+        selectedImages[count - 1] = "http://35.187.199.64/image?name=" + names[count - 1][id - 1] + "&mode=2";
+        storedScores.choices.push(names[count - 1][id - 1]);
         score.setScore(storedScores);
       }
       count++;
 
       console.log(score.getScore());
-      // console.log(names[id - 1]);
 
       if (count <= question_num) {
         setImage();
         getImage();
       } else {
-        //jsonデータファイルを作る
         window.location.href = "result.html"
-      }      
-      
-      
+      }
     }
 
     function setImage() {
-      (async () => {
-        try {
-          const response = await fetch("http://35.187.199.64/question?num=" + count);
-          if (!response.ok) {
-            throw new Error("ネットワーク応答が正常ではありませんでした");
-          }
-          const result = await response.json();
-          names = result.names;
-
-          for (let i = 0; i < result.names.length && i < 4; i++) {
-            const imageElement = document.getElementById("A" + (i + 1));
-            imageElement.src = "http://35.187.199.64/image?name=" + result.names[i] + "&mode=2";
-          }
-
-
-        } catch (error) {
-          console.error("データの取得中にエラーが発生しました:", error);
-        }
-      })();
+      for (let i = 0; i < names[count-1].length && i < 4; i++) {
+        const imageElement = document.getElementById("A" + (i + 1));
+        imageElement.src = "http://35.187.199.64/image?name=" + names[count-1][i] + "&mode=2";
+      }
     }
 
-    function getImage(){ //選択された壁紙のURLを取得する関数
-      for (let i = 0; i<question_num;i++){
-        let name = "S" + String(i+1)
+    function getImage() {
+      for (let i = 0; i < question_num; i++) {
+        let name = "S" + String(i + 1)
         const imgElement = document.getElementById(name);
         imgElement.src = selectedImages[i]
       }
     }
 
-    function delImage(){
-      selectedImages[count-2] = "../img/question_mark.png"
+    function delImage() {
+      selectedImages[count - 2] = "../img/question_mark.png"
       getImage();
     }
-    
+
     function back() {
       if (count > 1) {
         delImage();
-        count--;//ちょうどいい位置
+        count--;
         let storedScores = score.getScore();
-        let last = storedScores.choices.pop();//一番上をpopした
+        let last = storedScores.choices.pop();
         console.log(last);
         console.log("↑削除");
         score.setScore(storedScores);
@@ -192,8 +172,6 @@
       }
     }
 
-
-    // ページロード時の初期設定
     $(function () {
       updateProgressBar();
       setImage();
@@ -202,4 +180,5 @@
 
   </script>
 </body>
+
 </html>
