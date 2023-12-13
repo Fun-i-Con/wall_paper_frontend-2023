@@ -83,6 +83,9 @@ p.cooperation_companies {
     border-radius: 100vh;
     transition: 0.5s;
     margin-top: 40px;
+    &:active{
+        transform: scale(.90);
+    }
 }
 
 
@@ -141,6 +144,9 @@ p.cooperation_companies {
         border-radius: 100vh;
         transition: 0.5s;
         margin-top: 40px;
+        &:active{
+            transform: scale(.90);
+        }
     }
 }
 

@@ -81,6 +81,9 @@ input[type="button"] {
   color: white;
   cursor: pointer;
   border-radius: 5px;
+  &:active{
+    transform: scale(.90);
+  }
 }
 
 input[type="button"]:hover {
