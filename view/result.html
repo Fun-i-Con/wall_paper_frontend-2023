@@ -12,18 +12,18 @@
 </head>
 
 <body>
-  <div class="selectedImages">
-    <img id="S1" src="">
-    <img id="S2" src="">
-    <img id="S3" src="">
-    <img id="S4" src="">
-    <img id="S5" src="">
-    <img id="S6" src="">
-  </div>
-  <h1 id="title">おすすめの壁紙はこちら</h1>
-  <h1 id="result"></h1>
-  <ul class="slider"></ul>
   <main>
+    <div class="selectedImages">
+      <img id="S1" src="">
+      <img id="S2" src="">
+      <img id="S3" src="">
+      <img id="S4" src="">
+      <img id="S5" src="">
+      <img id="S6" src="">
+    </div>
+    <h1 id="title">おすすめの壁紙はこちら</h1>
+    <h1 id="result"></h1>
+    <ul class="slider"></ul>
     <a onclick="location.href='../index.html';" href="javascript:void(0);" class="btn"><img src="../img/home.svg" class="btnicon"> スタートへ</a>
     <a class="js-reinit btn"><img src="../img/reload.svg" class="btnicon"> もっと見る</a>
     <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="form"><img src="../img/questionnaire.svg" class="btnicon"> アンケート</a>
@@ -96,6 +96,15 @@
           //長さ十分なら
           //S1-6にchoosedの要素を入れる。
           //""なら、「x」入れる
+          for(let i = 0; i < responseData.choosed.length; i++){
+            let name = "S" + String(i + 1)
+            const imgElement = document.getElementById(name);
+            if(responseData.choosed[i] != "" || responseData.choosed[i] != null){
+              imgElement.src = "http://35.187.199.64/image?name=" + responseData.choosed[i] + "&mode=2"
+            }else{
+              imgElement.src = "../img/bad_luck.png"
+            }
+          }
           //
           for(let i = 0; i < responseData.result.names.length; i++){
               wallimage.push("http://35.187.199.64/image?name=" + responseData.result.names[i] + "&mode=2");
