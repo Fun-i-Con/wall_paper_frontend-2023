@@ -29,10 +29,22 @@
     <br>
     <br>
     <div id="display_image">
-      <img id="A1" src="" onclick="answer(this.id)">
-      <img id="A2" src="" onclick="answer(this.id)">
-      <img id="A3" src="" onclick="answer(this.id)">
-      <img id="A4" src="" onclick="answer(this.id)">
+      <div id="A1_block">
+        <img id="A1" src="" onclick="answer(this.id)">
+          <img src="../img/lupe.svg" style="width: 10vw; height: 10vw; background-color: white;" class="A1_lupe lupe" onclick="addLupeClickListener('A1')">
+      </div>
+      <div id="A2_block">
+        <img id="A2" src="" onclick="answer(this.id)">
+        <img src="../img/lupe.svg" style="width: 10vw; height: 10vw; background-color: white;" class="A1_lupe lupe" onclick="addLupeClickListener('A2')">
+      </div>
+      <div id="A3_block">
+        <img id="A3" src="" onclick="answer(this.id)">
+        <img src="../img/lupe.svg" style="width: 10vw; height: 10vw; background-color: white;" class="A1_lupe lupe" onclick="addLupeClickListener('A3')">
+      </div>
+      <div id="A4_block">
+        <img id="A4" src="" onclick="answer(this.id)">
+        <img src="../img/lupe.svg" style="width: 10vw; height: 10vw; background-color: white;" class="A1_lupe lupe" onclick="addLupeClickListener('A4')">
+      </div>
     </div>
     <br>
     <div id="display_button">
@@ -82,11 +94,13 @@
           console.log(imageElement);
           console.log(names[0][i]);
           imageElement.src = "http://35.187.199.64/image?name=" + names[0][i] + "&mode=2";
+          //  //虫眼鏡の処理追加
+          //  addLupeClickListener("A" + (i + 1), names[0][i]);
         }
       } else {
-        alert("問題の取得に失敗しました");
+          alert("問題の取得に失敗しました");
       }
-    });
+  });
 
     async function getQuestion() {
       for (let n = 0; n < question_num; n++) {
@@ -107,6 +121,24 @@
       }
       return true;
     }
+
+    function addLupeClickListener(elementId) {
+    const imageElement = document.getElementById(elementId);
+    const imageSrc = imageElement.src;
+
+    // Extract the substring between "name=" and "&mode=2"
+    const startIndex = imageSrc.indexOf("name=") + 5;
+    const endIndex = imageSrc.indexOf("&mode=2");
+    const extractedName = imageSrc.substring(startIndex, endIndex);
+
+    console.log("Extracted name =", extractedName);
+
+    // Now you can use 'extractedName' as needed
+    var x = "http://35.187.199.64/image?name=" + extractedName + "&mode=1"; // リサイズ
+    var y = "http://35.187.199.64/image?name=" + extractedName + "&mode=3"; // ３ｄ
+    displayModal(x, y);
+}
+
 
     score.setScore({ choices: [] });
 
@@ -138,6 +170,21 @@
       for (let i = 0; i < names[count-1].length && i < 4; i++) {
         const imageElement = document.getElementById("A" + (i + 1));
         imageElement.src = "http://35.187.199.64/image?name=" + names[count-1][i] + "&mode=2";
+        //虫眼鏡の処理追加
+        console.log("A"+(i+1)+"_lupe")
+        const LopeElement = document.createElement("A"+(i+1)+"_lupe");
+          if(LopeElement){
+            LopeElement.addEventListener("click", function () {
+              var x="http://35.187.199.64/image?name="+names[count-1][i]+"&mode=1";//リサイズ
+              var y="http://35.187.199.64/image?name="+names[count-1][i]+"&mode=3";//３ｄ
+              // displayModal(x,y, names[0][i]);//names[0][i]はオリジナルネームを入れたい
+              displayModal(x,y);//names[0][i]はオリジナルネームを入れたい
+              console.log("modal追加");
+            });
+            //ここまで
+          }else{
+            console.log("LopeElementなし")
+          }
       }
     }
 
@@ -172,6 +219,60 @@
       }
     }
 
+    // function displayModal(resizedUrl, threeDUrl, wallName) {
+      function displayModal(resizedUrl, threeDUrl) {
+        let isResizedImageShown = true;  // 最初はリサイズされた画像を表示
+
+        const modal = document.createElement("div");
+        modal.className = "modal";
+        modal.style.display = 'block';
+
+        const modalContent = document.createElement("div");
+        modalContent.className = "modal-content";
+
+        const image = document.createElement("img");
+        image.src = resizedUrl;  // 最初に表示する画像
+        image.style.width = '300px';  // 画像サイズの指定
+        modalContent.appendChild(image);
+
+        modal.appendChild(modalContent);
+
+        const arrow = document.createElement("p");
+        arrow.className = "arrow sample1-4 s2";
+        modal.appendChild(arrow);
+
+        document.body.appendChild(modal);
+
+        // 画像をクリックしたときのイベントハンドラ
+        image.addEventListener("click", function (e) {
+          e.stopPropagation();  // イベントの伝播を停止
+
+          const width = image.clientWidth; // 画像の幅
+          const x = e.offsetX; // クリックされたX座標
+
+          // 画像の右半分をクリックした場合にのみ切り替える
+          if (x > width / 2) {
+            if (isResizedImageShown) {
+              image.src = threeDUrl;  // 3D画像に切り替え
+              isResizedImageShown = false;
+            } else {
+              image.src = resizedUrl;  // リサイズされた画像に戻す
+              isResizedImageShown = true;
+            }
+          } else {
+            if (!isResizedImageShown) {
+              image.src = resizedUrl;  // リサイズされた画像に戻す
+              isResizedImageShown = true;
+            }
+          }
+        });
+
+        // モーダルをクリックしたときに閉じる
+        modal.addEventListener("click", function () {
+          modal.style.display = 'none';
+          modal.remove();
+        });
+      }
     $(function () {
       updateProgressBar();
       setImage();
@@ -179,6 +280,66 @@
     });
 
   </script>
+  <style>
+    .arrow {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      font-size: 50px;
+      z-index: 1000; /* 追加 */
+      top: 50vh; /* 修正: y座標を50vhに指定 */
+    }
+
+    .arrow.sample1-4 {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      font-size: 50px;
+      z-index: 1000; /* 追加 */
+      transform: translate(-50%, -50%); /* 中央揃え */
+    }
+
+    .arrow.sample1-4::before {
+      position: absolute;
+      content: "";
+      z-index: 999; /* 追加 */
+      left: 30%; /* 中央から 30% 左に配置 */
+      top: 40%; /* 中央に配置 */
+      transform: translateX(-50%); /* 左端を中央に移動 */
+      width: 100px;
+      height: 30px;
+      background: rgb(255, 213, 0, 1);
+    }
+
+    .arrow.sample1-4::after {
+      position: absolute;
+      content: "";
+      z-index: 999; /* 追加 */
+      left: calc(50% - 70px); /* 中央から 5px 左に配置 */
+      top: calc(50% - 40px); /* 中央から 30px 上に配置 */
+      transform: translateX(-50%); /* 左端を中央に移動 */
+      width: 80px;
+      height: 80px;
+      border-top: 30px solid rgb(255, 213, 0, 1);
+      border-right: 30px solid rgb(255, 213, 0, 1);
+      -webkit-transform: rotate(-140deg); /* 逆方向に回転 */
+      transform: rotate(-140deg); /* 逆方向に回転 */
+    }
+
+    .s2 {
+      animation: anim2 2s infinite;
+    }
+
+    @keyframes anim2 {
+      0% {
+        transform: translateX(90vw);
+      }
+
+      100% {
+        transform: translateX(75vw);
+      }
+    }
+  </style>
 </body>
 
 </html>
