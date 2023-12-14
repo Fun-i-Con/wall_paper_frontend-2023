@@ -12,6 +12,14 @@
 </head>
 
 <body>
+  <div class="selectedImages">
+    <img id="S1" src="">
+    <img id="S2" src="">
+    <img id="S3" src="">
+    <img id="S4" src="">
+    <img id="S5" src="">
+    <img id="S6" src="">
+  </div>
   <h1 id="title">おすすめの壁紙はこちら</h1>
   <h1 id="result"></h1>
   <ul class="slider"></ul>
@@ -83,6 +91,12 @@
       .then(response => response.json())
       .then(responseData => {
           console.log(responseData);
+          //
+          //s1-6を削除する
+          //長さ十分なら
+          //S1-6にchoosedの要素を入れる。
+          //""なら、「x」入れる
+          //
           for(let i = 0; i < responseData.result.names.length; i++){
               wallimage.push("http://35.187.199.64/image?name=" + responseData.result.names[i] + "&mode=2");
           }
@@ -267,8 +281,8 @@
       position: absolute;
       content: "";
       z-index: 999; /* 追加 */
-      left: 70%; /* 中央に配置 */
-      top: 25%; /* 中央に配置 */
+      left: 30%; /* 中央から 30% 左に配置 */
+      top: 40%; /* 中央に配置 */
       transform: translateX(-50%); /* 左端を中央に移動 */
       width: 80px;
       height: 30px;
@@ -279,15 +293,15 @@
       position: absolute;
       content: "";
       z-index: 999; /* 追加 */
-      left: calc(50% + 5px); /* 中央から 5px 右に配置 */
+      left: calc(50% - 70px); /* 中央から 5px 左に配置 */
       top: calc(50% - 30px); /* 中央から 30px 上に配置 */
       transform: translateX(-50%); /* 左端を中央に移動 */
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       border-top: 30px solid rgb(255, 213, 0, 1);
       border-right: 30px solid rgb(255, 213, 0, 1);
-      -webkit-transform: rotate(45deg);
-      transform: rotate(45deg);
+      -webkit-transform: rotate(-140deg); /* 逆方向に回転 */
+      transform: rotate(-140deg); /* 逆方向に回転 */
     }
 
     .s2 {
@@ -296,11 +310,11 @@
 
     @keyframes anim2 {
       0% {
-        transform: translateX(70vw);
+        transform: translateX(90vw);
       }
 
       100% {
-        transform: translateX(85vw);
+        transform: translateX(75vw);
       }
     }
   </style>

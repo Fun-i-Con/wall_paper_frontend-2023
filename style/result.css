@@ -104,9 +104,11 @@ p.cooperation_companies {
         height: 100vh;
     }
     .btn {
-        margin-top: 5%;
+        margin-top: 2%;
+        /*margin-top: 5%;*/
         /* width: 20%; */
         width: 30%;
+        margin-left: auto;
     }
     .form {
         /* text-align: center;
