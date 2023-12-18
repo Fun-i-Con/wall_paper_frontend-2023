@@ -1,90 +1,102 @@
-html {
-  background-color: #f7f5ec;
+@charset "utf-8";
+
+/*==================================================
+スライダーのためのcss
+===================================*/
+.slider img {
+    width:auto;/*スライダー内の画像を横幅100%に*/
+    height:auto;
 }
 
-body {
-  position: relative;
-  font-family: Arial, sans-serif;
-  margin: 0;
+/*slickのJSで書かれるタグ内、スライド左右の余白調整*/
+
+.slider .slick-slide {
+    margin:0 0cqmin;/*スライド左右の余白調整*/
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+header{
+  background:#EDEDED;
+  text-align: center;
+ padding: 10px;
+ height: 380px; 
+
+ padding: 10px;
+}
+body{
+  background:#EDEDED;
+  text-align: center;
+
+
+}
+
+
+
+
+
+h2,p {
+    text-align:center;
+    font-size: 100px;
+}
+
+ul{
+  margin:0;
   padding: 0;
-  background-image: url('../img/background.png');
-  background-size: auto;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  height: 100vh;
+  list-style: none;
 }
 
-p.cooperation_companies {
-  position: absolute;
-  bottom: 2vw;
-  left: 5vw;
-}
 
-.icon ul {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+
+#display_button{
   text-align: center;
-}
-
-.icon ul {
-  list-style: none; 
-  padding-left: 0;
-} 
-
-.icon ul img {
-  max-width:10%;
-  height:auto; 
-  margin: 0% 5% ;
-} 
-
-.icon ul p{
-  font-size: large;
 
 }
 
-h2 {
-  font-size: 50px;
-  text-align: center;
-  
+input[type="button"] {
+  /* display: block; */
+  margin: 20px 100px;
+  padding: 10px 20px;
+  font-size: 32px;
+  border: none;
+  background-color: #46A2B6;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 
- /***スタートボタンの設定***/
-h3 {
-  font-size: 30px;
-  .btn {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    width: 30%;
-    margin: auto;
-    padding: 1rem 4rem;
-    font-weight: bold;
-    border: 2px solid #27acd9;
-    background: #27acd9;
-    color: #fff;
-    border-radius: 100vh;
-    transition: 0.5s;
+h3{
+  display: block;
+ text-align: center;
+ 
+}
+
+h4{
+  display: block;
+ text-align: center;
+ margin-top: 40px;
+}
+
+.namae{
+  margin-top:100px;
+  display:flex;
+  justify-content: center; 
+  align-items: center; 
   }
-}
-
-
-@media(hover: hover) {
-  .btn:hover {
-    color: #27acd9;
-    background: #fff;
+  .item{
+    margin-left:100px;
+    margin-right:150px ;
+    font-size:24px;
   }
-}
-
-@media (max-width: 1200px) {
-  body {
-    overflow: hidden;
-    background-size: cover;
-    height: 100vh;
+  .gazou{
+    display:flex;
+   
   }
-  .btn {
+  .item1{
     width: 20%;
+    
   }
-}
+ 
+  
