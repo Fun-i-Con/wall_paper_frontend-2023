@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>6-1-7 複数画像を中央に注目させて見せる</title>
+  <title>壁紙診断</title> 
   <meta name="description" content="書籍「動くWebデザインアイディア帳」のサンプルサイトです">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="../style/result.css">
@@ -12,13 +12,25 @@
 </head>
 
 <body>
-  <h1 id="title">おすすめの壁紙はこちら</h1>
-  <h1 id="result"></h1>
-  <ul class="slider"></ul>
   <main>
-    <a onclick="location.href='../index.html';" href="javascript:void(0);" class="btn"><img src="../img/home.svg" class="btnicon"> スタートへ</a>
-    <a class="js-reinit btn"><img src="../img/reload.svg" class="btnicon"> もっと見る</a>
-    <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="form"><img src="../img/questionnaire.svg" class="btnicon"> アンケート</a>
+    <div class="selectedImages">
+      <img id="S1" src="">
+      <img id="S2" src="">
+      <img id="S3" src="">
+      <img id="S4" src="">
+      <img id="S5" src="">
+      <img id="S6" src="">
+    </div>
+    <h1 id="title">おすすめの壁紙はこちら</h1>
+    <h1 id="result"></h1>
+    <ul class="slider"></ul>
+    <div class="action_continue">
+      <a class="js-reinit btn"><img src="../img/reload.svg" class="btnicon"> もっと見る</a>
+    </div>
+    <div class="action_fin">
+      <a onclick="location.href='../index.html';" href="javascript:void(0);" class="btn"><img src="../img/home.svg" class="btnicon"> スタートへ</a>
+      <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="btn form"><img src="../img/questionnaire.svg" class="btnicon"> アンケート</a>
+    </div>
     <div>
       <h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4>
     </div>
@@ -83,6 +95,21 @@
       .then(response => response.json())
       .then(responseData => {
           console.log(responseData);
+          //
+          //s1-6を削除する
+          //長さ十分なら
+          //S1-6にchoosedの要素を入れる。
+          //""なら、「x」入れる
+          for(let i = 0; i < responseData.choosed.length; i++){
+            let name = "S" + String(i + 1)
+            const imgElement = document.getElementById(name);
+            if(responseData.choosed[i] != "" || responseData.choosed[i] != null){
+              imgElement.src = "http://35.187.199.64/image?name=" + responseData.choosed[i] + "&mode=2"
+            }else{
+              imgElement.src = "../img/bad_luck.png"
+            }
+          }
+          //
           for(let i = 0; i < responseData.result.names.length; i++){
               wallimage.push("http://35.187.199.64/image?name=" + responseData.result.names[i] + "&mode=2");
           }
@@ -178,35 +205,37 @@
 
             const arrow = document.createElement("p");
             arrow.className = "arrow sample1-4 s2";
+            // arrow.className = "sample1-4 s2 box";
             modal.appendChild(arrow);
 
             document.body.appendChild(modal);
 
             modal.addEventListener("click", function () {
               //modal.remove();
+              
                // 画像をクリックしたときのイベントハンドラ
-            image.addEventListener("click", function (e) {
-              e.stopPropagation();  // イベントの伝播を停止
+              image.addEventListener("click", function (e) {
+                e.stopPropagation();  // イベントの伝播を停止
 
-              const width = image.clientWidth; // 画像の幅
-              const x = e.offsetX; // クリックされたX座標
+                const width = image.clientWidth; // 画像の幅
+                const x = e.offsetX; // クリックされたX座標
 
-              // 画像の右半分をクリックした場合にのみ切り替える
-              if (x > width / 2) {
-                if (isResizedImageShown) {
-                  image.src = threeDUrl;  // 3D画像に切り替え
-                  isResizedImageShown = false;
+                // 画像の右半分をクリックした場合にのみ切り替える
+                if (x > width / 2) {
+                  if (isResizedImageShown) {
+                    image.src = threeDUrl;  // 3D画像に切り替え
+                    isResizedImageShown = false;
+                  } else {
+                    image.src = resizedUrl;  // リサイズされた画像に戻す
+                    isResizedImageShown = true;
+                  }
                 } else {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
+                  if (!isResizedImageShown) {
+                    image.src = resizedUrl;  // リサイズされた画像に戻す
+                    isResizedImageShown = true;
+                  }
                 }
-              } else {
-                if (!isResizedImageShown) {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
-                }
-              }
-            });
+              });
 
             });
 
@@ -246,52 +275,59 @@
     .arrow {
       position: relative;
       display: inline-block;
-      padding: 0 0 0 16px;
       color: #000;
-      vertical-align: middle;
-      text-decoration: none;
       font-size: 50px;
+      z-index: 1000; /* 追加 */
+      top: 50vh; /* 修正: y座標を50vhに指定 */
     }
-    
-    .arrow::before,
-    .arrow::after {
+
+    .arrow.sample1-4 {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      font-size: 50px;
+      z-index: 1000; /* 追加 */
+      transform: translate(-50%, -50%); /* 中央揃え */
+    }
+
+    .arrow.sample1-4::before {
       position: absolute;
-      top: 650px;
-      bottom: 0;
-      left: 0;
-      margin: auto;
       content: "";
-      vertical-align: middle;
-    }
-    
-    .sample1-4::before {
-      left: 60px;
-      width: 70px;
+      z-index: 999; /* 追加 */
+      left: 30%; /* 中央から 30% 左に配置 */
+      top: 40%; /* 中央に配置 */
+      transform: translateX(-50%); /* 左端を中央に移動 */
+      width: 80px;
       height: 30px;
-      background: rgb(255, 213, 0);
+      background: rgb(255, 213, 0, 1);
     }
-    
-    .sample1-4::after {
-      left: 60px;
-      width: 60px;
-      height: 60px;
-      border-top: 30px solid rgb(255, 213, 0);
-      border-right: 30px solid rgb(255, 213, 0);
-      -webkit-transform: rotate(45deg);
-      transform: rotate(45deg);
+
+    .arrow.sample1-4::after {
+      position: absolute;
+      content: "";
+      z-index: 999; /* 追加 */
+      left: calc(50% - 70px); /* 中央から 5px 左に配置 */
+      top: calc(50% - 30px); /* 中央から 30px 上に配置 */
+      transform: translateX(-50%); /* 左端を中央に移動 */
+      width: 80px;
+      height: 80px;
+      border-top: 30px solid rgb(255, 213, 0, 1);
+      border-right: 30px solid rgb(255, 213, 0, 1);
+      -webkit-transform: rotate(-140deg); /* 逆方向に回転 */
+      transform: rotate(-140deg); /* 逆方向に回転 */
     }
-    
+
     .s2 {
       animation: anim2 2s infinite;
     }
-    
+
     @keyframes anim2 {
       0% {
-        transform: translateX(800px);
+        transform: translateX(90vw);
       }
-    
+
       100% {
-        transform: translateX(950px);
+        transform: translateX(75vw);
       }
     }
   </style>

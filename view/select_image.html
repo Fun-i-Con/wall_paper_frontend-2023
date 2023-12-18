@@ -3,178 +3,210 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>test</title>
+  <title>壁紙診断</title> 
   <link rel="stylesheet" href="../style/question.css">
-  <!--//code.jquery.com/~~何か動かなかったので、https:を追加-->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script>
   <script>
-    jQuery.migrateMute = false; // jQuery Migrateの警告を表示する設定
-    // なんか必要っぽい？
+    jQuery.migrateMute = false;
   </script>
 </head>
 
 <body>
-  <span></span>
-  <!-- <div id="progressbar"></div> -->
-  <div class="selectedImages">
-    <img id="S1" src="">
-    <img id="S2" src="">
-    <img id="S3" src="">
-    <img id="S4" src="">
-    <img id="S5" src="">
-    <img id="S6" src="">
-  </div>
+  <main>
+    <span></span>
+    <div class="selectedImages">
+      <img id="S1" src="">
+      <img id="S2" src="">
+      <img id="S3" src="">
+      <img id="S4" src="">
+      <img id="S5" src="">
+      <img id="S6" src="">
+    </div>
 
-  <br>
-  <br>
-  <div id="display_image">
-    <img id="A1" src="" onclick="answer(this.id)">
-    <img id="A2" src="" onclick="answer(this.id)">
-    <img id="A3" src="" onclick="answer(this.id)">
-    <img id="A4" src="" onclick="answer(this.id)">
-  </div>
-  <br>
-  <div id = "display_button">
-    <input type="button" onclick="back()" value="１つ戻る">
-    <input type="button" onclick="answer('A0')" value="好みなし">
-  </div>
+    <br>
+    <br>
+    <div id="display_image">
+      <div id="A1_block">
+        <img id="A1" src="" onclick="answer(this.id)">
+        <img src="../img/lupe.svg" style="width: 10vw; height: 10vw; background-color: white;" class="A1_lupe lupe" onclick="addLupeClickListener('A1')">
+      </div>
+      <div id="A2_block">
+        <img id="A2" src="" onclick="answer(this.id)">
+        <img src="../img/lupe.svg" style="width: 10vw; height: 10vw; background-color: white;" class="A1_lupe lupe" onclick="addLupeClickListener('A2')">
+      </div>
+      <div id="A3_block">
+        <img id="A3" src="" onclick="answer(this.id)">
+        <img src="../img/lupe.svg" style="width: 10vw; height: 10vw; background-color: white;" class="A1_lupe lupe" onclick="addLupeClickListener('A3')">
+      </div>
+      <div id="A4_block">
+        <img id="A4" src="" onclick="answer(this.id)">
+        <img src="../img/lupe.svg" style="width: 10vw; height: 10vw; background-color: white;" class="A1_lupe lupe" onclick="addLupeClickListener('A4')">
+      </div>
+    </div>
+    <br>
+    <div id="display_button">
+      <input type="button" onclick="back()" value="１つ戻る">
+      <input type="button" onclick="answer('A0')" value="好みなし">
+    </div>
+    <div>
+      <h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4>
+    </div>
+  </main>
 
-  <!-- jsファイルの読み込み -->
   <script src="../store/score.js"></script>
-  <!-- <script src="../config/fixedItem.js"></script> -->
 
   <script>
-    /* --- 変数定義 --- */
-    // 回答数
     let count = 1;
-    // 質問数
     let question_num = 6;
-    let names = [];
+    let names = Array.from({ length: 6 }, () => Array(4).fill(null));
     let selectedImages = Array(question_num).fill("../img/question_mark.png");
 
-    /* --- プログレスバーの処理 --- */
     function updateProgressBar() {
       let progress_value = (count / question_num) * 100;
       $("#progressbar").progressbar({
         value: progress_value
       });
-      $("#progressbar").find( ".ui-progressbar-value" ).css({
-        'background':'#00BFFF'
+      $("#progressbar").find(".ui-progressbar-value").css({
+        'background': '#00BFFF'
       });
       $("#progressbar").css({
         'border-radius': '100vh'
       });
     };
 
-
-    /* --- 初回表示時の処理 --- */
-    // storeの初期化
     const score = new scoreStore();
 
-    //ページが読み込まれたとき,一問目を読み込む
-    window.addEventListener('load', function(){
-			console.log("load：リソースファイルを全て読み込みました。");
+    window.addEventListener('load', async function () {
+      console.log("load：リソースファイルを全て読み込みました.");
       const imageContainer = document.getElementById("image-container");
-      (async () => {
+
+      let result = await getQuestion();
+      if (result) {
+        console.log("APIを6回たたけた");
+        console.log("names");
+        console.log(names);
+        for (let i = 0; i < names[0].length && i < 4; i++) {
+          const imageElement = document.getElementById("A" + (i + 1));
+          console.log("A" + (i + 1) + "の取得");
+          console.log(imageElement);
+          console.log(names[0][i]);
+          imageElement.src = "http://35.187.199.64/image?name=" + names[0][i] + "&mode=2";
+          //  //虫眼鏡の処理追加
+          //  addLupeClickListener("A" + (i + 1), names[0][i]);
+        }
+      } else {
+          alert("問題の取得に失敗しました");
+      }
+  });
+
+    async function getQuestion() {
+      for (let n = 0; n < question_num; n++) {
         try {
-          const response = await fetch("http://35.187.199.64/question?num=" + count);
+          const response = await fetch("http://35.187.199.64/question?num=" + (n + 1));
           if (!response.ok) {
             throw new Error("ネットワーク応答が正常ではありませんでした");
           }
-
+          console.log("loop=" + n);
           const result = await response.json();
-          names = result.names;
-
-          for (let i = 0; i < result.names.length && i < 4; i++) {
-            const imageElement = document.getElementById("A" + (i + 1));
-            imageElement.src = "http://35.187.199.64/image?name=" + result.names[i] + "&mode=2";
+          for (let v = 0; v < result.names.length && v < 4; v++) {
+            names[n][v] = result.names[v];
           }
         } catch (error) {
           console.error("データの取得中にエラーが発生しました:", error);
+          return false;
         }
-      })();
-		});
+      }
+      return true;
+    }
+
+    function addLupeClickListener(elementId) {
+    const imageElement = document.getElementById(elementId);
+    const imageSrc = imageElement.src;
+
+    // Extract the substring between "name=" and "&mode=2"
+    const startIndex = imageSrc.indexOf("name=") + 5;
+    const endIndex = imageSrc.indexOf("&mode=2");
+    const extractedName = imageSrc.substring(startIndex, endIndex);
+
+    console.log("Extracted name =", extractedName);
+
+    // Now you can use 'extractedName' as needed
+    var x = "http://35.187.199.64/image?name=" + extractedName + "&mode=1"; // リサイズ
+    var y = "http://35.187.199.64/image?name=" + extractedName + "&mode=3"; // ３ｄ
+    displayModal(x, y);
+}
 
 
-    // 初回読み込み時に、scoreをリセット
     score.setScore({ choices: [] });
 
-    /* --- 関数 --- */
     function answer(id) {
       let storedScores = score.getScore();
       id = id[1];
-      // console.log(id);
-      if (id == "0"){ //好みなしが押された時の処理
-        selectedImages[count-1] = "../img/bad_luck.png"
+      if (id == "0") {
+        selectedImages[count - 1] = "../img/bad_luck.png"
         storedScores.choices.push("");
         score.setScore(storedScores);
-
-      }else{ //画像が選択されたときの処理
-        selectedImages[count-1] = "http://35.187.199.64/image?name="+names[id -1] + "&mode=2"; //選択された壁紙のIDを配列selectedImagesに格納する
-        // console.log(selectedImages);
-        storedScores.choices.push(names[id -1]);
+      } else {
+        selectedImages[count - 1] = "http://35.187.199.64/image?name=" + names[count - 1][id - 1] + "&mode=2";
+        storedScores.choices.push(names[count - 1][id - 1]);
         score.setScore(storedScores);
       }
       count++;
 
       console.log(score.getScore());
-      // console.log(names[id - 1]);
 
       if (count <= question_num) {
         setImage();
         getImage();
       } else {
-        //jsonデータファイルを作る
         window.location.href = "result.html"
-      }      
-      
-      
+      }
     }
 
     function setImage() {
-      (async () => {
-        try {
-          const response = await fetch("http://35.187.199.64/question?num=" + count);
-          if (!response.ok) {
-            throw new Error("ネットワーク応答が正常ではありませんでした");
+      for (let i = 0; i < names[count-1].length && i < 4; i++) {
+        const imageElement = document.getElementById("A" + (i + 1));
+        imageElement.src = "http://35.187.199.64/image?name=" + names[count-1][i] + "&mode=2";
+        //虫眼鏡の処理追加
+        console.log("A"+(i+1)+"_lupe")
+        const LopeElement = document.createElement("A"+(i+1)+"_lupe");
+          if(LopeElement){
+            LopeElement.addEventListener("click", function () {
+              var x="http://35.187.199.64/image?name="+names[count-1][i]+"&mode=1";//リサイズ
+              var y="http://35.187.199.64/image?name="+names[count-1][i]+"&mode=3";//３ｄ
+              // displayModal(x,y, names[0][i]);//names[0][i]はオリジナルネームを入れたい
+              displayModal(x,y);//names[0][i]はオリジナルネームを入れたい
+              console.log("modal追加");
+            });
+            //ここまで
+          }else{
+            console.log("LopeElementなし")
           }
-          const result = await response.json();
-          names = result.names;
-
-          for (let i = 0; i < result.names.length && i < 4; i++) {
-            const imageElement = document.getElementById("A" + (i + 1));
-            imageElement.src = "http://35.187.199.64/image?name=" + result.names[i] + "&mode=2";
-          }
-
-
-        } catch (error) {
-          console.error("データの取得中にエラーが発生しました:", error);
-        }
-      })();
+      }
     }
 
-    function getImage(){ //選択された壁紙のURLを取得する関数
-      for (let i = 0; i<question_num;i++){
-        let name = "S" + String(i+1)
+    function getImage() {
+      for (let i = 0; i < question_num; i++) {
+        let name = "S" + String(i + 1)
         const imgElement = document.getElementById(name);
         imgElement.src = selectedImages[i]
       }
     }
 
-    function delImage(){
-      selectedImages[count-2] = "../img/question_mark.png"
+    function delImage() {
+      selectedImages[count - 2] = "../img/question_mark.png"
       getImage();
     }
-    
+
     function back() {
       if (count > 1) {
         delImage();
-        count--;//ちょうどいい位置
+        count--;
         let storedScores = score.getScore();
-        let last = storedScores.choices.pop();//一番上をpopした
+        let last = storedScores.choices.pop();
         console.log(last);
         console.log("↑削除");
         score.setScore(storedScores);
@@ -187,8 +219,60 @@
       }
     }
 
+    // function displayModal(resizedUrl, threeDUrl, wallName) {
+      function displayModal(resizedUrl, threeDUrl) {
+        let isResizedImageShown = true;  // 最初はリサイズされた画像を表示
 
-    // ページロード時の初期設定
+        const modal = document.createElement("div");
+        modal.className = "modal";
+        modal.style.display = 'block';
+
+        const modalContent = document.createElement("div");
+        modalContent.className = "modal-content";
+
+        const image = document.createElement("img");
+        image.src = resizedUrl;  // 最初に表示する画像
+        image.style.width = '300px';  // 画像サイズの指定
+        modalContent.appendChild(image);
+
+        modal.appendChild(modalContent);
+
+        const arrow = document.createElement("p");
+        arrow.className = "arrow sample1-4 s2";
+        modal.appendChild(arrow);
+
+        document.body.appendChild(modal);
+
+        // 画像をクリックしたときのイベントハンドラ
+        image.addEventListener("click", function (e) {
+          e.stopPropagation();  // イベントの伝播を停止
+
+          const width = image.clientWidth; // 画像の幅
+          const x = e.offsetX; // クリックされたX座標
+
+          // 画像の右半分をクリックした場合にのみ切り替える
+          if (x > width / 2) {
+            if (isResizedImageShown) {
+              image.src = threeDUrl;  // 3D画像に切り替え
+              isResizedImageShown = false;
+            } else {
+              image.src = resizedUrl;  // リサイズされた画像に戻す
+              isResizedImageShown = true;
+            }
+          } else {
+            if (!isResizedImageShown) {
+              image.src = resizedUrl;  // リサイズされた画像に戻す
+              isResizedImageShown = true;
+            }
+          }
+        });
+
+        // モーダルをクリックしたときに閉じる
+        modal.addEventListener("click", function () {
+          modal.style.display = 'none';
+          modal.remove();
+        });
+      }
     $(function () {
       updateProgressBar();
       setImage();
@@ -196,4 +280,66 @@
     });
 
   </script>
+  <style>
+    .arrow {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      font-size: 50px;
+      z-index: 1000; /* 追加 */
+      top: 50vh; /* 修正: y座標を50vhに指定 */
+    }
+
+    .arrow.sample1-4 {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      font-size: 50px;
+      z-index: 1000; /* 追加 */
+      transform: translate(-50%, -50%); /* 中央揃え */
+    }
+
+    .arrow.sample1-4::before {
+      position: absolute;
+      content: "";
+      z-index: 999; /* 追加 */
+      left: 30%; /* 中央から 30% 左に配置 */
+      top: 40%; /* 中央に配置 */
+      transform: translateX(-50%); /* 左端を中央に移動 */
+      width: 100px;
+      height: 30px;
+      background: rgb(255, 213, 0, 1);
+    }
+
+    .arrow.sample1-4::after {
+      position: absolute;
+      content: "";
+      z-index: 999; /* 追加 */
+      left: calc(50% - 70px); /* 中央から 5px 左に配置 */
+      top: calc(50% - 40px); /* 中央から 30px 上に配置 */
+      transform: translateX(-50%); /* 左端を中央に移動 */
+      width: 80px;
+      height: 80px;
+      border-top: 30px solid rgb(255, 213, 0, 1);
+      border-right: 30px solid rgb(255, 213, 0, 1);
+      -webkit-transform: rotate(-140deg); /* 逆方向に回転 */
+      transform: rotate(-140deg); /* 逆方向に回転 */
+    }
+
+    .s2 {
+      animation: anim2 2s infinite;
+    }
+
+    @keyframes anim2 {
+      0% {
+        transform: translateX(90vw);
+      }
+
+      100% {
+        transform: translateX(75vw);
+      }
+    }
+  </style>
 </body>
+
+</html>
