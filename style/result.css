@@ -1,12 +1,15 @@
-html {
+/* html {
     background-color: #f7f5ec;
     touch-action: manipulation;
     height: 100vh;
     margin: 0;
     padding: 0;
-}
+} */
+html {
+    background-color: #EDEDED;
+  }
 
-body {
+/* body {
     position: relative;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -17,7 +20,18 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
-}
+} */
+body {
+    position: relative;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-size: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+  }
 
 @media screen and(max-width: 850px) {
     body {
