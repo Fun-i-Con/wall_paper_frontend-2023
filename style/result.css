@@ -18,11 +18,6 @@ body {
     background-attachment: fixed;
     height: 100vh;
 }
-p.cooperation_companies {
-    position: absolute;
-    bottom: 2vw;
-    left: 5vw;
-  }
 
 @media screen and(max-width: 850px) {
     body {
@@ -180,4 +175,21 @@ p.cooperation_companies {
   .action_fin {
     display: flex; /* 要素を横に並べるために Flexbox を使用 */
     justify-content: space-between; /* 要素を均等に配置 */
+  }
+  
+  .tecido {
+    margin-left: 10vw;
+    display: flex;
+    align-items: center;
+  }
+  .tecido_logo {
+    left: 15vw;
+    width: 15vw;
+    position: absolute;
+    bottom: 1vh;
+  }
+  p.cooperation_companies {
+    position: absolute;
+    bottom: 2vh;
+    left: 5vw;
   }

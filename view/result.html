@@ -14,12 +14,12 @@
 <body>
   <main>
     <div class="selectedImages">
-      <img id="S1" src="">
-      <img id="S2" src="">
-      <img id="S3" src="">
-      <img id="S4" src="">
-      <img id="S5" src="">
-      <img id="S6" src="">
+      <img id="S1" src="" onclick="choosedModal(0)">
+      <img id="S2" src="" onclick="choosedModal(1)">
+      <img id="S3" src="" onclick="choosedModal(2)">
+      <img id="S4" src="" onclick="choosedModal(3)">
+      <img id="S5" src="" onclick="choosedModal(4)">
+      <img id="S6" src="" onclick="choosedModal(5)">
     </div>
     <h1 id="title">おすすめの壁紙はこちら</h1>
     <h1 id="result"></h1>
@@ -31,8 +31,9 @@
       <a onclick="location.href='../index.html';" href="javascript:void(0);" class="btn"><img src="../img/home.svg" class="btnicon"> スタートへ</a>
       <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="btn form"><img src="../img/questionnaire.svg" class="btnicon"> アンケート</a>
     </div>
-    <div>
+    <div class="tecido">
       <h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4>
+      <img class="tecido_logo" src="../img/tecido_logo.png">
     </div>
   </main>
   
@@ -42,6 +43,7 @@
   <script>
     var slider; // グローバルスコープでslider変数を定義
     var wallimage = [];
+    var progress_bar_image = [];
 
     window.onload = function () {
       getResult();
@@ -104,9 +106,11 @@
             let name = "S" + String(i + 1)
             const imgElement = document.getElementById(name);
             if(responseData.choosed[i] != "" || responseData.choosed[i] != null){
+              progress_bar_image.push(responseData.choosed[i]);
               imgElement.src = "http://35.187.199.64/image?name=" + responseData.choosed[i] + "&mode=2"
             }else{
-              imgElement.src = "../img/bad_luck.png"
+              progress_bar_image.push("../img/bad_luck.png");
+              imgElement.src = "../img/bad_luck.png";
             }
           }
           //
@@ -172,6 +176,20 @@
       });
     }
 
+    function choosedModal(num){
+      console.log("choosedModal num = "+ num);
+      console.log("progress_bar_image");
+      console.log(progress_bar_image);
+      if(progress_bar_image[num] != "../img/bad_luck.png"){
+        var x="http://35.187.199.64/image?name="+progress_bar_image[num]+"&mode=1";//リサイズ
+        var y="http://35.187.199.64/image?name="+progress_bar_image[num]+"&mode=3";//３ｄ
+      }else{
+        var x = "../img/bad_luck.png";
+        var y = "../img/bad_luck.png";
+      }
+      displayModal(x,y, "");
+    }
+
     function displayModal(resizedUrl, threeDUrl, wallName) {
             let isResizedImageShown = true;  // 最初はリサイズされた画像を表示
 
@@ -188,18 +206,20 @@
             modalContent.appendChild(image);
 
             //
-            const wallNameText = document.createElement("p");
-            wallNameText.textContent = "壁紙の名前: " + wallName;
+            if(wallName != ""){
+              const wallNameText = document.createElement("p");
+              wallNameText.textContent = "壁紙の名前: " + wallName;
 
-            const Textbr = document.createElement("br");
-            wallNameText.appendChild(Textbr);
+              const Textbr = document.createElement("br");
+              wallNameText.appendChild(Textbr);
 
-            const link = document.createElement("a");
-            link.href = "https://www.tecido.co.jp/products/search/?q=" + wallName + "&r=item%3AITEM%3A129%2Ctype%3ATYPE%3A2";
-            link.textContent = "商品ページはこちら";
-            link.target = "_blank"; // 新しいタブまたはウィンドウで開く
-            wallNameText.appendChild(link);
-            modalContent.appendChild(wallNameText);
+              const link = document.createElement("a");
+              link.href = "https://www.tecido.co.jp/products/search/?q=" + wallName + "&r=item%3AITEM%3A129%2Ctype%3ATYPE%3A2";
+              link.textContent = "商品ページはこちら";
+              link.target = "_blank"; // 新しいタブまたはウィンドウで開く
+              wallNameText.appendChild(link);
+              modalContent.appendChild(wallNameText);
+            }
             //
             modal.appendChild(modalContent);
 
