@@ -83,7 +83,7 @@ body{
 	background:#f9f9f9;
 }
 
-h2,p {
+h2,p, b {
     text-align:center;
     /*padding:20px;*/
 }

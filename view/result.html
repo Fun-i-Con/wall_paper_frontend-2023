@@ -206,8 +206,21 @@
 
         const image = document.createElement("img");
         image.src = resizedUrl;  // 最初に表示する画像
-        image.style.width = '50vw';  // 画像サイズの指定
+        image.style.width = '70vw';  // 画像サイズの指定
         modalContent.appendChild(image);
+
+        const message = document.createElement("p");
+        const message_3D = document.createElement("b");
+        message_3D.textContent = "壁紙をクリックするとモデルルームを見れます";
+
+        const Textbr_3D = document.createElement("br");
+
+        // messageに子要素を追加
+        message.appendChild(message_3D);
+        message.appendChild(Textbr_3D);
+
+        // modalContentにmessageを追加
+        modalContent.appendChild(message);
 
         //
         if(wallName != ""){
@@ -271,18 +284,25 @@
           const x = e.offsetX; // クリックされたX座標
 
           // 画像の右半分をクリックした場合にのみ切り替える
-          if (x > width / 2) {
+          // if (x > width / 2) {
+          if (x < width) {
             if (isResizedImageShown) {
               image.src = threeDUrl;  // 3D画像に切り替え
               isResizedImageShown = false;
+              // メッセージを変更
+              message_3D.textContent = "モデルルームをクリックすると壁紙を見れます";
             } else {
               image.src = resizedUrl;  // リサイズされた画像に戻す
               isResizedImageShown = true;
+              // メッセージを変更
+              message_3D.textContent = "壁紙をクリックするとモデルルームを見れます";
             }
           } else {
             if (!isResizedImageShown) {
               image.src = resizedUrl;  // リサイズされた画像に戻す
               isResizedImageShown = true;
+              // メッセージを変更
+              message_3D.textContent = "壁紙をクリックするとモデルルームを見れます";
             }
           }
         });
@@ -347,10 +367,10 @@
 
     @keyframes anim2 {
       0% {
-        transform: translateX(95vw);
+        transform: translateX(100vw);
       }
       100% {
-        transform: translateX(80vw);
+        transform: translateX(90vw);
       }
     }
   </style>

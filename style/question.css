@@ -174,3 +174,8 @@ p.cooperation_companies {
   bottom: 2vh;
   left: 5vw;
 }
+
+h2,p, b {
+  text-align:center;
+  /*padding:20px;*/
+}
