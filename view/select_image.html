@@ -86,17 +86,9 @@
 
       let result = await getQuestion();
       if (result) {
-        console.log("APIを6回たたけた");
-        console.log("names");
-        console.log(names);
         for (let i = 0; i < names[0].length && i < 4; i++) {
           const imageElement = document.getElementById("A" + (i + 1));
-          console.log("A" + (i + 1) + "の取得");
-          console.log(imageElement);
-          console.log(names[0][i]);
           imageElement.src = "http://35.187.199.64/image?name=" + names[0][i] + "&mode=2";
-          //  //虫眼鏡の処理追加
-          //  addLupeClickListener("A" + (i + 1), names[0][i]);
         }
       } else {
           alert("通信に失敗しました。ページをもう一度読み込んでください。");
@@ -110,7 +102,6 @@
           if (!response.ok) {
             throw new Error("ネットワーク応答が正常ではありませんでした");
           }
-          console.log("loop=" + n);
           const result = await response.json();
           for (let v = 0; v < result.names.length && v < 4; v++) {
             names[n][v] = result.names[v];
@@ -131,9 +122,6 @@
     const startIndex = imageSrc.indexOf("name=") + 5;
     const endIndex = imageSrc.indexOf("&mode=2");
     const extractedName = imageSrc.substring(startIndex, endIndex);
-
-    console.log("Extracted name =", extractedName);
-
     // Now you can use 'extractedName' as needed
     var x = "http://35.187.199.64/image?name=" + extractedName + "&mode=1"; // リサイズ
     var y = "http://35.187.199.64/image?name=" + extractedName + "&mode=3"; // ３ｄ
@@ -152,9 +140,7 @@
         score.setScore(storedScores);
       } else {
         selectedImages[count - 1] = "http://35.187.199.64/image?name=" + names[count - 1][id - 1] + "&mode=2";
-        console.log("storedScores.choices")
         storedScores.choices.push(names[count - 1][id - 1]);
-        console.log(storedScores.choices);
         score.setScore(storedScores);
       }
       count++;
@@ -170,23 +156,17 @@
     }
 
     function setImage() {
-      console.log("setImage");
       for (let i = 0; i < names[count-1].length && i < 4; i++) {
         const imageElement = document.getElementById("A" + (i + 1));
         imageElement.src = "http://35.187.199.64/image?name=" + names[count-1][i] + "&mode=2";
         //虫眼鏡の処理追加
-        console.log("A"+(i+1)+"_lupe")
         const LopeElement = document.createElement("A"+(i+1)+"_lupe");
           if(LopeElement){
             LopeElement.addEventListener("click", function () {
               var x="http://35.187.199.64/image?name="+names[count-1][i]+"&mode=1";//リサイズ
               var y="http://35.187.199.64/image?name="+names[count-1][i]+"&mode=3";//３ｄ
-              displayModal(x,y,"");//names[0][i]はオリジナルネームを入れたい
-              console.log("modal追加");
+              displayModal(x,y,"");
             });
-            //ここまで
-          }else{
-            console.log("LopeElementなし")
           }
       }
     }
@@ -224,18 +204,11 @@
 
     function choosedModal(num){
       let storedScores = score.getScore();
-      console.log("choosedModal num = "+ num);
-      console.log("storedScores.choices");
-      console.log(storedScores.choices);
-      console.log("storedScores.choices.length"+storedScores.choices.length);
-      console.log("count = "+count);
       if(storedScores.choices.length > num){
         //選択さればプログレスバーの番号に画像or×がある
         if(storedScores.choices[num] != ""){
           //画像があれば画像を出す
           var num_image = storedScores.choices[num];
-          console.log("モーダル");
-          console.log(num_image);
           var x="http://35.187.199.64/image?name="+num_image+"&mode=1";//リサイズ
           var y="http://35.187.199.64/image?name="+num_image+"&mode=3";//３ｄ
           displayModal(x,y, "");
@@ -291,13 +264,11 @@
 
         const arrow = document.createElement("p");
         arrow.className = "arrow sample1-4 s2";
-        // arrow.className = "sample1-4 s2 box";
         modal.appendChild(arrow);
 
         document.body.appendChild(modal);
 
         modal.addEventListener("click", function () {
-          //modal.remove();
           
             // 画像をクリックしたときのイベントハンドラ
           image.addEventListener("click", function (e) {
@@ -333,7 +304,6 @@
           const x = e.offsetX; // クリックされたX座標
 
           // 画像の右半分をクリックした場合にのみ切り替える
-          // if (x > width / 2) {
           if (x < width) {
             if (isResizedImageShown) {
               image.src = threeDUrl;  // 3D画像に切り替え
