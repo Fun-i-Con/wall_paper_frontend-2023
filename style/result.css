@@ -185,6 +185,7 @@ body {
 
 .action_continue{
     margin-top: 1%;
+    text-align: center;
 }
   .action_fin {
     display: flex; /* 要素を横に並べるために Flexbox を使用 */
@@ -206,4 +207,17 @@ body {
     position: absolute;
     bottom: 2vh;
     left: 5vw;
+  }
+  input[type="button"] {
+    margin: 20px 100px;
+    padding: 10px 20px;
+    font-size: 32px;
+    border: none;
+    background-color: #46A2B6;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    &:active{
+      transform: scale(.90);
+    }
   }
