@@ -238,19 +238,9 @@
           console.log(num_image);
           var x="http://35.187.199.64/image?name="+num_image+"&mode=1";//リサイズ
           var y="http://35.187.199.64/image?name="+num_image+"&mode=3";//３ｄ
-        }else{
-          //画像が無ければ「×」をだす
-          console.log("×表示");
-          var x = "../img/bad_luck.png";
-          var y = "../img/bad_luck.png";
+          displayModal(x,y, "");
         }
-      }else{
-        //「?」を触ったとき
-        console.log("?表示");
-        var x = "../img/question_mark.png";
-        var y = "../img/question_mark.png";
       }
-      displayModal(x,y, "");
     }
 
     function displayModal(resizedUrl, threeDUrl, wallName) {
