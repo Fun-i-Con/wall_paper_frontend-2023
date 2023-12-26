@@ -255,7 +255,7 @@
 
       const image = document.createElement("img");
       image.src = resizedUrl;  // 最初に表示する画像
-      image.style.width = '300px';  // 画像サイズの指定
+      image.style.width = '50vw';  // 画像サイズの指定
       modalContent.appendChild(image);
       //
       if(wallName != ""){
@@ -396,16 +396,15 @@
     }
 
     .s2 {
-      animation: anim2 2s infinite;
+      animation: anim2 1s infinite;
     }
 
     @keyframes anim2 {
       0% {
-        transform: translateX(90vw);
+        transform: translateX(95vw);
       }
-
       100% {
-        transform: translateX(75vw);
+        transform: translateX(80vw);
       }
     }
   </style>
