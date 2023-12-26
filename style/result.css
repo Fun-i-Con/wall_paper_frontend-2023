@@ -1,12 +1,15 @@
-html {
+/* html {
     background-color: #f7f5ec;
     touch-action: manipulation;
     height: 100vh;
     margin: 0;
     padding: 0;
-}
+} */
+html {
+    background-color: #EDEDED;
+  }
 
-body {
+/* body {
     position: relative;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -17,11 +20,17 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
-}
-p.cooperation_companies {
-    position: absolute;
-    bottom: 2vw;
-    left: 5vw;
+} */
+body {
+    position: relative;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-size: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
   }
 
 @media screen and(max-width: 850px) {
@@ -74,15 +83,15 @@ p.cooperation_companies {
     margin: auto;
     padding: 1rem 1rem;
     font-weight: bold;
-    /* border: 2px solid #27acd9; */
     border: 2px solid #000;
-    /* background: #27acd9; */
     background: #fff;
-    /* color: #fff; */
     color: #000;
     border-radius: 100vh;
     transition: 0.5s;
     margin-top: 40px;
+    &:active{
+        transform: scale(.90);
+    }
 }
 
 
@@ -101,46 +110,29 @@ p.cooperation_companies {
         height: 100vh;
     }
     .btn {
-        margin-top: 5%;
+        margin-top: 3%;
+        /*margin-top: 5%;*/
         /* width: 20%; */
-        width: 30%;
+        width: 35%;
+        margin-left: auto;
     }
     .form {
-        /* text-align: center;
-        display: block;
-        width: 150px;
-        height: 150px;
-        margin: auto;
-        margin-left: 80%;
-        font-size: 3vw;
-        font-weight: bold;
-        color: #fff;
-        background-color: rgb(251, 151, 201); 
-        color: #000;
-        background-color: rgb(255 255 255);
-        border: 2px solid #000;
-        border-radius: 100%;
-        font-style: normal;
-        line-height: 150px;
-        text-decoration: none; */
         font-size: 30px;
         display: block;
         text-align: center;
         text-decoration: none;
-        width: 30%;
-        /* margin: auto; */
-        margin-left: 70%;
+        width: 35%;
+        /*margin-left: 60%;*/
         padding: 1rem 1rem;
         font-weight: bold;
-        /* border: 2px solid #27acd9; */
         border: 2px solid #000;
-        /* background: #27acd9; */
         background: #fff;
-        /* color: #fff; */
         color: #000;
         border-radius: 100vh;
         transition: 0.5s;
-        margin-top: 40px;
+        &:active{
+            transform: scale(.90);
+        }
     }
 }
 
@@ -175,3 +167,57 @@ p.cooperation_companies {
     width: 40px;
     margin-bottom: -7px; 
 }
+
+.selectedImages{
+    text-align: center;
+    /* display: inline-block; */
+    justify-items: center;
+    align-items: center;
+  }
+  
+  .selectedImages img {
+    width: 80px; 
+    height: 80px;
+    object-fit: cover;
+    margin: 20px;
+    /* border: 5px solid #000; */
+  } 
+
+.action_continue{
+    margin-top: 1%;
+    text-align: center;
+}
+  .action_fin {
+    display: flex; /* 要素を横に並べるために Flexbox を使用 */
+    justify-content: space-between; /* 要素を均等に配置 */
+  }
+  
+  .tecido {
+    margin-left: 10vw;
+    display: flex;
+    align-items: center;
+  }
+  .tecido_logo {
+    left: 15vw;
+    width: 15vw;
+    position: absolute;
+    bottom: 1vh;
+  }
+  p.cooperation_companies {
+    position: absolute;
+    bottom: 2vh;
+    left: 5vw;
+  }
+  input[type="button"] {
+    margin: 20px 100px;
+    padding: 10px 20px;
+    font-size: 32px;
+    border: none;
+    background-color: #46A2B6;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    &:active{
+      transform: scale(.90);
+    }
+  }

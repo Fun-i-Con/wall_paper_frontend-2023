@@ -8,7 +8,6 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  /* background-image: url('../img/background.png'); */
   background-size: auto;
   background-position: center center;
   background-repeat: no-repeat;
@@ -18,11 +17,6 @@ body {
 
 span {
   padding: 5%;
-}
-p.cooperation_companies {
-  position: absolute;
-  bottom: 2vw;
-  left: 5vw;
 }
 
 @media screen and(max-width: 768px) {
@@ -46,20 +40,36 @@ h1 {
 
 
 #display_image{
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
   justify-items: center;
   align-items: center;
   width: fit-content;
-  margin: 0 auto;
 }
 
 #display_image img {
-  width: 300px;
-  height: 300px;
+  width: 45vw;
+  height: 45vw;
   object-fit: cover;
   border: 5px solid #4B4B4B;  
+  &:active{
+    transform: scale(.90);
+  }
+}
+
+.lupe {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  width: 8vw;
+  height: 8vw;
+}
+
+#display_image div {
+  position: relative;
 }
 
 
@@ -69,7 +79,6 @@ h1 {
 }
 
 input[type="button"] {
-  /* display: block; */
   margin: 20px 100px;
   padding: 10px 20px;
   font-size: 32px;
@@ -78,6 +87,9 @@ input[type="button"] {
   color: white;
   cursor: pointer;
   border-radius: 5px;
+  &:active{
+    transform: scale(.90);
+  }
 }
 
 input[type="button"]:hover {
@@ -106,22 +118,64 @@ a {
   }
 }
 
-
 .selectedImages{
   text-align: center;
-  /* display: inline-block; */
   justify-items: center;
   align-items: center;
 }
 
 .selectedImages img {
-  width: 100px; 
-  height: 100px;
+  width: 80px; 
+  height: 80px;
   object-fit: cover;
   margin: 20px;
-  /* border: 5px solid #000; */
 } 
 
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  overflow-x: auto;
+}
 
+@media screen and (max-width: 600px) {
+  .modal-content {
+      width: 90%; /* 画面幅の90%に設定 */
+      padding: 10px; /* 余白を少なく */
+  }
+}
 
+.tecido {
+  margin-left: 10vw;
+  display: flex;
+  align-items: center;
+}
+.tecido_logo {
+  left: 15vw;
+  width: 15vw;
+  position: absolute;
+  bottom: 1vh;
+}
+p.cooperation_companies {
+  position: absolute;
+  bottom: 2vh;
+  left: 5vw;
+}
+
+h2,p, b {
+  text-align:center;
+  /*padding:20px;*/
+}

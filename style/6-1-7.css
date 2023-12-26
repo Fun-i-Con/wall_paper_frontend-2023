@@ -83,9 +83,9 @@ body{
 	background:#f9f9f9;
 }
 
-h2,p {
+h2,p, b {
     text-align:center;
-    padding:20px;
+    /*padding:20px;*/
 }
 
 ul{
@@ -102,3 +102,14 @@ a:hover,
 a:active{
 	text-decoration: none;
 }
+
+/*reset.css*/
+/* Remove the default button styling in all browsers */
+button{
+    background-color: transparent;
+    border-style: none;
+    color: inherit;
+}
+/* input,
+select, 
+textarea*/ 

@@ -2,25 +2,38 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>6-1-7 複数画像を中央に注目させて見せる</title>
+  <title>壁紙診断</title> 
   <meta name="description" content="書籍「動くWebデザインアイディア帳」のサンプルサイトです">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="../style/result.css">
-  <link rel="stylesheet" type="text/css" href="../style/reset.css">
+  <!-- <link rel="stylesheet" type="text/css" href="../style/reset.css"> -->
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
   <link rel="stylesheet" type="text/css" href="../style/6-1-7.css">
 </head>
 
 <body>
-  <h1 id="title">おすすめの壁紙はこちら</h1>
-  <h1 id="result"></h1>
-  <ul class="slider"></ul>
   <main>
-    <a onclick="location.href='../index.html';" href="javascript:void(0);" class="btn"><img src="../img/home.svg" class="btnicon"> スタートへ</a>
-    <a class="js-reinit btn"><img src="../img/reload.svg" class="btnicon"> もっと見る</a>
-    <a href="https://forms.gle/bLGDPeWfmGBoR7Lh7" class="form"><img src="../img/questionnaire.svg" class="btnicon"> アンケート</a>
-    <div>
+    <div class="selectedImages">
+      <img id="S1" src="" onclick="choosedModal(0)">
+      <img id="S2" src="" onclick="choosedModal(1)">
+      <img id="S3" src="" onclick="choosedModal(2)">
+      <img id="S4" src="" onclick="choosedModal(3)">
+      <img id="S5" src="" onclick="choosedModal(4)">
+      <img id="S6" src="" onclick="choosedModal(5)">
+    </div>
+    <h1 id="title">おすすめの壁紙はこちら</h1>
+    <h1 id="result"></h1>
+    <ul class="slider"></ul>
+    <div class="action_continue">
+      <input type="button" class="js-reinit" value="もっと見る">
+    </div>
+    <div class="action_fin">
+      <input type="button" onclick="location.href='../index.html';" value="スタートへ">
+      <input type="button" onclick="window.open('https://forms.gle/bLGDPeWfmGBoR7Lh7');" value="アンケート">
+    </div>
+    <div class="tecido">
       <h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4>
+      <img class="tecido_logo" src="../img/tecido_logo.png">
     </div>
   </main>
   
@@ -30,14 +43,13 @@
   <script>
     var slider; // グローバルスコープでslider変数を定義
     var wallimage = [];
+    var progress_bar_image = [];
 
     window.onload = function () {
       getResult();
     }
 
     async function removeImages() {
-      console.log("removeImage")
-      console.log("---")
       return new Promise((resolve) => {
         for (let i = 0; i < wallimage.length; i++) {
           console.log(i + "を削除");
@@ -53,25 +65,21 @@
     }
 
     async function reset() {
-      console.log("reset")
       wallimage = [];
 
       // 画像の削除
       await removeImages();
-      console.log("fin await")
-
       // 画像の更新
       getResult();
     }
 
     function getResult() {
-      console.log("getResult")
       const score = new scoreStore();
       const url = "http://35.187.199.64/calc";
 
       // js-reinitのクリックイベントリスナーを解除
       $('.js-reinit').off('click');
-      console.log("js-re off")
+      console.log(score.getScore())
 
       fetch(url, {
           method: "POST",
@@ -82,14 +90,22 @@
       })
       .then(response => response.json())
       .then(responseData => {
-          console.log(responseData);
+          for(let i = 0; i < responseData.choosed.length; i++){
+            let name = "S" + String(i + 1)
+            const imgElement = document.getElementById(name);
+            if(responseData.choosed[i] != "" || responseData.choosed[i] != null){
+              progress_bar_image.push(responseData.choosed[i]);
+              imgElement.src = "http://35.187.199.64/image?name=" + responseData.choosed[i] + "&mode=2"
+            }else{
+              progress_bar_image.push("../img/bad_luck.png");
+              imgElement.src = "../img/bad_luck.png";
+            }
+          }
+          //
           for(let i = 0; i < responseData.result.names.length; i++){
               wallimage.push("http://35.187.199.64/image?name=" + responseData.result.names[i] + "&mode=2");
           }
-          console.log(wallimage);
           slider = $(".slider");
-          console.log(slider);
-
 
           // 画像更新ボタンのクリックイベントリスナー
           $('.js-reinit').on('click', function() {
@@ -105,7 +121,6 @@
                 $(li).append(img);
 
                 $(li).on("click", () => {
-                  console.log(`画像 ${index + 1} がクリックされました。`);
                   var x="http://35.187.199.64/image?name="+responseData.result.names[index]+"&mode=1";//リサイズ
                   var y="http://35.187.199.64/image?name="+responseData.result.names[index]+"&mode=3";//３ｄ
                       
@@ -140,158 +155,197 @@
         const img = new Image();
         img.onload = () => resolve(img);
         img.onerror = reject;
-        console.log(src);
         img.src = src;
       });
     }
 
+    function choosedModal(num){
+      if(progress_bar_image[num] != "../img/bad_luck.png"){
+        var x="http://35.187.199.64/image?name="+progress_bar_image[num]+"&mode=1";//リサイズ
+        var y="http://35.187.199.64/image?name="+progress_bar_image[num]+"&mode=3";//３ｄ
+      }else{
+        var x = "../img/bad_luck.png";
+        var y = "../img/bad_luck.png";
+      }
+      displayModal(x,y, "");
+    }
+
     function displayModal(resizedUrl, threeDUrl, wallName) {
-            let isResizedImageShown = true;  // 最初はリサイズされた画像を表示
+        let isResizedImageShown = true;  // 最初はリサイズされた画像を表示
 
-            const modal = document.createElement("div");
-            modal.className = "modal";
-            modal.style.display = 'block';
+        const modal = document.createElement("div");
+        modal.className = "modal";
+        modal.style.display = 'block';
 
-            const modalContent = document.createElement("div");
-            modalContent.className = "modal-content";
+        const modalContent = document.createElement("div");
+        modalContent.className = "modal-content";
 
-            const image = document.createElement("img");
-            image.src = resizedUrl;  // 最初に表示する画像
-            image.style.width = '300px';  // 画像サイズの指定
-            modalContent.appendChild(image);
+        const image = document.createElement("img");
+        image.src = resizedUrl;  // 最初に表示する画像
+        image.style.width = '70vw';  // 画像サイズの指定
+        modalContent.appendChild(image);
 
-            //
-            const wallNameText = document.createElement("p");
-            wallNameText.textContent = "壁紙の名前: " + wallName;
+        const message = document.createElement("p");
+        const message_3D = document.createElement("b");
+        message_3D.textContent = "壁紙をクリックするとモデルルームを見れます";
 
-            const Textbr = document.createElement("br");
-            wallNameText.appendChild(Textbr);
+        const Textbr_3D = document.createElement("br");
 
-            const link = document.createElement("a");
-            link.href = "https://www.tecido.co.jp/products/search/?q=" + wallName + "&r=item%3AITEM%3A129%2Ctype%3ATYPE%3A2";
-            link.textContent = "商品ページはこちら";
-            link.target = "_blank"; // 新しいタブまたはウィンドウで開く
-            wallNameText.appendChild(link);
-            modalContent.appendChild(wallNameText);
-            //
-            modal.appendChild(modalContent);
+        // messageに子要素を追加
+        message.appendChild(message_3D);
+        message.appendChild(Textbr_3D);
 
-            const arrow = document.createElement("p");
-            arrow.className = "arrow sample1-4 s2";
-            modal.appendChild(arrow);
+        // modalContentにmessageを追加
+        modalContent.appendChild(message);
 
-            document.body.appendChild(modal);
+        //
+        if(wallName != ""){
+          const wallNameText = document.createElement("p");
+          wallNameText.textContent = "壁紙の名前: " + wallName;
 
-            modal.addEventListener("click", function () {
-              //modal.remove();
-               // 画像をクリックしたときのイベントハンドラ
-            image.addEventListener("click", function (e) {
-              e.stopPropagation();  // イベントの伝播を停止
+          const Textbr = document.createElement("br");
+          wallNameText.appendChild(Textbr);
 
-              const width = image.clientWidth; // 画像の幅
-              const x = e.offsetX; // クリックされたX座標
+          const link = document.createElement("a");
+          link.href = "https://www.tecido.co.jp/products/search/?q=" + wallName + "&r=item%3AITEM%3A129%2Ctype%3ATYPE%3A2";
+          link.textContent = "商品ページはこちら";
+          link.target = "_blank"; // 新しいタブまたはウィンドウで開く
+          wallNameText.appendChild(link);
+          modalContent.appendChild(wallNameText);
+        }
+        //
+        modal.appendChild(modalContent);
 
-              // 画像の右半分をクリックした場合にのみ切り替える
-              if (x > width / 2) {
-                if (isResizedImageShown) {
-                  image.src = threeDUrl;  // 3D画像に切り替え
-                  isResizedImageShown = false;
-                } else {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
-                }
-              } else {
-                if (!isResizedImageShown) {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
-                }
-              }
-            });
+        const arrow = document.createElement("p");
+        arrow.className = "arrow sample1-4 s2";
+        // arrow.className = "sample1-4 s2 box";
+        modal.appendChild(arrow);
 
-            });
+        document.body.appendChild(modal);
 
+        modal.addEventListener("click", function () {
+          //modal.remove();
+          
             // 画像をクリックしたときのイベントハンドラ
-            image.addEventListener("click", function (e) {
-              e.stopPropagation();  // イベントの伝播を停止
+          image.addEventListener("click", function (e) {
+            e.stopPropagation();  // イベントの伝播を停止
 
-              const width = image.clientWidth; // 画像の幅
-              const x = e.offsetX; // クリックされたX座標
+            const width = image.clientWidth; // 画像の幅
+            const x = e.offsetX; // クリックされたX座標
 
-              // 画像の右半分をクリックした場合にのみ切り替える
-              if (x > width / 2) {
-                if (isResizedImageShown) {
-                  image.src = threeDUrl;  // 3D画像に切り替え
-                  isResizedImageShown = false;
-                } else {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
-                }
+            // 画像の右半分をクリックした場合にのみ切り替える
+            if (x > width / 2) {
+              if (isResizedImageShown) {
+                image.src = threeDUrl;  // 3D画像に切り替え
+                isResizedImageShown = false;
               } else {
-                if (!isResizedImageShown) {
-                  image.src = resizedUrl;  // リサイズされた画像に戻す
-                  isResizedImageShown = true;
-                }
+                image.src = resizedUrl;  // リサイズされた画像に戻す
+                isResizedImageShown = true;
               }
-            });
+            } else {
+              if (!isResizedImageShown) {
+                image.src = resizedUrl;  // リサイズされた画像に戻す
+                isResizedImageShown = true;
+              }
+            }
+          });
 
-            // モーダルをクリックしたときに閉じる
-            modal.addEventListener("click", function () {
-              modal.style.display = 'none';
-              modal.remove();
-            });
+        });
+
+        // 画像をクリックしたときのイベントハンドラ
+        image.addEventListener("click", function (e) {
+          e.stopPropagation();  // イベントの伝播を停止
+
+          const width = image.clientWidth; // 画像の幅
+          const x = e.offsetX; // クリックされたX座標
+
+          // 画像の右半分をクリックした場合にのみ切り替える
+          if (x < width) {
+            if (isResizedImageShown) {
+              image.src = threeDUrl;  // 3D画像に切り替え
+              isResizedImageShown = false;
+              // メッセージを変更
+              message_3D.textContent = "モデルルームをクリックすると壁紙を見れます";
+            } else {
+              image.src = resizedUrl;  // リサイズされた画像に戻す
+              isResizedImageShown = true;
+              // メッセージを変更
+              message_3D.textContent = "壁紙をクリックするとモデルルームを見れます";
+            }
+          } else {
+            if (!isResizedImageShown) {
+              image.src = resizedUrl;  // リサイズされた画像に戻す
+              isResizedImageShown = true;
+              // メッセージを変更
+              message_3D.textContent = "壁紙をクリックするとモデルルームを見れます";
+            }
           }
+        });
+
+        // モーダルをクリックしたときに閉じる
+        modal.addEventListener("click", function () {
+          modal.style.display = 'none';
+          modal.remove();
+        });
+      }
   </script>
 
   <style>
     .arrow {
       position: relative;
       display: inline-block;
-      padding: 0 0 0 16px;
       color: #000;
-      vertical-align: middle;
-      text-decoration: none;
       font-size: 50px;
+      z-index: 1000; /* 追加 */
+      top: 50vh; /* 修正: y座標を50vhに指定 */
     }
-    
-    .arrow::before,
-    .arrow::after {
+
+    .arrow.sample1-4 {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      font-size: 50px;
+      z-index: 1000; /* 追加 */
+      transform: translate(-50%, -50%); /* 中央揃え */
+    }
+
+    .arrow.sample1-4::before {
       position: absolute;
-      top: 650px;
-      bottom: 0;
-      left: 0;
-      margin: auto;
       content: "";
-      vertical-align: middle;
-    }
-    
-    .sample1-4::before {
-      left: 60px;
-      width: 70px;
+      z-index: 999; /* 追加 */
+      left: 30%; /* 中央から 30% 左に配置 */
+      top: 40%; /* 中央に配置 */
+      transform: translateX(-50%); /* 左端を中央に移動 */
+      width: 100px;
       height: 30px;
-      background: rgb(255, 213, 0);
+      background: rgb(255, 213, 0, 1);
     }
-    
-    .sample1-4::after {
-      left: 60px;
-      width: 60px;
-      height: 60px;
-      border-top: 30px solid rgb(255, 213, 0);
-      border-right: 30px solid rgb(255, 213, 0);
-      -webkit-transform: rotate(45deg);
-      transform: rotate(45deg);
+
+    .arrow.sample1-4::after {
+      position: absolute;
+      content: "";
+      z-index: 999; /* 追加 */
+      left: calc(50% - 70px); /* 中央から 5px 左に配置 */
+      top: calc(50% - 40px); /* 中央から 30px 上に配置 */
+      transform: translateX(-50%); /* 左端を中央に移動 */
+      width: 80px;
+      height: 80px;
+      border-top: 30px solid rgb(255, 213, 0, 1);
+      border-right: 30px solid rgb(255, 213, 0, 1);
+      -webkit-transform: rotate(-140deg); /* 逆方向に回転 */
+      transform: rotate(-140deg); /* 逆方向に回転 */
     }
-    
+
     .s2 {
       animation: anim2 2s infinite;
     }
-    
+
     @keyframes anim2 {
       0% {
-        transform: translateX(800px);
+        transform: translateX(100vw);
       }
-    
       100% {
-        transform: translateX(950px);
+        transform: translateX(90vw);
       }
     }
   </style>
