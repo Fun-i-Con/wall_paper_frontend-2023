@@ -99,7 +99,7 @@
           //  addLupeClickListener("A" + (i + 1), names[0][i]);
         }
       } else {
-          alert("問題の取得に失敗しました");
+          alert("通信に失敗しました。ページをもう一度読み込んでください。");
       }
   });
 
@@ -227,14 +227,26 @@
       console.log("choosedModal num = "+ num);
       console.log("storedScores.choices");
       console.log(storedScores.choices);
-      if(storedScores.choices[num]){
-        var num_image = storedScores.choices[num];
-        console.log("モーダル");
-        console.log(num_image);
-        var x="http://35.187.199.64/image?name="+num_image+"&mode=1";//リサイズ
-        var y="http://35.187.199.64/image?name="+num_image+"&mode=3";//３ｄ
+      console.log("storedScores.choices.length"+storedScores.choices.length);
+      console.log("count = "+count);
+      if(storedScores.choices.length > num){
+        //選択さればプログレスバーの番号に画像or×がある
+        if(storedScores.choices[num] != ""){
+          //画像があれば画像を出す
+          var num_image = storedScores.choices[num];
+          console.log("モーダル");
+          console.log(num_image);
+          var x="http://35.187.199.64/image?name="+num_image+"&mode=1";//リサイズ
+          var y="http://35.187.199.64/image?name="+num_image+"&mode=3";//３ｄ
+        }else{
+          //画像が無ければ「×」をだす
+          console.log("×表示");
+          var x = "../img/bad_luck.png";
+          var y = "../img/bad_luck.png";
+        }
       }else{
-        console.log("画像はない");
+        //「?」を触ったとき
+        console.log("?表示");
         var x = "../img/question_mark.png";
         var y = "../img/question_mark.png";
       }
@@ -255,7 +267,6 @@
       image.src = resizedUrl;  // 最初に表示する画像
       image.style.width = '300px';  // 画像サイズの指定
       modalContent.appendChild(image);
-
       //
       if(wallName != ""){
         const wallNameText = document.createElement("p");
