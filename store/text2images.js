@@ -26,6 +26,7 @@ function updateImages() {
     var container = document.getElementById('image-container');
     container.innerHTML = ''; // コンテナをクリア
 
+    //APIを叩く
     fetch(url, {
         method: "POST",
         headers: {
