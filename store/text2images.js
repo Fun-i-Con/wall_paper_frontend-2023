@@ -2,7 +2,7 @@ var currentTags = { words : [] } //APIの要件に合わせて変更
 
 // タグが追加されたときのイベントリスナー
 tagify.on('add', event => {
-    currentTags.words.push(event.detail.data.value);
+    currentTags.words.push(event.detail.data.value);//ここは修正？
     console.log("currentTags");
     console.log(currentTags);
     updateImages();
@@ -11,14 +11,14 @@ tagify.on('add', event => {
 // タグが削除されたときのイベントリスナー
 tagify.on('remove', event => {
     var index = currentTags.words.indexOf(event.detail.data.value);
+    console.log(index);
     if (index !== -1) {
         // currentTags.splice(index, 1);
         currentTags.words.splice(index, 1);
         console.log("currentTags");
         console.log(currentTags);
     }
-    //仕様として検索できる単語は1つの可能性があるので、タグを削除したときに画像の更新を行う必要がない
-    //updateImages();
+    updateImages();
 });
 
 // 画像を更新する関数
@@ -26,6 +26,7 @@ function updateImages() {
     var container = document.getElementById('image-container');
     container.innerHTML = ''; // コンテナをクリア
 
+    const url = "http://35.187.199.64/search/results";
     //APIを叩く
     fetch(url, {
         method: "POST",
@@ -45,3 +46,8 @@ function updateImages() {
     })
 }
 
+// ページ読み込み時にタグを入れる
+document.addEventListener('DOMContentLoaded', function() {
+    tagify.addTags(["緑"]);
+    updateImages();
+});

@@ -1,22 +1,48 @@
+html {
+    background-color: #EDEDED;
+}
+
+#image-area {
+    width: 90vw; /* 幅を90vwに設定 */
+    height: 60vh; /* 高さを60vhに設定 */
+    margin: 0 auto; /* 左右を中央揃え */
+    overflow-y: auto; /* 縦方向のスクロールを許可 */
+    display: flex; /* Flexboxを使用して子要素を中央揃えに */
+    justify-content: center; /* 横方向の中央揃え */
+}
+
+/* #image-container {
+    画像コンテナのスタイル（必要に応じて調整）
+} */
+
+.some_class_name {
+    display: block;
+    margin: 0 auto;
+    width: 70vw;
+    background-color: white; /* 背景色を白に設定 */
+    padding: 10px; /* 任意の余白を追加 */
+    border: 2px black solid;
+}
+
 /* タグ部分 */
-.tags-look .tagify__dropdown__item{
+.tags-look .tagify__dropdown__item {
     display: inline-block;
     vertical-align: middle;
     border-radius: 3px;
     padding: .3em .5em;
     border: 1px solid #CCC;
-    background: #F3F3F3;
+    background: #D0D0D0; /* #EDEDEDより少し濃い灰色に変更 */
     margin: .2em;
     font-size: .85em;
     color: black;
     transition: 0s;
-    }
+}
 
-.tags-look .tagify__dropdown__item--active{
+.tags-look .tagify__dropdown__item--active {
     color: black;
 }
 
-.tags-look .tagify__dropdown__item:hover{
+.tags-look .tagify__dropdown__item:hover {
     background: lightyellow;
     border-color: gold;
 }
@@ -33,7 +59,50 @@
 
 /* 画像用 */
 #image-container img {
-    width: 100px; /* 画像の幅 */
-    height: 100px; /* 画像の高さ */
-    margin: 10px; /* 画像間の余白 */
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
+
+#title {
+    color: #000;
+    font-size: 40px;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    margin-top: 0;
+    padding-top: 30px;
+}
+
+/*提供*/
+body {
+    position: relative;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-size: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.tecido {
+    margin-left: 10vw;
+    display: flex;
+    align-items: center;
+}
+.tecido_logo {
+    left: 15vw;
+    width: 15vw;
+    position: absolute;
+    bottom: 1vh;
+}
+p.cooperation_companies {
+    position: absolute;
+    bottom: 2vh;
+    left: 5vw;
 }
