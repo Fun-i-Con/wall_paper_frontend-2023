@@ -17,11 +17,12 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.2
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
+      
+      - name: Add the server's host key to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H your_server_ip >> ~/.ssh/known_hosts
+      
       - name: Deploy to GCP
         run: |
-          ssh fun_i_con@${{ secrets.SSH_HOST }} 'cd /var/www/html && sudo chmod -R 777 .'
-
-          while IFS= read -r file; do
-            rsync -avz -e "ssh" --exclude=".git" $file fun_i_con@${{ secrets.SSH_HOST }}:/var/www/html/
-          done < deploy-list.txt
+          ssh fun_i_con@${{ secrets.SSH_HOST }} 'cd /var/www/html && sudo git pull origin main'
