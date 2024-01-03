@@ -4,8 +4,8 @@ html {
 
 #image-area {
     width: 90vw; /* 幅を90vwに設定 */
-    height: 60vh; /* 高さを60vhに設定 */
-    margin: 0 auto; /* 左右を中央揃え */
+    height: 70vh; /* 高さを60vhに設定 */
+    margin: 10px auto; /* 左右を中央揃え */
     overflow-y: auto; /* 縦方向のスクロールを許可 */
     display: flex; /* Flexboxを使用して子要素を中央揃えに */
     justify-content: center; /* 横方向の中央揃え */
@@ -59,9 +59,9 @@ html {
 
 /* 画像用 */
 #image-container img {
-    width: 100px;
-    height: 100px;
-    margin: 10px;
+    width: 25vw;
+    height: 25vw;
+    margin: 2vw;
 }
 
 #title {
@@ -106,3 +106,19 @@ p.cooperation_companies {
     bottom: 2vh;
     left: 5vw;
 }
+
+/*ボタン*/
+
+input[type="button"] {
+    margin: 20px 30vw;
+    padding: 10px 20px;
+    font-size: 32px;
+    border: none;
+    background-color: #46A2B6;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    &:active{
+      transform: scale(.90);
+    }
+  }

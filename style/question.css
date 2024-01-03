@@ -79,7 +79,21 @@ h1 {
 }
 
 input[type="button"] {
-  margin: 20px 100px;
+  margin: 0 100px;
+  padding: 10px 20px;
+  font-size: 32px;
+  border: none;
+  background-color: #46A2B6;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  &:active{
+    transform: scale(.90);
+  }
+}
+
+.btn-start{
+  margin: 20px 28vw;
   padding: 10px 20px;
   font-size: 32px;
   border: none;
