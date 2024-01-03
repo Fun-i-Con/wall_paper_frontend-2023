@@ -11,9 +11,6 @@ html {
     justify-content: center; /* 横方向の中央揃え */
 }
 
-/* #image-container {
-    画像コンテナのスタイル（必要に応じて調整）
-} */
 
 .some_class_name {
     display: block;
@@ -25,6 +22,10 @@ html {
 }
 
 /* タグ部分 */
+.tagify__tag {
+    z-index: 0;
+}
+
 .tags-look .tagify__dropdown__item {
     display: inline-block;
     vertical-align: middle;

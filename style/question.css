@@ -79,21 +79,7 @@ h1 {
 }
 
 input[type="button"] {
-  margin: 0 100px;
-  padding: 10px 20px;
-  font-size: 32px;
-  border: none;
-  background-color: #46A2B6;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
-  &:active{
-    transform: scale(.90);
-  }
-}
-
-.btn-start{
-  margin: 20px 28vw;
+  margin: 20px 100px;
   padding: 10px 20px;
   font-size: 32px;
   border: none;
@@ -145,7 +131,7 @@ a {
   margin: 20px;
 } 
 
-.modal {
+/* .modal {
   display: none;
   position: fixed;
   top: 0;
@@ -167,10 +153,10 @@ a {
 
 @media screen and (max-width: 600px) {
   .modal-content {
-      width: 90%; /* 画面幅の90%に設定 */
-      padding: 10px; /* 余白を少なく */
+      width: 90%; 
+      padding: 10px; 
   }
-}
+} */
 
 .tecido {
   margin-left: 10vw;

@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../style/modal-arrow.css">
+    <link rel="stylesheet" href="../style/modal-arrow.css">
     <link rel="stylesheet" href="../style/words_search.css">
     <title>言葉から壁紙検索</title>
 </head>
@@ -17,7 +17,6 @@
             <input name='input-custom-dropdown' class='some_class_name' placeholder='キーワードを入れてください' value=''>
             <script src="../store/search_list.js"></script>
             <script src="../store/text2images.js"></script>
-            <script src="../store/modal.js"></script>
             <div id="image-area">
                 <div id="image-container"></div>
             </div>
@@ -27,5 +26,6 @@
                 <input type="button" onclick="location.href='../index.html';" value="スタートへ">
             </div>
         </main>
+        <script src="../store/modal.js"></script>
     </body>
 </html>
