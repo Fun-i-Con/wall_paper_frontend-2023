@@ -62,8 +62,9 @@ ul{
   list-style: none;
 }
 
-
-
+a{
+  text-decoration:none;
+}
 
 #display_button{
   text-align: center;
@@ -92,12 +93,12 @@ h4{
   }
   .item1{
 
-  margin-right: 190;
+    margin-right: 190px;
     margin-bottom:25px ;
     font-size:24px;
   }
   .item2{
-   margin-right: 110px;
+      margin-right: 110px;
 
       margin-bottom:25px ;
       font-size:24px;
