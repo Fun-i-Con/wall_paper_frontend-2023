@@ -12,33 +12,25 @@ var input = document.querySelector('input[name="input-custom-dropdown"]'),
         }
     });
 
-var test = {
-    "words":[
-        "緑",
-        "赤ちゃん",
-        "木製"
-    ]
-}
 //検索できる単語を読み込む関数
 async function getWordAndUpdateWhitelist() {
-    search_words_length = test.words.length;
-    tagify.settings.whitelist = test.words;
-    // try {
-    // const response = await fetch("http://35.187.199.64/search/words");
-    // if (!response.ok) {
-    //     throw new Error("ネットワーク応答が正常ではありませんでした");
-    // }
-    // const result = await response.json();
-    // console.log("/search/words result");
-    // console.log(result);
-    // //Tagifyのwhitelistを更新
-    // search_words_length = result.words.length;
-    // tagify.settings.whitelist = result.words;
-    // } catch (error) {
-    //     console.error("データの取得中にエラーが発生しました:", error);
-    //     return false;
-    // }
-    // return true;
+
+    try {
+        const response = await fetch("http://35.187.199.64/search/words");
+        if (!response.ok) {
+            throw new Error("ネットワーク応答が正常ではありませんでした");
+        }
+        const result = await response.json();
+        console.log("/search/words result");
+        console.log(result);
+        //Tagifyのwhitelistを更新
+        search_words_length = result.words.length;
+        tagify.settings.whitelist = result.words;
+    } catch (error) {
+        console.error("データの取得中にエラーが発生しました:", error);
+        return false;
+    }
+    return true;
 }
 
 // ページ読み込み時に検索できる単語を読み込む関数を動かす
