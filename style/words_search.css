@@ -1,0 +1,125 @@
+html {
+    background-color: #EDEDED;
+}
+
+#image-area {
+    width: 90vw; /* 幅を90vwに設定 */
+    height: 70vh; /* 高さを60vhに設定 */
+    margin: 10px auto; /* 左右を中央揃え */
+    overflow-y: auto; /* 縦方向のスクロールを許可 */
+    display: flex; /* Flexboxを使用して子要素を中央揃えに */
+    justify-content: center; /* 横方向の中央揃え */
+}
+
+
+.some_class_name {
+    display: block;
+    margin: 0 auto;
+    width: 70vw;
+    background-color: white; /* 背景色を白に設定 */
+    padding: 10px; /* 任意の余白を追加 */
+    border: 2px black solid;
+}
+
+/* タグ部分 */
+.tagify__tag {
+    z-index: 0;
+}
+
+.tags-look .tagify__dropdown__item {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 3px;
+    padding: .3em .5em;
+    border: 1px solid #CCC;
+    background: #D0D0D0; /* #EDEDEDより少し濃い灰色に変更 */
+    margin: .2em;
+    font-size: .85em;
+    color: black;
+    transition: 0s;
+}
+
+.tags-look .tagify__dropdown__item--active {
+    color: black;
+}
+
+.tags-look .tagify__dropdown__item:hover {
+    background: lightyellow;
+    border-color: gold;
+}
+
+.tags-look .tagify__dropdown__item--hidden {
+    max-width: 0;
+    max-height: initial;
+    padding: .3em 0;
+    margin: .2em 0;
+    white-space: nowrap;
+    text-indent: -20px;
+    border: 0;
+}
+
+/* 画像用 */
+#image-container img {
+    width: 25vw;
+    height: 25vw;
+    margin: 2vw;
+}
+
+#title {
+    color: #000;
+    font-size: 40px;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    margin-top: 0;
+    padding-top: 30px;
+}
+
+/*提供*/
+body {
+    position: relative;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-size: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.tecido {
+    margin-left: 10vw;
+    display: flex;
+    align-items: center;
+}
+.tecido_logo {
+    left: 15vw;
+    width: 15vw;
+    position: absolute;
+    bottom: 1vh;
+}
+p.cooperation_companies {
+    position: absolute;
+    bottom: 2vh;
+    left: 5vw;
+}
+
+/*ボタン*/
+
+input[type="button"] {
+    margin: 20px 30vw;
+    padding: 10px 20px;
+    font-size: 32px;
+    border: none;
+    background-color: #46A2B6;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    &:active{
+      transform: scale(.90);
+    }
+  }

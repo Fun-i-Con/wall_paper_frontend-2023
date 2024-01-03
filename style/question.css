@@ -131,7 +131,7 @@ a {
   margin: 20px;
 } 
 
-.modal {
+/* .modal {
   display: none;
   position: fixed;
   top: 0;
@@ -153,10 +153,10 @@ a {
 
 @media screen and (max-width: 600px) {
   .modal-content {
-      width: 90%; /* 画面幅の90%に設定 */
-      padding: 10px; /* 余白を少なく */
+      width: 90%; 
+      padding: 10px; 
   }
-}
+} */
 
 .tecido {
   margin-left: 10vw;

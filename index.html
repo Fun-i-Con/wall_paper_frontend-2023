@@ -1,29 +1,70 @@
-<!-- <h1>Hello</h1> -->
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8"> 
-        <link rel="stylesheet" href="style/index.css">
-        <title>壁紙診断</title> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+  <head>
+    <meta charset="utf-8">
+    <title>壁紙診断</title> 
 
-    <body>
-        <div class="icon">
-            <ul>
-                <img src="img/icon_FiC.png">
-                <p><font size="9">&times;</font></p>
-                <img src="img/icon_crossty.png">
-            </ul>
-        </div>
-        <h2>壁紙おすすめアプリ</h2>
-        <h3>
-            <main>
-                <!-- テキスト選択ならquestion.html 画像選択ならselect_image.html -->
-                <a onclick="location.href='view/select_image.html'",href="" class="btn">START</a>
-            </main>
-        </h3> 
-        <div><h4><p class="cooperation_companies">画像提供 : 株式会社テシード</p></h4></div>
-        <script src="../store/score.js"></script>     
-        
-    </body>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--==============レイアウトを制御する独自のCSSを読み込み===============-->
+    <link rel="stylesheet" type="text/css" href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="style/index.css">
+  </head>
+  <header>
+    <div style="margin: 20px;"></div>
+    <ul class="slider">
+      <li><img src="img/1.jpg" alt=""></li>
+      <li><img src="img/2.jpg" alt=""></li>
+      <li><img src="img/3.jpg" alt=""></li>      
+      <li><img src="img/4.jpg" alt=""></li>   
+      <li><img src="img/5.jpg" alt=""></li>   
+      <li><img src="img/6.jpg" alt=""></li>   
+      <li><img src="img/7.jpg" alt=""></li>   
+      <li><img src="img/8.jpg" alt=""></li>
+      <li><img src="img/9.jpg" alt=""></li>
+      <li><img src="img/10.jpg" alt=""></li>
+      <li><img src="img/11.jpg" alt=""></li>
+      <li><img src="img/12.jpg" alt=""></li>
+      <li><img src="img/13.jpg" alt=""></li>
+      <li><img src="img/14.jpg" alt=""></li>
+      <li><img src="img/15.jpg" alt=""></li>    
+    </ul>
+  </header>
+
+  <body>
+    <h1>
+        <img src="img/word.png" alt="">
+    </h1>
+    <h2>
+      <p>KABERECO</p>
+    </h2>
+    <h3>
+      <a href="./view/select_image.html" class="btn btn--orange btn--cubic btn--shadow">画像から探す</a>
+    </h3>
+    <h4>
+      <a href="./view/words_search.html" class="btn btn--orange btn--cubic btn--shadow">言葉から探す</a>
+    </h4>
+
+    <div class="namae">
+      <div class="item1">
+        <p1>create by</p1>
+      </div>
+      <div class="item2">
+        <p1>support by</p1>
+      </div>
+    </div>
+
+    <div class="gazou1">
+      <img src="img/fun-i-con_logo.png" alt="" class="item3">
+      <img src="img/KABEYA ロゴ.jpg" alt="" class="item4">
+      <img src="img/tecido_logo.png" alt="" class="item5">
+      <img src="img/icon_crossty.png" alt="" class="item6">
+    </div>
+
+    <script src="../store/score.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="./store/index.js"></script>
+  </body>
+
+</html>
