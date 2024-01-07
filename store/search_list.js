@@ -24,8 +24,8 @@ async function getWordAndUpdateWhitelist() {
         console.log("/search/words result");
         console.log(result);
         //Tagifyのwhitelistを更新
-        search_words_length = result.words.length;
-        tagify.settings.whitelist = result.words;
+        search_words_length = result.length;
+        tagify.settings.whitelist = result;
     } catch (error) {
         console.error("データの取得中にエラーが発生しました:", error);
         return false;
