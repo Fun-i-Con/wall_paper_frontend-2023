@@ -26,7 +26,7 @@
       if (result) {
         for (let i = 0; i < names[0].length && i < 4; i++) {
           const imageElement = document.getElementById("A" + (i + 1));
-          imageElement.src = "http://192.168.11.3:8000/image?name=" + names[0][i] + "&mode=2";
+          imageElement.src = "http://35.187.199.64/image?name=" + names[0][i] + "&mode=2";
         }
       } else {
           alert("通信に失敗しました。ページをもう一度読み込んでください。");
@@ -36,7 +36,7 @@
     async function getQuestion() {
       for (let n = 0; n < question_num; n++) {
         try {
-          const response = await fetch("http://192.168.11.3:8000/question?num=" + (n + 1));
+          const response = await fetch("http://35.187.199.64/question?num=" + (n + 1));
           if (!response.ok) {
             throw new Error("ネットワーク応答が正常ではありませんでした");
           }
@@ -61,8 +61,8 @@
       const endIndex = imageSrc.indexOf("&mode=2");
       const extractedName = imageSrc.substring(startIndex, endIndex);
       // Now you can use 'extractedName' as needed
-      var x = "http://192.168.11.3:8000/image?name=" + extractedName + "&mode=1"; // リサイズ
-      var y = "http://192.168.11.3:8000/image?name=" + extractedName + "&mode=3"; // ３ｄ
+      var x = "http://35.187.199.64/image?name=" + extractedName + "&mode=1"; // リサイズ
+      var y = "http://35.187.199.64/image?name=" + extractedName + "&mode=3"; // ３ｄ
       displayModal(x, y, "");
   }
 
@@ -77,7 +77,7 @@
         storedScores.choices.push("");
         score.setScore(storedScores);
       } else {
-        selectedImages[count - 1] = "http://192.168.11.3:8000/image?name=" + names[count - 1][id - 1] + "&mode=2";
+        selectedImages[count - 1] = "http://35.187.199.64/image?name=" + names[count - 1][id - 1] + "&mode=2";
         storedScores.choices.push(names[count - 1][id - 1]);
         score.setScore(storedScores);
       }
@@ -96,13 +96,13 @@
     function setImage() {
       for (let i = 0; i < names[count-1].length && i < 4; i++) {
         const imageElement = document.getElementById("A" + (i + 1));
-        imageElement.src = "http://192.168.11.3:8000/image?name=" + names[count-1][i] + "&mode=2";
+        imageElement.src = "http://35.187.199.64/image?name=" + names[count-1][i] + "&mode=2";
         //虫眼鏡の処理追加
         const LopeElement = document.createElement("A"+(i+1)+"_lupe");
           if(LopeElement){
             LopeElement.addEventListener("click", function () {
-              var x="http://192.168.11.3:8000/image?name="+names[count-1][i]+"&mode=1";//リサイズ
-              var y="http://192.168.11.3:8000/image?name="+names[count-1][i]+"&mode=3";//３ｄ
+              var x="http://35.187.199.64/image?name="+names[count-1][i]+"&mode=1";//リサイズ
+              var y="http://35.187.199.64/image?name="+names[count-1][i]+"&mode=3";//３ｄ
               displayModal(x,y,"");
             });
           }
@@ -147,8 +147,8 @@
         if(storedScores.choices[num] != ""){
           //画像があれば画像を出す
           var num_image = storedScores.choices[num];
-          var x="http://192.168.11.3:8000/image?name="+num_image+"&mode=1";//リサイズ
-          var y="http://192.168.11.3:8000/image?name="+num_image+"&mode=3";//３ｄ
+          var x="http://35.187.199.64/image?name="+num_image+"&mode=1";//リサイズ
+          var y="http://35.187.199.64/image?name="+num_image+"&mode=3";//３ｄ
           displayModal(x,y, "");
         }
       }
