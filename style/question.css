@@ -15,15 +15,14 @@ body {
   height: 100vh;
 }
 
+main {
+    height: 100vh;
+}
+
 span {
   padding: 5%;
 }
 
-@media screen and(max-width: 768px) {
-  body {
-      background-attachment: scroll;
-  }
-}
 
 h1 {
   text-align: center;
@@ -53,7 +52,7 @@ h1 {
   width: 45vw;
   height: 45vw;
   object-fit: cover;
-  border: 5px solid #4B4B4B;  
+  border: 5px solid #4B4B4B;
   &:active{
     transform: scale(.90);
   }
@@ -125,57 +124,43 @@ a {
 }
 
 .selectedImages img {
-  width: 80px; 
+  width: 80px;
   height: 80px;
   object-fit: cover;
   margin: 20px;
-} 
-
-/* .modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
 }
-
-.modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px;
-  overflow-x: auto;
-}
-
-@media screen and (max-width: 600px) {
-  .modal-content {
-      width: 90%; 
-      padding: 10px; 
-  }
-} */
 
 .tecido {
-  margin-left: 10vw;
   display: flex;
+  width: 30vw;
+  height: auto;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+.cooperation_companies {
+    display: flex;
+    text-align: center;
 }
 .tecido_logo {
-  left: 15vw;
-  width: 15vw;
-  position: absolute;
-  bottom: 1vh;
+  display: flex;
+  width: 20vw;
+  height: auto;
+  justify-content: center;
 }
-p.cooperation_companies {
-  position: absolute;
-  bottom: 2vh;
-  left: 5vw;
-}
+
 
 h2,p, b {
   text-align:center;
-  /*padding:20px;*/
+}
+
+@media screen and (max-width: 1080px) {
+    body {
+        background-attachment: scroll;
+    }
+
+    #display_image img {
+        width: 40vw;
+        height: 40vw;
+    }
 }

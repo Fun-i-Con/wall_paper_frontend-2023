@@ -4,7 +4,7 @@ html {
 
 #image-area {
     width: 90vw; /* 幅を90vwに設定 */
-    height: 70vh; /* 高さを60vhに設定 */
+    height: 60vh; /* 高さを60vhに設定 */
     margin: 10px auto; /* 左右を中央揃え */
     overflow-y: auto; /* 縦方向のスクロールを許可 */
     display: flex; /* Flexboxを使用して子要素を中央揃えに */
@@ -91,27 +91,30 @@ body {
     height: 100vh;
 }
 
+  
 .tecido {
-    margin-left: 10vw;
     display: flex;
+    width: 30vw;
+    height: auto;
+    flex-direction: column;
     align-items: center;
-}
-.tecido_logo {
-    left: 15vw;
-    width: 15vw;
-    position: absolute;
-    bottom: 1vh;
-}
-p.cooperation_companies {
-    position: absolute;
-    bottom: 2vh;
-    left: 5vw;
-}
+    justify-content: center;
+  }
+  .cooperation_companies {
+      display: flex;
+      text-align: center;
+  }
+  .tecido_logo {
+    display: flex;
+    width: 20vw;
+    height: auto;
+    justify-content: center;
+  }
 
 /*ボタン*/
-
 input[type="button"] {
-    margin: 20px 30vw;
+    display: block;
+    margin: 0 auto;
     padding: 10px 20px;
     font-size: 32px;
     border: none;
