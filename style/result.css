@@ -205,3 +205,7 @@ body {
   z-index: 1;
   margin: 1vw;
 }
+
+.modal-content a{
+  color: #0000ee;
+}

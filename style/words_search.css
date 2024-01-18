@@ -126,3 +126,7 @@ input[type="button"] {
       transform: scale(.90);
     }
   }
+
+  .modal-content{
+    text-align: center;
+  }
