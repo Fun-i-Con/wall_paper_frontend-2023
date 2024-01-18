@@ -50,7 +50,7 @@ function getResult() {
       for(let i = 0; i < responseData.choosed.length; i++){
         let name = "S" + String(i + 1)
         const imgElement = document.getElementById(name);
-        if(responseData.choosed[i] != "" || responseData.choosed[i] != null){
+        if(responseData.choosed[i] != "" && responseData.choosed[i] != null){
           progress_bar_image.push(responseData.choosed[i]);
           imgElement.src = "http://34.84.217.185/image?name=" + responseData.choosed[i] + "&mode=2"
         }else{
@@ -124,5 +124,9 @@ function choosedModal(num){
     var x = "../img/bad_luck.png";
     var y = "../img/bad_luck.png";
   }
-  displayModal(x,y, "");
+
+  //結果画面でのxでモーダルが動かないように
+  if(progress_bar_image[num] != "../img/bad_luck.png"){
+    displayModal(x,y, "");
+  }
 }
