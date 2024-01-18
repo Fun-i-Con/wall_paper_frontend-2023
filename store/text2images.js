@@ -26,7 +26,7 @@ function updateImages() {
     var container = document.getElementById('image-container');
     container.innerHTML = ''; // コンテナをクリア
 
-    const url = "http://35.187.199.64/search/result";
+    const url = "http://34.84.217.185/search/result";
     //APIを叩く
     fetch(url, {
         method: "POST",
@@ -39,14 +39,14 @@ function updateImages() {
     .then(responseData => {
         for(let i = 0; i < responseData.names.length; i++){
             var img = document.createElement('img');
-            img.src = "http://35.187.199.64/image?name=" + responseData.names[i] + "&mode=2";
+            img.src = "http://34.84.217.185/image?name=" + responseData.names[i] + "&mode=2";
             img.alt = 'Image for ' + responseData.names[i];
             container.appendChild(img);
 
             // 画像にクリックイベントを追加
             img.addEventListener('click', function () {
-                var x="http://35.187.199.64/image?name=" + responseData.names[i] + "&mode=1";;//リサイズ
-                var y="http://35.187.199.64/image?name=" + responseData.names[i] + "&mode=3";;//３ｄ
+                var x="http://34.84.217.185/image?name=" + responseData.names[i] + "&mode=1";;//リサイズ
+                var y="http://34.84.217.185/image?name=" + responseData.names[i] + "&mode=3";;//３ｄ
                 displayModal(x,y, responseData.original[i]);
             });
         }

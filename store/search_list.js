@@ -16,7 +16,7 @@ var input = document.querySelector('input[name="input-custom-dropdown"]'),
 async function getWordAndUpdateWhitelist() {
 
     try {
-        const response = await fetch("http://35.187.199.64/search/words");
+        const response = await fetch("http://34.84.217.185/search/words");
         if (!response.ok) {
             throw new Error("ネットワーク応答が正常ではありませんでした");
         }
