@@ -32,7 +32,7 @@ async function reset() {
 
 function getResult() {
   const score = new scoreStore();
-  const url = "http://35.187.199.64/calc";
+  const url = "http://34.84.217.185/calc";
 
   // js-reinitのクリックイベントリスナーを解除
   $('.js-reinit').off('click');
@@ -50,9 +50,9 @@ function getResult() {
       for(let i = 0; i < responseData.choosed.length; i++){
         let name = "S" + String(i + 1)
         const imgElement = document.getElementById(name);
-        if(responseData.choosed[i] != "" || responseData.choosed[i] != null){
+        if(responseData.choosed[i] != "" && responseData.choosed[i] != null){
           progress_bar_image.push(responseData.choosed[i]);
-          imgElement.src = "http://35.187.199.64/image?name=" + responseData.choosed[i] + "&mode=2"
+          imgElement.src = "http://34.84.217.185/image?name=" + responseData.choosed[i] + "&mode=2"
         }else{
           progress_bar_image.push("../img/bad_luck.png");
           imgElement.src = "../img/bad_luck.png";
@@ -60,7 +60,7 @@ function getResult() {
       }
       //
       for(let i = 0; i < responseData.result.names.length; i++){
-          wallimage.push("http://35.187.199.64/image?name=" + responseData.result.names[i] + "&mode=2");
+          wallimage.push("http://34.84.217.185/image?name=" + responseData.result.names[i] + "&mode=2");
       }
       slider = $(".slider");
 
@@ -78,8 +78,8 @@ function getResult() {
             $(li).append(img);
 
             $(li).on("click", () => {
-              var x="http://35.187.199.64/image?name="+responseData.result.names[index]+"&mode=1";//リサイズ
-              var y="http://35.187.199.64/image?name="+responseData.result.names[index]+"&mode=3";//３ｄ
+              var x="http://34.84.217.185/image?name="+responseData.result.names[index]+"&mode=1";//リサイズ
+              var y="http://34.84.217.185/image?name="+responseData.result.names[index]+"&mode=3";//３ｄ
                   
               displayModal(x,y, responseData.result.originals[index]);
             });
@@ -118,11 +118,15 @@ function loadImage(src) {
 
 function choosedModal(num){
   if(progress_bar_image[num] != "../img/bad_luck.png"){
-    var x="http://35.187.199.64/image?name="+progress_bar_image[num]+"&mode=1";//リサイズ
-    var y="http://35.187.199.64/image?name="+progress_bar_image[num]+"&mode=3";//３ｄ
+    var x="http://34.84.217.185/image?name="+progress_bar_image[num]+"&mode=1";//リサイズ
+    var y="http://34.84.217.185/image?name="+progress_bar_image[num]+"&mode=3";//３ｄ
   }else{
     var x = "../img/bad_luck.png";
     var y = "../img/bad_luck.png";
   }
-  displayModal(x,y, "");
+
+  //結果画面でのxでモーダルが動かないように
+  if(progress_bar_image[num] != "../img/bad_luck.png"){
+    displayModal(x,y, "");
+  }
 }
