@@ -95,6 +95,13 @@ input[type="button"] {
     transform: scale(.90);
   }
 }
+@media screen and (max-width:520px) {
+  input[type="button"] {
+    margin: 10px 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+  }
+}
 
 .not_like_button_color{
   background-color: #46A2B6;
@@ -102,12 +109,6 @@ input[type="button"] {
 
 .back_button_color{
   background-color: #d53f3f;
-}
-
-@media screen and (max-width: 520px) {
-  input[type="button"] {
-    margin: 20px 5px;
-  }
 }
 
 
