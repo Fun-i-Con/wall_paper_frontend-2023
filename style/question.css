@@ -87,13 +87,20 @@ input[type="button"] {
   padding: 10px 20px;
   font-size: 32px;
   border: none;
-  background-color: #46A2B6;
   color: white;
   cursor: pointer;
   border-radius: 5px;
   &:active{
     transform: scale(.90);
   }
+}
+
+.not_like_button_color{
+  background-color: #46A2B6;
+}
+
+.back_button_color{
+  background-color: #d53f3f;
 }
 
 @media screen and (max-width: 520px) {
