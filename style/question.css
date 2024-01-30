@@ -47,6 +47,11 @@ h1 {
   align-items: center;
   width: fit-content;
 }
+@media screen and (max-width:520px) {
+  #display_image{
+    gap: 20px;
+  }
+}
 
 #display_image img {
   width: 45vw;
@@ -91,9 +96,17 @@ input[type="button"] {
   }
 }
 
+@media screen and (max-width: 520px) {
+  input[type="button"] {
+    margin: 20px 5px;
+  }
+}
+
+
 input[type="button"]:hover {
   background-color: #46A2B6;
 }
+
 
 a {
   display: block;
@@ -103,7 +116,6 @@ a {
   text-decoration: none;
   margin-bottom: 20px;
 }
-
 
 
 @media(hover: hover) {
@@ -117,22 +129,32 @@ a {
   }
 }
 
-.selectedImages{
+.selectedImages {
   text-align: center;
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
 }
 
 .selectedImages img {
-  width: 80px;
-  height: 80px;
+  width: 10vw;
+  height: 10vw;
   object-fit: cover;
   margin: 20px;
 }
 
+@media screen and (max-width: 520px) {
+  .selectedImages img {
+      width: 15vw;
+      height: 15vw;
+      margin: 5px 30px;
+  }
+}
+
 .tecido {
   display: flex;
-  width: 30vw;
+  /*width: 30vw;*/
   height: auto;
   flex-direction: column;
   align-items: center;
