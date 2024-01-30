@@ -44,9 +44,9 @@ function displayModal(resizedUrl, threeDUrl, wallName) {
     //
     modal.appendChild(modalContent);
 
-    const arrow = document.createElement("p");
-    arrow.className = "arrow sample1-4 s2";
-    modal.appendChild(arrow);
+    // const arrow = document.createElement("p");
+    // arrow.className = "arrow sample1-4 s2";
+    // modal.appendChild(arrow);
 
     document.body.appendChild(modal);
 
