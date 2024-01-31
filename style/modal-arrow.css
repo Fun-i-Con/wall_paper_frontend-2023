@@ -17,3 +17,12 @@
     padding: 20px;
     overflow-x: auto;
 }
+
+.message_test{
+    font-size: 20px;
+}
+@media screen and (max-width:520px){
+    .message_test{
+        font-size: 15px;
+    }
+}

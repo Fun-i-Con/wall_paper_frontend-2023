@@ -15,7 +15,8 @@ function displayModal(resizedUrl, threeDUrl, wallName) {
 
     const message = document.createElement("p");
     const message_3D = document.createElement("b");
-    message_3D.textContent = "壁紙をクリックするとモデルルームを見れます";
+    message_3D.className = "message_test";
+    message_3D.textContent = "壁紙をクリックするとモデルルームを見ることができます";
 
     const Textbr_3D = document.createElement("br");
 
@@ -41,12 +42,7 @@ function displayModal(resizedUrl, threeDUrl, wallName) {
       wallNameText.appendChild(link);
       modalContent.appendChild(wallNameText);
     }
-    //
     modal.appendChild(modalContent);
-
-    // const arrow = document.createElement("p");
-    // arrow.className = "arrow sample1-4 s2";
-    // modal.appendChild(arrow);
 
     document.body.appendChild(modal);
 
@@ -90,19 +86,19 @@ function displayModal(resizedUrl, threeDUrl, wallName) {
           image.src = threeDUrl;  // 3D画像に切り替え
           isResizedImageShown = false;
           // メッセージを変更
-          message_3D.textContent = "モデルルームをクリックすると壁紙を見れます";
+          message_3D.textContent = "モデルルームをクリックすると壁紙を見ることができます";
         } else {
           image.src = resizedUrl;  // リサイズされた画像に戻す
           isResizedImageShown = true;
           // メッセージを変更
-          message_3D.textContent = "壁紙をクリックするとモデルルームを見れます";
+          message_3D.textContent = "壁紙をクリックするとモデルルームを見ることができます";
         }
       } else {
         if (!isResizedImageShown) {
           image.src = resizedUrl;  // リサイズされた画像に戻す
           isResizedImageShown = true;
           // メッセージを変更
-          message_3D.textContent = "壁紙をクリックするとモデルルームを見れます";
+          message_3D.textContent = "壁紙をクリックするとモデルルームを見ることができます";
         }
       }
     });
