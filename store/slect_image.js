@@ -1,7 +1,10 @@
     let count = 1;
     let question_num = 6;
-    let names = Array.from({ length: 6 }, () => Array(4).fill(null));
+    let question_list = Array.from({ length: 6 }, () => Array(4).fill(null));
+    let question_flag = Array(question_num).fill(false);
     let selectedImages = Array(question_num).fill("../img/question_mark.png");
+    const score = new scoreStore();
+    score.setScore({ choices: [] });
 
     function updateProgressBar() {
       let progress_value = (count / question_num) * 100;
@@ -16,39 +19,77 @@
       });
     };
 
-    const score = new scoreStore();
-
     window.addEventListener('load', async function () {
       console.log("load：リソースファイルを全て読み込みました.");
       const imageContainer = document.getElementById("image-container");
 
-      let result = await getQuestion();
-      if (result) {
-        for (let i = 0; i < names[0].length && i < 4; i++) {
+      let result1 = await getQuestion_one();
+      if (result1) {
+        for (let i = 0; i < question_list[0].length && i < 4; i++) {
           const imageElement = document.getElementById("A" + (i + 1));
-          imageElement.src = "http://34.84.217.185/image?name=" + names[0][i] + "&mode=2";
+          imageElement.src = "http://34.84.217.185/image?name=" + question_list[0][i] + "&mode=2";
         }
+        question_flag[0] = true;
+        // console.log("question_flag");
+        // console.log(question_list);
+        // console.log(question_flag);
+        console.log("質問1の読み込み完了");
       } else {
-          alert("通信に失敗しました。ページをもう一度読み込んでください。");
+          alert("質問1の通信に失敗しました。ページをもう一度読み込んでください。");
       }
+
+      // if(getQuestion_other() == true){
+      //   console.log("待ってから")
+      // }else{
+      //   console.log("待たずに")
+      // }
+      // if(await getQuestion_other() == true){
+      //   console.log("待ってから")
+      // }else{
+      //   console.log("待たずに")
+      // }
+      getQuestion_other();
   });
 
-    async function getQuestion() {
-      for (let n = 0; n < question_num; n++) {
+    async function getQuestion_one() {
         try {
-          const response = await fetch("http://34.84.217.185/question?num=" + (n + 1));
+          const response = await fetch("http://34.84.217.185/question?num=1");
+          if (!response.ok) {
+            throw new Error("ネットワーク応答が正常ではありませんでした（質問1の読み込み）");
+          }
+          const result = await response.json();
+          for (let v = 0; v < result.names.length && v < 4; v++) {
+            question_list[0][v] = result.names[v];
+          }
+        } catch (error) {
+          console.error("質問1のデータの取得中にエラーが発生しました:", error);
+          return false;
+        }
+      return true;
+    }
+
+    async function getQuestion_other(){
+      for (let n = 1; n < question_num; n++) {
+        try {
+          const response = await fetch("http://34.84.217.185/question?num=" + (n+1));
           if (!response.ok) {
             throw new Error("ネットワーク応答が正常ではありませんでした");
           }
           const result = await response.json();
           for (let v = 0; v < result.names.length && v < 4; v++) {
-            names[n][v] = result.names[v];
+            question_list[n][v] = result.names[v];
           }
+          question_flag[n] = true;
+          console.log("質問"+(n+1)+"の読み込み完了");
+          // console.log("question_flag");
+          // console.log(question_list);
+          // console.log(question_flag);
         } catch (error) {
-          console.error("データの取得中にエラーが発生しました:", error);
+          console.error("質問"+(n+1)+"データの取得中にエラーが発生しました:", error);
           return false;
         }
       }
+      console.log("全ての問題の読み込み完了")
       return true;
     }
 
@@ -66,9 +107,6 @@
       displayModal(x, y, "");
   }
 
-
-    score.setScore({ choices: [] });
-
     function answer(id) {
       let storedScores = score.getScore();
       id = id[1];
@@ -77,8 +115,24 @@
         storedScores.choices.push("");
         score.setScore(storedScores);
       } else {
-        selectedImages[count - 1] = "http://34.84.217.185/image?name=" + names[count - 1][id - 1] + "&mode=2";
-        storedScores.choices.push(names[count - 1][id - 1]);
+        //質問が読み込まれているの確認する
+        console.log("質問"+(count-1)+"が読み込まれているか確認...");
+        // while(question_flag[count-1] == false){
+        //   // 0.1秒待つ
+        //   console.log("0.1秒待つ");
+        //   wait(100);
+        //   //ここで通信をここを見る？
+        // }
+        while(question_flag[count-1] == false){
+          //待ち？
+          if(question_flag[count-1] == true){
+            console.log("question_flag["+(count-1)+"] == true");
+            break;
+          }
+        }
+        console.log("質問"+(count-1)+"は読み込まれています！");
+        selectedImages[count - 1] = "http://34.84.217.185/image?name=" + question_list[count - 1][id - 1] + "&mode=2";
+        storedScores.choices.push(question_list[count - 1][id - 1]);
         score.setScore(storedScores);
       }
       count++;
@@ -93,16 +147,21 @@
       }
     }
 
+    // // 指定時間待つ関数
+    // function wait(ms) {
+    //   return new Promise(resolve => setTimeout(resolve, ms));
+    // }
+
     function setImage() {
-      for (let i = 0; i < names[count-1].length && i < 4; i++) {
+      for (let i = 0; i < question_list[count-1].length && i < 4; i++) {
         const imageElement = document.getElementById("A" + (i + 1));
-        imageElement.src = "http://34.84.217.185/image?name=" + names[count-1][i] + "&mode=2";
+        imageElement.src = "http://34.84.217.185/image?name=" + question_list[count-1][i] + "&mode=2";
         //虫眼鏡の処理追加
         const LopeElement = document.createElement("A"+(i+1)+"_lupe");
           if(LopeElement){
             LopeElement.addEventListener("click", function () {
-              var x="http://34.84.217.185/image?name="+names[count-1][i]+"&mode=1";//リサイズ
-              var y="http://34.84.217.185/image?name="+names[count-1][i]+"&mode=3";//３ｄ
+              var x="http://34.84.217.185/image?name="+question_list[count-1][i]+"&mode=1";//リサイズ
+              var y="http://34.84.217.185/image?name="+question_list[count-1][i]+"&mode=3";//３ｄ
               displayModal(x,y,"");
             });
           }
