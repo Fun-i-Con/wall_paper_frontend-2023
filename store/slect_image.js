@@ -30,24 +30,10 @@
           imageElement.src = "http://34.84.217.185/image?name=" + question_list[0][i] + "&mode=2";
         }
         question_flag[0] = true;
-        // console.log("question_flag");
-        // console.log(question_list);
-        // console.log(question_flag);
-        console.log("質問1の読み込み完了");
+        console.log("☆質問1の読み込み完了");
       } else {
           alert("質問1の通信に失敗しました。ページをもう一度読み込んでください。");
       }
-
-      // if(getQuestion_other() == true){
-      //   console.log("待ってから")
-      // }else{
-      //   console.log("待たずに")
-      // }
-      // if(await getQuestion_other() == true){
-      //   console.log("待ってから")
-      // }else{
-      //   console.log("待たずに")
-      // }
       getQuestion_other();
   });
 
@@ -80,16 +66,15 @@
             question_list[n][v] = result.names[v];
           }
           question_flag[n] = true;
-          console.log("質問"+(n+1)+"の読み込み完了");
-          // console.log("question_flag");
-          // console.log(question_list);
-          // console.log(question_flag);
+          console.log("☆質問"+(n+1)+"の読み込み完了");
         } catch (error) {
           console.error("質問"+(n+1)+"データの取得中にエラーが発生しました:", error);
           return false;
         }
       }
-      console.log("全ての問題の読み込み完了")
+      console.log("全ての問題の読み込み完了");
+      console.log(question_list);
+      console.log(question_flag);
       return true;
     }
 
@@ -107,50 +92,47 @@
       displayModal(x, y, "");
   }
 
-    function answer(id) {
+  async function answer(id) {
+    await waitForLoad(id);
+  }
+
+  function waitForLoad(id) {
       let storedScores = score.getScore();
       id = id[1];
-      if (id == "0") {
-        selectedImages[count - 1] = "../img/bad_luck.png"
-        storedScores.choices.push("");
-        score.setScore(storedScores);
-      } else {
-        //質問が読み込まれているの確認する
-        console.log("質問"+(count-1)+"が読み込まれているか確認...");
-        // while(question_flag[count-1] == false){
-        //   // 0.1秒待つ
-        //   console.log("0.1秒待つ");
-        //   wait(100);
-        //   //ここで通信をここを見る？
-        // }
-        while(question_flag[count-1] == false){
-          //待ち？
-          if(question_flag[count-1] == true){
-            console.log("question_flag["+(count-1)+"] == true");
-            break;
+
+      return new Promise(resolve => {
+        const checkquestion = () => {
+          if (id == "0") {
+            selectedImages[count - 1] = "../img/bad_luck.png"
+            storedScores.choices.push("");
+            score.setScore(storedScores);
+          } else {
+              console.log("質問"+(count)+"が読み込まれているか確認...");
+              if(question_flag[count-1] == true){
+                console.log("質問"+count+"は読み込まれています！");
+                selectedImages[count - 1] = "http://34.84.217.185/image?name=" + question_list[count - 1][id - 1] + "&mode=2";
+                storedScores.choices.push(question_list[count - 1][id - 1]);
+                count++;
+                score.setScore(storedScores);
+                console.log(score.getScore());
+                if(count <= question_num){
+                  setImage();
+                  getImage();
+                }else{
+                  //最後の問題を答えたとき
+                  window.location.href = "result.html"
+                }
+                resolve();
+              }else{
+                //問題が読み込まれていないとき
+                console.log("--問題"+count+"が読み込まれていません 100ミリ秒後再実行--");
+                setTimeout(checkquestion, 100); // 100ミリ秒ごとに再試行
+              }
+            }
           }
-        }
-        console.log("質問"+(count-1)+"は読み込まれています！");
-        selectedImages[count - 1] = "http://34.84.217.185/image?name=" + question_list[count - 1][id - 1] + "&mode=2";
-        storedScores.choices.push(question_list[count - 1][id - 1]);
-        score.setScore(storedScores);
-      }
-      count++;
-
-      console.log(score.getScore());
-
-      if (count <= question_num) {
-        setImage();
-        getImage();
-      } else {
-        window.location.href = "result.html"
-      }
-    }
-
-    // // 指定時間待つ関数
-    // function wait(ms) {
-    //   return new Promise(resolve => setTimeout(resolve, ms));
-    // }
+          checkquestion();
+      });
+  }
 
     function setImage() {
       for (let i = 0; i < question_list[count-1].length && i < 4; i++) {
