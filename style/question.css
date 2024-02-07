@@ -102,14 +102,20 @@ input[type="button"] {
   }
 }
 
-.not_like_button_color{
-  background-color: #46A2B6;
+#display_button a {
+  display: inline; /* a要素をインラインにする */
+  margin: 0 3vw;
 }
 
-.back_button_color{
-  background-color: #d53f3f;
+.image_button {
+  border: none;
+  outline: none;
+  width: 40vw;
+  display: inline-block;
+  &:active{
+    transform: scale(.90);
+  }
 }
-
 
 input[type="button"]:hover {
   background-color: #46A2B6;

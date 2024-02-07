@@ -1,207 +1,221 @@
 html {
-    background-color: #EDEDED;
-  }
+  background-color: #EDEDED;
+}
 
 body {
-    position: relative;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-size: auto;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
-    overflow-y: auto;
-  }
+  position: relative;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-size: auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
 @media screen and(max-width: 850px) {
-    body {
-        background-attachment: scroll;
-    }
+  body {
+      background-attachment: scroll;
+  }
 }
 
 #title {
-    color: #000;
-    font-size: 40px;
-    width: fit-content;
-    height: fit-content;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 40px;
-    margin-top: 0;
-    padding-top: 30px;
+  color: #000;
+  font-size: 40px;
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  margin-top: 0;
+  padding-top: 30px;
 }
 @media screen and (max-width:520px) {
-  #title {
-    font-size: 30px;
-    padding-top: 0px;
-    margin-bottom: 0px;
-  }
+#title {
+  font-size: 30px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+}
 }
 
 #result {
-    font-size: 36px;
-    font-weight: bold;
-    text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
 }
 
 #image-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    justify-items: center;
-    align-items: center;
-    width: fit-content;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  justify-items: center;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 #image-container img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
 }
 
 .btn {
-    font-size: 30px;
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    width: 15%;
-    margin: auto;
-    padding: 1rem 1rem;
-    font-weight: bold;
-    border: 2px solid #000;
-    background: #fff;
-    color: #000;
-    border-radius: 100vh;
-    transition: 0.5s;
-    margin-top: 40px;
-    &:active{
-        transform: scale(.90);
-    }
+  font-size: 30px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 15%;
+  margin: auto;
+  padding: 1rem 1rem;
+  font-weight: bold;
+  border: 2px solid #000;
+  background: #fff;
+  color: #000;
+  border-radius: 100vh;
+  transition: 0.5s;
+  margin-top: 40px;
+  &:active{
+      transform: scale(.90);
+  }
 }
 
 
 
 @media(hover: hover) {
-    .btn:hover {
-        color: #27acd9;
-        background: #fff;
-    }
+  .btn:hover {
+      color: #27acd9;
+      background: #fff;
+  }
 }
 
 @media (max-width: 1200px) {
-    body {
-        overflow: hidden;
-        background-size: cover;
-        height: 100vh;
-        overflow-y: auto; /* スクロールが必要なら 'auto' に設定 */
-    }
-    .btn {
-        margin-top: 3%;
-        /*margin-top: 5%;*/
-        /* width: 20%; */
-        width: 35%;
-        margin-left: auto;
-    }
-    .form {
-        font-size: 30px;
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        width: 35%;
-        /*margin-left: 60%;*/
-        padding: 1rem 1rem;
-        font-weight: bold;
-        border: 2px solid #000;
-        background: #fff;
-        color: #000;
-        border-radius: 100vh;
-        transition: 0.5s;
-        &:active{
-            transform: scale(.90);
-        }
-    }
+  body {
+      overflow: hidden;
+      background-size: cover;
+      height: 100vh;
+      overflow-y: auto; /* スクロールが必要なら 'auto' に設定 */
+  }
+  .btn {
+      margin-top: 3%;
+      /*margin-top: 5%;*/
+      /* width: 20%; */
+      width: 35%;
+      margin-left: auto;
+  }
+  .form {
+      font-size: 30px;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      width: 35%;
+      /*margin-left: 60%;*/
+      padding: 1rem 1rem;
+      font-weight: bold;
+      border: 2px solid #000;
+      background: #fff;
+      color: #000;
+      border-radius: 100vh;
+      transition: 0.5s;
+      &:active{
+          transform: scale(.90);
+      }
+  }
 }
 
 
 .btnicon{
-    width: 40px;
-    margin-bottom: -7px; 
+  width: 40px;
+  margin-bottom: -7px; 
 }
 
 .selectedImages{
-    text-align: center;
-    /* display: inline-block; */
-    justify-items: center;
-    align-items: center;
-  }
-  
-  .selectedImages img {
-    width: 80px; 
-    height: 80px;
-    object-fit: cover;
-    margin: 20px;
-    /* border: 5px solid #000; */
-  } 
+  text-align: center;
+  /* display: inline-block; */
+  justify-items: center;
+  align-items: center;
+}
+
+.selectedImages img {
+  width: 80px; 
+  height: 80px;
+  object-fit: cover;
+  margin: 20px;
+  /* border: 5px solid #000; */
+} 
 
 .action_continue{
-    margin-top: 1%;
-    text-align: center;
+  margin-top: 1%;
+  text-align: center;
 }
-  .action_fin {
-    display: flex; /* 要素を横に並べるために Flexbox を使用 */
-    justify-content: space-between; /* 要素を均等に配置 */
-  }
-  
-  .tecido {
-    display: flex;
-    /* width: 30vw; */
-    height: auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .cooperation_companies {
-      display: flex;
-      text-align: center;
-  }
-  .tecido_logo {
-    display: flex;
-    width: 20vw;
-    height: auto;
-    justify-content: center;
-  }
+.action_fin{
+text-align: center;
+}
 
-  input[type="button"] {
-    margin: 20px 100px;
-    padding: 10px 20px;
-    font-size: 32px;
-    border: none;
-    background-color: #46A2B6;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    &:active{
-      transform: scale(.90);
-    }
-  }
-  @media screen and (max-width:520px) {
-    input[type="button"] {
-      margin: 10px 20px;
-      padding: 10px 20px;
-      font-size: 20px;
-    }
-  }
+.action_fin a{
+margin: 0 3vw;
+}
 
-  .slick-prev, .slick-next {
-  height: 8vw;
-  width: 8vw;
-  z-index: 1;
-  margin: 1vw;
+.tecido {
+display: flex;
+/* width: 30vw; */
+height: auto;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+.cooperation_companies {
+  display: flex;
+  text-align: center;
+}
+.tecido_logo {
+display: flex;
+width: 20vw;
+height: auto;
+justify-content: center;
+}
+
+input[type="button"] {
+margin: 20px 100px;
+padding: 10px 20px;
+font-size: 32px;
+border: none;
+background-color: #46A2B6;
+color: white;
+cursor: pointer;
+border-radius: 5px;
+&:active{
+  transform: scale(.90);
+}
+}
+@media screen and (max-width:520px) {
+input[type="button"] {
+  margin: 10px 20px;
+  padding: 10px 20px;
+  font-size: 20px;
+}
+}
+
+.slick-prev, .slick-next {
+height: 8vw;
+width: 8vw;
+z-index: 1;
+margin: 1vw;
 }
 
 .modal-content a{
-  color: #0000ee;
+color: #0000ee;
+}
+
+.image_button {
+margin-top: 2%;
+border: none;
+outline: none;
+width: 40vw;
+display: inline-block;
+&:active{
+  transform: scale(.90);
+}
 }
