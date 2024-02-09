@@ -162,9 +162,6 @@ input[type="button"] {
         width: 90vw; /* コンテナの幅を画面の90%に設定 */
     }
 
-    .tagify__input{
-    }
-
     .tecido {
         width: fit-content; 
     }
