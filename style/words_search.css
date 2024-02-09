@@ -130,3 +130,51 @@ input[type="button"] {
   .modal-content{
     text-align: center;
   }
+
+
+  @media screen and (max-width: 500px) {
+    /* スマートフォンや小さなタブレット向けのスタイル調整 */
+    #title{
+        margin-bottom: 1vh;
+    }
+
+    #image-area {
+        height: auto; /* 高さを自動調整に */
+    }
+
+    #image-area {
+        width: 100vw; /* 幅を90vwに設定 */
+        height: 60vh; /* 高さを60vhに設定 */
+        margin: 2.5vw auto; /* 左右を中央揃え */
+        overflow-y: auto; /* 縦方向のスクロールを許可 */
+        display: flex; /* Flexboxを使用して子要素を中央揃えに */
+        justify-content: center; /* 横方向の中央揃え */
+    }
+
+    #image-container img {
+        width: 45vw; /* 画像のサイズを調整 */
+        height: auto; /* 画像の高さを幅に合わせて自動調整 */
+        margin: 2.5vw; /* 画像の間隔を調整 */
+        overflow-y: auto; /* 縦方向のスクロールを許可 */
+    }
+
+    .some_class_name {
+        width: 90vw; /* コンテナの幅を画面の90%に設定 */
+    }
+
+    .tagify__input{
+    }
+
+    .tecido {
+        width: fit-content; 
+    }
+
+    .tecido_logo {
+        width: 35vw; /* ロゴのサイズを調整 */
+    }
+
+    input[type="button"] {
+        font-size: 24px; /* ボタンのフォントサイズを調整 */
+        padding: 10px 15px; /* ボタンのパディングを調整 */
+    }
+}
