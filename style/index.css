@@ -87,8 +87,8 @@ h3{
 
 h4{
   display: block;
- text-align: center;
- margin-top: 40px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .log_box{
@@ -135,11 +135,29 @@ h4{
 .log_box {
   display: flex;
   justify-content: space-around;
-  margin: 5vh  0 auto;
+  margin: 10px 0 auto;
 }
 
-/*ここからスマホ*/
-  
+#display_button {
+  display: flex;
+  flex-direction: column; /* アイテムを縦に配置 */
+  align-items: center; /* 中央揃え */
+}
+.image_button {
+  border: none;
+  outline: none;
+  width: 50vw;
+  display: inline-block;
+  margin: 10px;
+  &:active{
+    transform: scale(.90);
+  }
+}
+@media screen and (max-width:520px){
+  .image_button {
+    width: 60vw;
+  }
+}
 
  @media screen and (max-width: 520px) {
       .slider img {

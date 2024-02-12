@@ -90,27 +90,6 @@ body {
     background-attachment: fixed;
     height: 100vh;
 }
-
-  
-/* .tecido {
-    display: flex;
-    width: 30vw;
-    height: auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .cooperation_companies {
-      display: flex;
-      text-align: center;
-  }
-  .tecido_logo {
-    display: flex;
-    width: 20vw;
-    height: auto;
-    justify-content: center;
-  } */
-
   .tecido {
     display: flex;
     /*width: 30vw;*/
@@ -144,6 +123,27 @@ body {
   }
 
 /*ボタン*/
+#display_button {
+    display: flex;
+    flex-direction: column; /* アイテムを縦に配置 */
+    align-items: center; /* 中央揃え */
+}
+.image_button {
+    border: none;
+    outline: none;
+    width: 40vw;
+    display: inline-block;
+    margin-top: 10px;
+    &:active{
+        transform: scale(.90);
+    }
+}
+@media screen and (max-width:520px){
+    .image_button {
+      width: 50vw;
+    }
+  }
+
 input[type="button"] {
     display: block;
     margin: 0 auto;
