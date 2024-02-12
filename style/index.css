@@ -1,36 +1,37 @@
 @charset "utf-8";
 
-/*==================================================
-スライダーのためのcss
-===================================*/
+
 .slider img {
     margin-top: 30px;
-    width:auto;/*スライダー内の画像を横幅100%に*/
+    width:auto;
     height:auto;
 }
 
-/*slickのJSで書かれるタグ内、スライド左右の余白調整*/
 
 .slider .slick-slide {
-    margin:0 0cqmin;/*スライド左右の余白調整*/
+    margin:0 0cqmin;
 }
 
-
-/*========= レイアウトのためのCSS ===============*/
 header{
 
  background:#EDEDED;
  text-align: center;
  padding: 10px;
  height: 380px; 
-
- padding: 10px;
 }
 body{
+  position: relative;
   background:#EDEDED;
   text-align: center;
-
-
+}
+footer{
+  padding-bottom:100px ;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background:#EDEDED;
+  text-align: center;
 }
 
 .btn{
@@ -85,24 +86,26 @@ h4{
  margin-top: 40px;
 }
 
-.namae{
-  margin-top:100px;
-  display:flex;
-  justify-content: center; 
-  align-items: center; 
-  }
-  .item1{
+.namae {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    margin-right: 190px;
-    margin-bottom:25px ;
-    font-size:24px;
-  }
-  .item2{
-      margin-right: 110px;
+.item1,
+.item2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+}
 
-      margin-bottom:25px ;
-      font-size:24px;
-    }
+.item1 {
+  margin-right: 50px; 
+}
+
+.item2 {
+  margin-left: 50px; 
+}
   .gazou1{
     display:flex;
     justify-content: center; 
@@ -126,5 +129,92 @@ h4{
     width: 20%;
     margin-left: 20px;
   }
- 
+/*ここからスマホ*/
+  
+
+    @media screen and (max-width: 520px) {
+      .slider img {
+        margin-top: 15px; /* マージンを少し小さく */
+        width: auto; /* 幅を100%に変更 */
+        height: auto; /* 高さを自動調整 */
+      }
+    
+      .slider .slick-slide {
+        margin: 0 10px; /* スライドのマージンを調整 */
+      }
+    
+    
+      header {
+        height: 100%; /* ヘッダーの高さを自動に変更 */
+        padding: 5px; /* パディングを少し小さく */
+      }
+    
+      footer {
+        padding-bottom: 50px; /* フッターのパディングを調整 */
+      }
+    
+      .btn {
+        margin: 10px; /* ボタンのマージンを調整 */
+        padding: 5px 10px; /* パディングを少し小さく */
+        font-size: 20px; /* フォントサイズを小さく */
+      }
+    
+      h1 {
+        margin-top: 20px; /* h1タグのマージンを調整 */
+        img {
+          border-style: none;
+          width: 80%;
+      }
+
+      }
+    
+      h2, p {
+        font-size: 40px; /* フォントサイズを調整 */
+      }
+    
+      .namae {
+        margin-top: 50px; /* 要素のマージンを調整 */
+      }
+    
+      .item1, .item2 {
+        margin-bottom: 15px; /* 要素のマージンを調整 */
+        font-size: 16px; /* フォントサイズを小さく */
+       
+      }
+    
+      .item1 {
+        margin-right: 20px; /* 要素間のマージンを調整 */
+      }
+    
+      .item2 {
+        margin-left: 20px; /* 要素間のマージンを調整 */
+      }
+    
+      .item3 {
+        width: 40%; /* 要素の幅を調整 */
+        margin: 0 auto; /* 中央寄せ */
+      }
+    
+      .item4, .item5 {
+        width: 30%; /* 要素の幅を調整 */
+      }
+      .item4{
+        width: 10%;
+        margin-left:1px;
+      }
+      .item5{
+        width: 10%;
+        margin-left: 20px;
+      }
+    
+      .item6 {
+        width: 60%; /* 要素の幅を調整 */
+      }
+      .gazou1{
+        img {
+          border-style: none;
+          width: 20%;
+      }
+      }
+    }
   
