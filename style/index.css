@@ -132,35 +132,42 @@ h4{
 /*ここからスマホ*/
   
 
-    @media screen and (max-width: 520px) {
+ @media screen and (max-width: 520px) {
       .slider img {
-        margin-top: 15px; /* マージンを少し小さく */
-        width: auto; /* 幅を100%に変更 */
-        height: auto; /* 高さを自動調整 */
-      }
+        margin-top: 15px;
+       height: 220px;
+       width: auto;
+    }
     
-      .slider .slick-slide {
-        margin: 0 10px; /* スライドのマージンを調整 */
-      }
+    
+    .slider .slick-slide {
+        margin:0 0cqmin;
+        height: 220px;
+        width: auto;
+    }
     
     
       header {
-        height: 100%; /* ヘッダーの高さを自動に変更 */
-        padding: 5px; /* パディングを少し小さく */
+        padding: 5px;
+        height: 240px;
+      }
+      body{
+        position: relative;
+      
       }
     
       footer {
-        padding-bottom: 50px; /* フッターのパディングを調整 */
+        padding-bottom: 50px; 
       }
     
       .btn {
-        margin: 10px; /* ボタンのマージンを調整 */
-        padding: 5px 10px; /* パディングを少し小さく */
-        font-size: 20px; /* フォントサイズを小さく */
+        margin: 10px; 
+        padding: 5px 10px; 
+        font-size: 20px; 
       }
     
       h1 {
-        margin-top: 20px; /* h1タグのマージンを調整 */
+        margin-top: 20px; 
         img {
           border-style: none;
           width: 80%;
@@ -169,34 +176,46 @@ h4{
       }
     
       h2, p {
-        font-size: 40px; /* フォントサイズを調整 */
+        font-size: 40px; 
+      ul{
+        margin:0;
+        padding: 0;
+        list-style: none;
+      }
+      a{
+        text-decoration:none;
+      }
+      
+      #display_button{
+        text-align: center;
+      
       }
     
       .namae {
-        margin-top: 50px; /* 要素のマージンを調整 */
+        margin-top: 50px; 
       }
     
       .item1, .item2 {
-        margin-bottom: 15px; /* 要素のマージンを調整 */
-        font-size: 16px; /* フォントサイズを小さく */
+        margin-bottom: 15px; 
+        font-size: 16px; 
        
       }
     
       .item1 {
-        margin-right: 20px; /* 要素間のマージンを調整 */
+        margin-right: 20px; 
       }
     
       .item2 {
-        margin-left: 20px; /* 要素間のマージンを調整 */
+        margin-left: 20px; 
       }
     
       .item3 {
-        width: 40%; /* 要素の幅を調整 */
-        margin: 0 auto; /* 中央寄せ */
+        width: 40%; 
+        margin: 0 auto; 
       }
     
       .item4, .item5 {
-        width: 30%; /* 要素の幅を調整 */
+        width: 30%;
       }
       .item4{
         width: 10%;
@@ -208,7 +227,7 @@ h4{
       }
     
       .item6 {
-        width: 60%; /* 要素の幅を調整 */
+        width: 60%; 
       }
       .gazou1{
         img {
