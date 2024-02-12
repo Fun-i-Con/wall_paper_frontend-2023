@@ -21,8 +21,6 @@ async function getWordAndUpdateWhitelist() {
             throw new Error("ネットワーク応答が正常ではありませんでした");
         }
         const result = await response.json();
-        console.log("/search/words result");
-        console.log(result);
         //Tagifyのwhitelistを更新
         search_words_length = result.length;
         tagify.settings.whitelist = result;

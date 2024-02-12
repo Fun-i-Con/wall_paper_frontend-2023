@@ -20,7 +20,6 @@
     };
 
     window.addEventListener('load', async function () {
-      console.log("load：リソースファイルを全て読み込みました.");
       const imageContainer = document.getElementById("image-container");
 
       let result1 = await getQuestion_one();
@@ -30,7 +29,6 @@
           imageElement.src = "http://34.84.217.185/image?name=" + question_list[0][i] + "&mode=2";
         }
         question_flag[0] = true;
-        console.log("☆質問1の読み込み完了");
       } else {
           alert("質問1の通信に失敗しました。ページをもう一度読み込んでください。");
       }
@@ -66,15 +64,10 @@
             question_list[n][v] = result.names[v];
           }
           question_flag[n] = true;
-          console.log("☆質問"+(n+1)+"の読み込み完了");
         } catch (error) {
-          console.error("質問"+(n+1)+"データの取得中にエラーが発生しました:", error);
           return false;
         }
       }
-      console.log("全ての問題の読み込み完了");
-      console.log(question_list);
-      console.log(question_flag);
       return true;
     }
 
@@ -82,11 +75,9 @@
       const imageElement = document.getElementById(elementId);
       const imageSrc = imageElement.src;
 
-      // Extract the substring between "name=" and "&mode=2"
       const startIndex = imageSrc.indexOf("name=") + 5;
       const endIndex = imageSrc.indexOf("&mode=2");
       const extractedName = imageSrc.substring(startIndex, endIndex);
-      // Now you can use 'extractedName' as needed
       var x = "http://34.84.217.185/image?name=" + extractedName + "&mode=1"; // リサイズ
       var y = "http://34.84.217.185/image?name=" + extractedName + "&mode=3"; // ３ｄ
       displayModal(x, y, "");
@@ -107,7 +98,6 @@
             storedScores.choices.push("");
             count++;
             score.setScore(storedScores);
-            console.log(score.getScore());
             if(count <= question_num){
               setImage();
               getImage();
@@ -117,14 +107,11 @@
             }
             resolve();
           } else {
-              console.log("質問"+(count)+"が読み込まれているか確認...");
               if(question_flag[count-1] == true){
-                console.log("質問"+count+"は読み込まれています！");
                 selectedImages[count - 1] = "http://34.84.217.185/image?name=" + question_list[count - 1][id - 1] + "&mode=2";
                 storedScores.choices.push(question_list[count - 1][id - 1]);
                 count++;
                 score.setScore(storedScores);
-                console.log(score.getScore());
                 if(count <= question_num){
                   setImage();
                   getImage();
@@ -134,8 +121,6 @@
                 }
                 resolve();
               }else{
-                //問題が読み込まれていないとき
-                console.log("--問題"+count+"が読み込まれていません 100ミリ秒後再実行--");
                 setTimeout(checkquestion, 100); // 100ミリ秒ごとに再試行
               }
             }
@@ -179,11 +164,7 @@
         count--;
         let storedScores = score.getScore();
         let last = storedScores.choices.pop();
-        console.log(last);
-        console.log("↑削除");
         score.setScore(storedScores);
-        console.log(score.getScore());
-        console.log("↑最新");
         updateProgressBar();
         setImage();
       } else {
@@ -194,7 +175,7 @@
     function choosedModal(num){
       let storedScores = score.getScore();
       if(storedScores.choices.length > num){
-        //選択さればプログレスバーの番号に画像or×がある
+        //選択さればプログレスバーの番号に画像orXがある
         if(storedScores.choices[num] != ""){
           //画像があれば画像を出す
           var num_image = storedScores.choices[num];
