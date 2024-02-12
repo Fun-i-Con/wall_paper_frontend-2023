@@ -56,6 +56,11 @@ h2, .title {
     text-align:center;
     font-size: 100px;
 }
+@media screen and (max-width:520px){
+  .title {
+    font-size: 50px;
+  }
+}
 
 ul{
   margin:0;
@@ -85,70 +90,54 @@ h4{
  text-align: center;
  margin-top: 40px;
 }
- feature/69
-.namae {
-  margin-top: 100px;
-  display: flex;
-  justify-content: center;
+
+.log_box{
+  width: 100vw;
+  margin-top: 24px;
+}
+@media screen and (max-width: 520px) {
+  .log_box {
+    flex-direction: column; /* 縦並びに変更 */
+    align-items: center; /* 中央寄せ */
+  }
+}
+
+.log_mozi{
+  font-size: 40px;
+}
+@media screen and (max-width: 520px) {
+  .log_mozi{
+    font-size: 30px;
+  }
+}
+
+.log_img {
+  width: 16vw;
+  align-items: center; 
+  margin: 8px 4px;
+}
+@media screen and (max-width: 520px) {
+  .log_img {
+    width: 25vw;
+  }
+}
+
+/* create_byとsupport_byのコンテナ */
+.create_by,
+.support_by {
+  flex-direction: column;
   align-items: center;
+  margin-bottom: 20px; /* 上下の間隔調整 */
+  margin: 1vh 6vw;
 }
 
-.item1,
-.item2 {
-  margin-bottom: 25px;
-  font-size: 24px;
+/* create_byとsupport_byを横に並べる */
+.log_box {
+  display: flex;
+  justify-content: space-around;
+  margin: 5vh  0 auto;
 }
 
-.item1 {
-  margin-right: 50px; 
-}
-
-.item2 {
-  margin-left: 50px; 
-}
-
-  .gazou1{
-    display:flex;
-    justify-content: center; 
-    align-items: center; 
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 1vw;
-  }
-  .item3{
-    width: 15vw;
-    margin-right: 10px;
-    margin-left: 50px;
-  }
-  .box{
-    width: 8vw;
-  }
-  .item4{
-    width: 10%;
-    margin-left: 50px;
-    height: auto;
-    img {
-      width: 100%;
-      height: auto;
-    }
-  }
-  .item5{
-    width: 15vw;
-    height: auto;
-    img {
-      width: 100%;
-      height: auto;
-    }
-  }
-
-  .item6{
-    width: 20vw;
-    height: auto;
-    img {
-      width: 100%;
-      height: auto;
-    }
-  }
 /*ここからスマホ*/
   
 
@@ -190,7 +179,7 @@ h4{
         margin-top: 20px; 
         img {
           border-style: none;
-          width: 80%;
+          width: 100%;
       }
 
       }
@@ -210,51 +199,9 @@ h4{
         text-align: center;
       
       }
-    
-      .namae {
-        margin-top: 50px; 
-      }
-    
-      .item1, .item2 {
-        margin-bottom: 15px; 
-        font-size: 16px; 
-       
-      }
-    
-      .item1 {
-        margin-right: 20px; 
-      }
-    
-      .item2 {
-        margin-left: 20px; 
-      }
-    
-      .item3 {
-        width: 40%; 
-        margin: 0 auto; 
-      }
-    
-      .item4, .item5 {
-        width: 30%;
-      }
-      .item4{
-        width: 10%;
-        margin-left:50px;
-      }
-      .item5{
-        width: 10%;
-        margin-left: 20px;
-      }
-    
-      .item6 {
-        width: 60%; 
-      }
-      .gazou1{
-        img {
-          border-style: none;
-          width: 20%;
-      }
-      }
     }
   }
   
+  /* .concept{
+
+  } */
