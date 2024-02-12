@@ -1,26 +1,7 @@
-/* html {
-    background-color: #f7f5ec;
-    touch-action: manipulation;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-} */
 html {
     background-color: #EDEDED;
   }
 
-/* body {
-    position: relative;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: url('../img/background.png');
-    background-size: auto;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
-} */
 body {
     position: relative;
     font-family: Arial, sans-serif;
@@ -31,8 +12,8 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
+    overflow-y: auto;
   }
-
 @media screen and(max-width: 850px) {
     body {
         background-attachment: scroll;
@@ -50,6 +31,13 @@ body {
     margin-bottom: 40px;
     margin-top: 0;
     padding-top: 30px;
+}
+@media screen and (max-width:520px) {
+  #title {
+    font-size: 30px;
+    padding-top: 0px;
+    margin-bottom: 0px;
+  }
 }
 
 #result {
@@ -108,6 +96,7 @@ body {
         overflow: hidden;
         background-size: cover;
         height: 100vh;
+        overflow-y: auto; /* スクロールが必要なら 'auto' に設定 */
     }
     .btn {
         margin-top: 3%;
@@ -168,19 +157,32 @@ body {
   
   .tecido {
     display: flex;
-    width: 30vw;
+    /*width: 30vw;*/
     height: auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 16px 0;
+  }
+  @media  screen and (max-width:520px) {
+    .tecido{
+        margin: 8px 0;
+    }
   }
   .cooperation_companies {
-      display: flex;
-      text-align: center;
+    display: flex;
+    text-align: center;
+    font-size: 30px;
+    margin: 10px 0;
+  }
+  @media screen and (max-width:520px){
+    .cooperation_companies {
+        font-size: 20px;
+    }
   }
   .tecido_logo {
     display: flex;
-    width: 20vw;
+    width: 25vw;
     height: auto;
     justify-content: center;
   }
@@ -196,6 +198,13 @@ body {
     border-radius: 5px;
     &:active{
       transform: scale(.90);
+    }
+  }
+  @media screen and (max-width:520px) {
+    input[type="button"] {
+      margin: 10px 20px;
+      padding: 10px 20px;
+      font-size: 20px;
     }
   }
 

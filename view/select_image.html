@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>画像から探す</title>
   <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
   <link rel="favicon" href="../favicon.ico">
@@ -29,6 +30,7 @@
       <img id="S6" src="" onclick="choosedModal(5)">
     </div>
 
+    <span></span>
     <div id="display_image">
       <div id="A1_block">
         <img id="A1" src="" onclick="answer(this.id)">
@@ -49,8 +51,8 @@
     </div>
     <br>
     <div id="display_button">
-      <input type="button" onclick="back()" value="１つ戻る">
-      <input type="button" onclick="answer('A0')" value="好みなし">
+      <input type="button" class="back_button_color" onclick="back()" value="１つ戻る">
+      <input type="button" class="not_like_button_color" onclick="answer('A0')" value="好みなし">
     </div>
     <div class="tecido">
       <h4 class="cooperation_companies">画像提供 : 株式会社テシード</h4>
