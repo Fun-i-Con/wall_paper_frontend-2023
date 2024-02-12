@@ -167,14 +167,27 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 16px 0;
+}
+@media  screen and (max-width:520px) {
+  .tecido{
+      margin: 8px 0;
+  }
 }
 .cooperation_companies {
-    display: flex;
-    text-align: center;
+  display: flex;
+  text-align: center;
+  font-size: 30px;
+  margin: 10px 0;
+}
+@media screen and (max-width:520px){
+  .cooperation_companies {
+      font-size: 20px;
+  }
 }
 .tecido_logo {
   display: flex;
-  width: 20vw;
+  width: 25vw;
   height: auto;
   justify-content: center;
 }
