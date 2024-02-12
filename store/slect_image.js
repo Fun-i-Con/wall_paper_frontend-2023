@@ -105,7 +105,17 @@
           if (id == "0") {
             selectedImages[count - 1] = "../img/bad_luck.png"
             storedScores.choices.push("");
+            count++;
             score.setScore(storedScores);
+            console.log(score.getScore());
+            if(count <= question_num){
+              setImage();
+              getImage();
+            }else{
+              //最後の問題を答えたとき
+              window.location.href = "result.html"
+            }
+            resolve();
           } else {
               console.log("質問"+(count)+"が読み込まれているか確認...");
               if(question_flag[count-1] == true){
