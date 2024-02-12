@@ -16,7 +16,7 @@ var input = document.querySelector('input[name="input-custom-dropdown"]'),
 async function getWordAndUpdateWhitelist() {
 
     try {
-        const response = await fetch("http://35.187.199.64/search/words");
+        const response = await fetch("http://34.84.217.185/search/words");
         if (!response.ok) {
             throw new Error("ネットワーク応答が正常ではありませんでした");
         }
@@ -24,8 +24,8 @@ async function getWordAndUpdateWhitelist() {
         console.log("/search/words result");
         console.log(result);
         //Tagifyのwhitelistを更新
-        search_words_length = result.words.length;
-        tagify.settings.whitelist = result.words;
+        search_words_length = result.length;
+        tagify.settings.whitelist = result;
     } catch (error) {
         console.error("データの取得中にエラーが発生しました:", error);
         return false;
