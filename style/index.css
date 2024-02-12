@@ -118,7 +118,7 @@ h4{
   }
   .item4{
     width: 10%;
-  margin-left: 100px;
+  margin-left: 50px;
   }
   .item5{
     width: 10%;
@@ -219,7 +219,7 @@ h4{
       }
       .item4{
         width: 10%;
-        margin-left:1px;
+        margin-left:50px;
       }
       .item5{
         width: 10%;
@@ -236,4 +236,5 @@ h4{
       }
       }
     }
+  }
   
