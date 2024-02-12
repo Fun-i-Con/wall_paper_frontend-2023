@@ -1,7 +1,10 @@
     let count = 1;
     let question_num = 6;
-    let names = Array.from({ length: 6 }, () => Array(4).fill(null));
+    let question_list = Array.from({ length: 6 }, () => Array(4).fill(null));
+    let question_flag = Array(question_num).fill(false);
     let selectedImages = Array(question_num).fill("../img/question_mark.png");
+    const score = new scoreStore();
+    score.setScore({ choices: [] });
 
     function updateProgressBar() {
       let progress_value = (count / question_num) * 100;
@@ -16,39 +19,62 @@
       });
     };
 
-    const score = new scoreStore();
-
     window.addEventListener('load', async function () {
       console.log("load：リソースファイルを全て読み込みました.");
       const imageContainer = document.getElementById("image-container");
 
-      let result = await getQuestion();
-      if (result) {
-        for (let i = 0; i < names[0].length && i < 4; i++) {
+      let result1 = await getQuestion_one();
+      if (result1) {
+        for (let i = 0; i < question_list[0].length && i < 4; i++) {
           const imageElement = document.getElementById("A" + (i + 1));
-          imageElement.src = "http://34.84.217.185/image?name=" + names[0][i] + "&mode=2";
+          imageElement.src = "http://34.84.217.185/image?name=" + question_list[0][i] + "&mode=2";
         }
+        question_flag[0] = true;
+        console.log("☆質問1の読み込み完了");
       } else {
-          alert("通信に失敗しました。ページをもう一度読み込んでください。");
+          alert("質問1の通信に失敗しました。ページをもう一度読み込んでください。");
       }
+      getQuestion_other();
   });
 
-    async function getQuestion() {
-      for (let n = 0; n < question_num; n++) {
+    async function getQuestion_one() {
         try {
-          const response = await fetch("http://34.84.217.185/question?num=" + (n + 1));
+          const response = await fetch("http://34.84.217.185/question?num=1");
+          if (!response.ok) {
+            throw new Error("ネットワーク応答が正常ではありませんでした（質問1の読み込み）");
+          }
+          const result = await response.json();
+          for (let v = 0; v < result.names.length && v < 4; v++) {
+            question_list[0][v] = result.names[v];
+          }
+        } catch (error) {
+          console.error("質問1のデータの取得中にエラーが発生しました:", error);
+          return false;
+        }
+      return true;
+    }
+
+    async function getQuestion_other(){
+      for (let n = 1; n < question_num; n++) {
+        try {
+          const response = await fetch("http://34.84.217.185/question?num=" + (n+1));
           if (!response.ok) {
             throw new Error("ネットワーク応答が正常ではありませんでした");
           }
           const result = await response.json();
           for (let v = 0; v < result.names.length && v < 4; v++) {
-            names[n][v] = result.names[v];
+            question_list[n][v] = result.names[v];
           }
+          question_flag[n] = true;
+          console.log("☆質問"+(n+1)+"の読み込み完了");
         } catch (error) {
-          console.error("データの取得中にエラーが発生しました:", error);
+          console.error("質問"+(n+1)+"データの取得中にエラーが発生しました:", error);
           return false;
         }
       }
+      console.log("全ての問題の読み込み完了");
+      console.log(question_list);
+      console.log(question_flag);
       return true;
     }
 
@@ -66,43 +92,58 @@
       displayModal(x, y, "");
   }
 
+  async function answer(id) {
+    await waitForLoad(id);
+  }
 
-    score.setScore({ choices: [] });
-
-    function answer(id) {
+  function waitForLoad(id) {
       let storedScores = score.getScore();
       id = id[1];
-      if (id == "0") {
-        selectedImages[count - 1] = "../img/bad_luck.png"
-        storedScores.choices.push("");
-        score.setScore(storedScores);
-      } else {
-        selectedImages[count - 1] = "http://34.84.217.185/image?name=" + names[count - 1][id - 1] + "&mode=2";
-        storedScores.choices.push(names[count - 1][id - 1]);
-        score.setScore(storedScores);
-      }
-      count++;
 
-      console.log(score.getScore());
-
-      if (count <= question_num) {
-        setImage();
-        getImage();
-      } else {
-        window.location.href = "result.html"
-      }
-    }
+      return new Promise(resolve => {
+        const checkquestion = () => {
+          if (id == "0") {
+            selectedImages[count - 1] = "../img/bad_luck.png"
+            storedScores.choices.push("");
+            score.setScore(storedScores);
+          } else {
+              console.log("質問"+(count)+"が読み込まれているか確認...");
+              if(question_flag[count-1] == true){
+                console.log("質問"+count+"は読み込まれています！");
+                selectedImages[count - 1] = "http://34.84.217.185/image?name=" + question_list[count - 1][id - 1] + "&mode=2";
+                storedScores.choices.push(question_list[count - 1][id - 1]);
+                count++;
+                score.setScore(storedScores);
+                console.log(score.getScore());
+                if(count <= question_num){
+                  setImage();
+                  getImage();
+                }else{
+                  //最後の問題を答えたとき
+                  window.location.href = "result.html"
+                }
+                resolve();
+              }else{
+                //問題が読み込まれていないとき
+                console.log("--問題"+count+"が読み込まれていません 100ミリ秒後再実行--");
+                setTimeout(checkquestion, 100); // 100ミリ秒ごとに再試行
+              }
+            }
+          }
+          checkquestion();
+      });
+  }
 
     function setImage() {
-      for (let i = 0; i < names[count-1].length && i < 4; i++) {
+      for (let i = 0; i < question_list[count-1].length && i < 4; i++) {
         const imageElement = document.getElementById("A" + (i + 1));
-        imageElement.src = "http://34.84.217.185/image?name=" + names[count-1][i] + "&mode=2";
+        imageElement.src = "http://34.84.217.185/image?name=" + question_list[count-1][i] + "&mode=2";
         //虫眼鏡の処理追加
         const LopeElement = document.createElement("A"+(i+1)+"_lupe");
           if(LopeElement){
             LopeElement.addEventListener("click", function () {
-              var x="http://34.84.217.185/image?name="+names[count-1][i]+"&mode=1";//リサイズ
-              var y="http://34.84.217.185/image?name="+names[count-1][i]+"&mode=3";//３ｄ
+              var x="http://34.84.217.185/image?name="+question_list[count-1][i]+"&mode=1";//リサイズ
+              var y="http://34.84.217.185/image?name="+question_list[count-1][i]+"&mode=3";//３ｄ
               displayModal(x,y,"");
             });
           }
