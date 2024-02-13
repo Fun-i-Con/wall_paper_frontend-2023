@@ -54,6 +54,30 @@ h1{
 
 .kaberkeko_logo{
   position: relative;
+  margin: 8px 4px;
+}
+
+.fun-i-con_logo{
+  margin-top: 15px;
+}
+
+.tecido_logo{
+  margin: 8px 4px;
+  margin-bottom: 20px;
+}
+
+.crossty_logo{
+  margin: 8px 4px;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width:520px){
+  .tecido_logo{
+    margin-bottom: 15px;
+  }
+  .crossty_logo{
+    margin-bottom: 10px;
+  }
 }
 
 .title {
@@ -118,22 +142,21 @@ h4{
   }
 }
 
-.log_mozi{
+.logo_mozi{
   font-size: 40px;
 }
 @media screen and (max-width: 520px) {
-  .log_mozi{
+  .logo_mozi{
     font-size: 30px;
   }
 }
 
-.log_img {
+.logo_img {
   width: 16vw;
   align-items: center; 
-  margin: 8px 4px;
 }
 @media screen and (max-width: 520px) {
-  .log_img {
+  .logo_img {
     width: 25vw;
   }
 }
