@@ -52,13 +52,29 @@ h1{
   margin-top: 50px;
 }
 
-h2, .title {
+.kaberkeko_logo{
+  position: relative;
+}
+
+.title {
     text-align:center;
-    font-size: 100px;
+    width:80vw;
+    z-index: 1;
+    margin: 70px auto 5px auto;  
+}
+.concept{
+  position: absolute;
+  width:100vw;
+  z-index: 2;
+  top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
 }
 @media screen and (max-width:520px){
   .title {
-    font-size: 50px;
+    margin: 30px auto 5px auto; 
   }
 }
 
