@@ -3,20 +3,15 @@ var currentTags = { words : [] } //APIの要件に合わせて変更
 // タグが追加されたときのイベントリスナー
 tagify.on('add', event => {
     currentTags.words.push(event.detail.data.value);//ここは修正？
-    console.log("currentTags");
-    console.log(currentTags);
     updateImages();
 });
 
 // タグが削除されたときのイベントリスナー
 tagify.on('remove', event => {
     var index = currentTags.words.indexOf(event.detail.data.value);
-    console.log(index);
     if (index !== -1) {
         // currentTags.splice(index, 1);
         currentTags.words.splice(index, 1);
-        console.log("currentTags");
-        console.log(currentTags);
     }
     updateImages();
 });
@@ -33,7 +28,7 @@ function updateImages() {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(currentTags)
+        body: JSON.stringify({'words': currentTags['words'], "sessionNumber": JSON.parse(localStorage.getItem('sessionNumber')) })
     })
     .then(response => response.json())
     .then(responseData => {

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="style/index.css?ver=1.1">
   </head>
   <header>
-    <div style="margin: 20px;"></div>
+    <!-- <div style="margin: 20px;"></div> -->
     <ul class="slider">
       <li><img src="img/1.jpg" alt=""></li>
       <li><img src="img/2.jpg" alt=""></li>
@@ -34,34 +34,33 @@
   </header>
 
   <body>
-    <h1>
-        <img src="img/word.png" alt="コンセプト文" class="concept">
-    </h1>
-    <h2>
-      <p class="title">KABERECO</p>
-    </h2>
+    <div class="kaberkeko_logo">
+      <img src="img/word.png" alt="コンセプト文" class="concept">
+      <img class="title" src="./img/KABEREKO_logo.png" alt="KABERECO">
+    </div>
     <div id="display_button">
       <a href="./view/select_image.html">
-        <img class="image_button" src="../wall_paper_frontend/img/index_image_search.png" alt="画像から探す">
+        <img class="image_button" src="./img/index_image_search.png" alt="画像から探す">
       </a>
       <a href="./view/words_search.html">
-        <img class="image_button" src="../wall_paper_frontend/img/index_word_search.png" alt="言葉から探す">
+        <img class="image_button" src="./img/index_word_search.png" alt="言葉から探す">
       </a>
     </div>
 
     <div class="log_box">
       <div class="create_by">
-        <p class="log_mozi">create by</p>
-        <img src="img/fun-i-con_logo.png" alt="fun-i-con" class="log_img fun-i-con_logo">
+        <p class="logo_mozi">create by</p>
+        <a href="https://www.fun.ac.jp/advanced-ict#:~:text=%E7%B4%B9%E4%BB%8B-,Fun%2Di%2DCon,-%E6%9C%AC%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AF" target="_blank"><img src="img/fun-i-con_logo.png" alt="fun-i-con" class="logo_img fun-i-con_logo"></a>
       </div>
 
       <div class="support_by">
-        <p class="log_mozi">support_by</p>
-        <a href="https://walldeco-kabeya.com/" target="_blank"><img src="img/KABEYA ロゴ.jpg" alt="KABEYA ロゴ" class="log_img kabereco_logo"></a>
-        <a href="https://www.tecido.co.jp/" target="_blank"><img src="img/tecido_logo.png" alt="tecido ロゴ" class="log_img tecido_logo"></a>
-        <a href="https://www.crossty-hd.ne.jp/" target="_blank"><img src="img/icon_crossty.png" alt="クロスシティ ロゴ" class="log_img crossty_logo">
+        <p class="logo_mozi">support_by</p>
+        <a href="https://walldeco-kabeya.com/" target="_blank"><img src="./img/KABEYA ロゴ.jpg" alt="KABEYA ロゴ" class="logo_img kabereco_logo"></a>
+        <a href="https://www.tecido.co.jp/" target="_blank"><img src="./img/tecido_logo.png" alt="tecido ロゴ" class="logo_img tecido_logo"></a>
+        <a href="https://www.crossty-hd.ne.jp/" target="_blank"><img src="./img/icon_crossty.png" alt="クロスシティ ロゴ" class="logo_img crossty_logo">
       </div>
     </div>
+    <br>
 
     <script src="../store/score.js"></script>    
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

@@ -169,12 +169,19 @@ justify-content: center;
 .cooperation_companies {
   display: flex;
   text-align: center;
+  font-size: 30px;
+  margin: 10px 0;
+}
+@media screen and (max-width:520px){
+  .cooperation_companies {
+      font-size: 20px;
+  }
 }
 .tecido_logo {
-display: flex;
-width: 20vw;
-height: auto;
-justify-content: center;
+  display: flex;
+  width: 25vw;
+  height: auto;
+  justify-content: center;
 }
 
 input[type="button"] {

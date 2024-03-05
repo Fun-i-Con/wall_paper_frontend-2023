@@ -9,7 +9,6 @@ window.onload = function () {
 async function removeImages() {
   return new Promise((resolve) => {
     for (let i = 0; i < wallimage.length; i++) {
-      console.log(i + "を削除");
       // slider変数を使用してスライダーから画像を削除
       slider.slick('slickRemove', i, true);
     }
@@ -36,14 +35,13 @@ function getResult() {
 
   // js-reinitのクリックイベントリスナーを解除
   $('.js-reinit').off('click');
-  console.log(score.getScore())
 
   fetch(url, {
       method: "POST",
       headers: {
           "Content-Type": "application/json"
       },
-      body: JSON.stringify(score.getScore())
+      body: JSON.stringify(score.getScores())
   })
   .then(response => response.json())
   .then(responseData => {
