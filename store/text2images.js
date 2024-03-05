@@ -28,7 +28,7 @@ function updateImages() {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(currentTags)
+        body: JSON.stringify({'words': currentTags['words'], "sessionNumber": JSON.parse(localStorage.getItem('sessionNumber')) })
     })
     .then(response => response.json())
     .then(responseData => {

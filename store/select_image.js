@@ -3,6 +3,8 @@
     let question_list = Array.from({ length: 6 }, () => Array(4).fill(null));
     let question_flag = Array(question_num).fill(false);
     let selectedImages = Array(question_num).fill("../img/question_mark.png");
+    let sessionNum = 0;
+
     const score = new scoreStore();
     score.setScore({ choices: [] });
 
@@ -45,6 +47,8 @@
           for (let v = 0; v < result.names.length && v < 4; v++) {
             question_list[0][v] = result.names[v];
           }
+          sessionNum = result.sessionNumber;
+          localStorage.setItem('sessionNumber', JSON.stringify(sessionNum));
         } catch (error) {
           console.error("質問1のデータの取得中にエラーが発生しました:", error);
           return false;

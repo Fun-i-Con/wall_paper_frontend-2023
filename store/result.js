@@ -41,7 +41,7 @@ function getResult() {
       headers: {
           "Content-Type": "application/json"
       },
-      body: JSON.stringify(score.getScore())
+      body: JSON.stringify(score.getScores())
   })
   .then(response => response.json())
   .then(responseData => {

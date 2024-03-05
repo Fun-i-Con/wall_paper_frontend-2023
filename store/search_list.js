@@ -22,8 +22,9 @@ async function getWordAndUpdateWhitelist() {
         }
         const result = await response.json();
         //Tagifyのwhitelistを更新
-        search_words_length = result.length;
-        tagify.settings.whitelist = result;
+        search_words_length = result.words.length;
+        tagify.settings.whitelist = result.words;
+        localStorage.setItem('sessionNumber', JSON.stringify(result.sessionNumber));
     } catch (error) {
         console.error("データの取得中にエラーが発生しました:", error);
         return false;
